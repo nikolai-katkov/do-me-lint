@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+const path = require('path')
+require('ts-node').register({
+  project: path.resolve(__dirname, '../tsconfig.json'),
+})
+const { updateSpreadsheetTypes } = require('../src/scripts/genTypes.ts')
+updateSpreadsheetTypes().then(() => {
+  require('../src/index.ts')
+})

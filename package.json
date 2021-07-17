@@ -1,0 +1,58 @@
+{
+  "name": "do-me-lint",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "bin": {
+    "do-me-lint": "bin/run"
+  },
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "prestart": "ts-node src/scripts/genTypes.ts",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tsconfig/node12": "^1.0.7",
+    "@types/eslint": "^7.2.13",
+    "@types/glob": "^7.1.3",
+    "@types/inquirer": "^7.3.1",
+    "@types/js-yaml": "^4.0.0",
+    "@types/node": "^14.14.41",
+    "@types/node-fetch": "^2.5.10",
+    "@types/prettier": "^2.2.3",
+    "@types/yarnpkg__lockfile": "^1.1.4",
+    "@typescript-eslint/eslint-plugin": "^4.28.3",
+    "@typescript-eslint/parser": "^4.28.3",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-array-func": "^3.1.7",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-sonarjs": "^0.9.1",
+    "eslint-plugin-unicorn": "^34.0.1",
+    "eslint-plugin-yml": "^0.9.0",
+    "type-fest": "^1.2.1",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "@types/jest": "^26.0.24",
+    "@yarnpkg/lockfile": "^1.1.0",
+    "chalk": "^4.1.1",
+    "csv-parse": "^4.15.4",
+    "eslint": "^7.30.0",
+    "find-up": "^5.0.0",
+    "glob": "^7.1.7",
+    "inquirer": "^8.1.0",
+    "jest": "^27.0.6",
+    "js-yaml": "^4.1.0",
+    "jsonc-parser": "^3.0.0",
+    "latest-version": "^5.1.0",
+    "node-fetch": "^2.6.1",
+    "outdent": "^0.8.0",
+    "prettier": "^2.3.2",
+    "ts-jest": "^27.0.3",
+    "ts-node": "^9.1.1"
+  }
+}

@@ -1,0 +1,49 @@
+import fs from 'fs'
+import { sync as glob } from 'glob'
+import { check, format, getFileInfo, resolveConfig } from 'prettier'
+
+import log from '../../util/log'
+
+interface Parameters {
+  pattern: string
+  ignorePattern: string
+  projectDirectory: string
+}
+export const fixProject = async (parameters: Parameters): Promise<void> => {
+  const { pattern, ignorePattern, projectDirectory } = parameters
+  const files: string[] = glob(pattern, {
+    cwd: projectDirectory,
+    ignore: ignorePattern,
+    nodir: true,
+  })
+
+  for (const filePath of files) {
+    await makeFilePrettier(filePath)
+  }
+}
+
+const makeFilePrettier = async (filePath: string): Promise<void> => {
+  const fileInfo = await getFileInfo(filePath)
+  if (fileInfo.ignored) {
+    return
+  }
+
+  const config = await resolveConfig(filePath)
+
+  if (!config || fileInfo.inferredParser === null) {
+    return
+  }
+
+  const fileContent = fs.readFileSync(filePath, 'utf8')
+  const isValid = check(fileContent, { ...config, filepath: filePath })
+
+  if (isValid) {
+    return
+  }
+
+  log.debug(`formatting with Prettier ${filePath}`)
+  const fileContentFormatted = format(fileContent, { ...config, filepath: filePath })
+  fs.writeFileSync(filePath, fileContentFormatted, { encoding: 'utf-8' })
+}
+
+export default fixProject
