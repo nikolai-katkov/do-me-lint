@@ -28,13 +28,26 @@ For busy developers who appreciate the benefits of code linting but find it tedi
 ## Features
 
 - Configures ESLint, Prettier and your IDE (currently VSCode only)
+- Scans your codebase: fixes all fixable ESLint rules and formats all files with Prettier
+- Provides you a detailed report of the most common errors.
 - Rules are managed in a Google spreadsheet
 - Rules are finely selected for you
+- Your projects gets only relevant rules. E.g. you get Typescript plugin and rules only if you have typescript as a dependency.
+- All ESlint configuration is stored in a single `.eslintrc.yml` file. DoMeLint ensures there are no conflicting configurations. No extended, recommended or nested configurations - what you see is what you get.
 - No configuration needed
 - Still fully flexible: you can specify your file patterns, disable rules that are not worth fixing, and have completely own, team- or company-wide spreadsheet.
 - Supports new projects and existing codebases
 - Automatically updates linting dependencies using your project's dependency manager, Yarn or NPM
 - Supports monorepos - configures IDE once for the whole repo while keeping linting configurations per project.
+
+<details>
+<summary>See it in action</summary>
+<p>
+
+![DoMeLint in action](docs/in-action.png)
+
+</p>
+</details>
 
 ## Installation
 
@@ -49,36 +62,38 @@ For busy developers who appreciate the benefits of code linting but find it tedi
 2. Install `do-me-lint` command globally
 
    ```sh
+   # from the do-me-lint folder
+
    npm install --global # preferred way
 
    # or
    npm link
+   # or
+   yarn link
    ```
 
 ## Usage
 
 ```bash
-cd <your-project>
+cd [path-to-your-project]
 do-me-lint
 ```
 
-You can achieve the best results running `do-me-lint` once or periodically if you want to keep the configuration up to date.
+You can achieve best results running `do-me-lint` once or periodically if you want to keep the configuration up to date.
 
-It makes sense to keep the `.domelintrc.yml` file as part of your git repository.
+It makes sense to keep `.domelintrc.yml` as part of your git repository.
 
 For monorepos you need to run the script from each project's directory.
 
 ## Configuration
 
-`do-me-lint` reads script settings in the following order:
+`do-me-lint` reads script settings in the following priority:
 
 1. Environment variables
 2. Settings in `.domelintrc.yml`
 3. Default values
 
-### Supported settings
-
-All settings are **optional**.
+> All settings are optional
 
 | Description                                         | Default                                                                                                                                                                           | Environment variable                            | Setting in `.domelintrc.yml`      |
 | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | --------------------------------- |
@@ -87,7 +102,7 @@ All settings are **optional**.
 | Spreadsheet URL (displayed in the script output)    | [link](https://docs.google.com/spreadsheets/d/149ecBpNj1mfgTKlCcVwxdKbi5VDNeJdsVW-c2Y62z9k/edit#gid=1499443148)                                                                   | `string` <br> DML_SPREADSHEET                   | `string` <br> spreadsheet         |
 | Ignored rules <br> <small>will be not added</small> |                                                                                                                                                                                   | `comma-separated string` <br> DML_IGNORED_RULES | `Array<string>` <br> ignoredRules |
 
-## Google sheets as a source of truth
+## Google Sheets as a source of truth
 
 ![Spreadsheet](docs/spreadsheet.png)
 
@@ -96,9 +111,9 @@ All settings are **optional**.
 - More illustrative than any configuration format
 - Easy to export: no API keys
 - Easy to update: auto-save, no need to commit
-- Enjoyable working with data: change history, comments, custom styling, sorting, filtering
+- Inherent Google Sheets features: change history, comments, custom styling, sorting, filtering
 
-### Forking
+### Forking the rules spreadsheet
 
 1. Open a [source](https://docs.google.com/spreadsheets/d/149ecBpNj1mfgTKlCcVwxdKbi5VDNeJdsVW-c2Y62z9k/edit#gid=1499443148) spreadsheet
 2. Clone it by selecting menu `File` -> `Make a copy`
@@ -109,8 +124,12 @@ All settings are **optional**.
 ## Uninstall
 
 ```sh
+
 npm uninstall do-me-lint --global
 
 # or if you installed it with npm link
 npm unlink do-me-lint --global
+
+# or if you installed it with yarn link
+yarn unlink # run from the do-me-lint folder
 ```

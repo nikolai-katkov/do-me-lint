@@ -41,7 +41,7 @@
     "@yarnpkg/lockfile": "^1.1.0",
     "chalk": "^4.1.1",
     "csv-parse": "^4.15.4",
-    "eslint": "^7.30.0",
+    "eslint": "^7.31.0",
     "find-up": "^5.0.0",
     "glob": "^7.1.7",
     "inquirer": "^8.1.0",

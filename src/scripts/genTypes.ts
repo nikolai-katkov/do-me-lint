@@ -14,7 +14,7 @@ interface KnownColumn {
 }
 
 const updateSpreadsheetTypes = async () => {
-  log.info('Generating spreadsheet types for running the script')
+  log.info('Generating spreadsheet types')
 
   const knownColumns: KnownColumn[] = []
   const projectDirectory = process.env.INIT_CWD ?? process.cwd()
