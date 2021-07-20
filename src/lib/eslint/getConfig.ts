@@ -1,4 +1,4 @@
-import type { JsonObject } from 'type-fest'
+import type { JsonObject, JsonValue } from 'type-fest'
 
 import type {
   ESLintConfig,
@@ -16,6 +16,7 @@ interface Parameters {
   spreadsheetRules: SpreadsheetRule[]
   ignoredRules: string[]
   patterns: Patterns
+  semi: boolean
 }
 
 interface Result {
@@ -23,11 +24,12 @@ interface Result {
   dependencies: string[]
 }
 const getConfig = (parameters: Parameters): Result => {
-  const { projectDependencies, spreadsheetRules, ignoredRules, patterns } = parameters
+  const { projectDependencies, spreadsheetRules, ignoredRules, patterns, semi } = parameters
   const rules = getRules({
     spreadsheetRules,
     projectDependencies,
     ignoredRules,
+    semi,
   })
   const plugins = getPlugins(projectDependencies)
   const parser = getParser(projectDependencies)
@@ -72,15 +74,37 @@ const getPlugins = (projectDependencies: string[]): ByScope<string[]> => {
   return plugins
 }
 
+const getDynamicRuleOptions = (
+  rule: string,
+  { semi }: { semi: boolean }
+): JsonValue | undefined => {
+  if (rule === 'semi') {
+    return semi ? 'always' : 'never'
+  }
+
+  if (rule === '@typescript-eslint/member-delimiter-style') {
+    return {
+      multiline: { delimiter: semi ? 'semi' : 'none' },
+      singleline: { delimiter: 'comma' },
+    }
+  }
+
+  if (rule === '@typescript-eslint/no-extra-semi') {
+    return semi ? 'always' : 'never'
+  }
+}
+
 interface GetRulesParameters {
   spreadsheetRules: SpreadsheetRule[]
   projectDependencies: string[]
   ignoredRules: string[]
+  semi: boolean
 }
 const getRules = ({
   spreadsheetRules,
   projectDependencies,
   ignoredRules,
+  semi,
 }: GetRulesParameters): ByScope<ESLintRules> => {
   const result: ByScope<ESLintRules> = { all: {}, js: {}, ts: {}, testJest: {}, yaml: {} }
 
@@ -103,7 +127,10 @@ const getRules = ({
           }
         }
         let value: RuleValue = 'error'
-        if (ruleRow.options) {
+        const dynamicOptions = getDynamicRuleOptions(ruleRow.rule, { semi })
+        if (dynamicOptions !== undefined) {
+          value = ['error', dynamicOptions]
+        } else if (ruleRow.options) {
           const parsedOptions = JSON.parse(ruleRow.options) as JsonObject | []
           value = Array.isArray(parsedOptions)
             ? ['error', ...parsedOptions]

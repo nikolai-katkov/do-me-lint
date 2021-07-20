@@ -34,8 +34,10 @@ export interface Settings {
   spreadsheet: string
   spreadsheetCsv: string
   ignoredRules: string[]
+  semi: boolean
 }
 
+// eslint-disable-next-line complexity
 export const getSettings = (projectDirectory: string): Settings => {
   const rcSettings = getRcSettings(projectDirectory)
 
@@ -49,6 +51,16 @@ export const getSettings = (projectDirectory: string): Settings => {
     ignoredRules = rcSettings.ignoredRules as string[]
   } else {
     ignoredRules = []
+  }
+
+  let semi: boolean
+  if (process.env.DML_SEMI !== undefined) {
+    semi = process.env.DML_SEMI === '1'
+  } else if (typeof rcSettings.semi === 'boolean') {
+    // eslint-disable-next-line prefer-destructuring
+    semi = rcSettings.semi
+  } else {
+    semi = false
   }
 
   return {
@@ -65,5 +77,6 @@ export const getSettings = (projectDirectory: string): Settings => {
       rcSettings.spreadsheetCsv?.toString() ??
       'https://docs.google.com/spreadsheets/d/e/2PACX-1vS0YEIZpNgczI9Y0J6r59onLdrhOXLv866Oz9CkhNByDiz5tl-dAABu5edZPlTchTeG4m6Gg-lJmYPX/pub?gid=1499443148&single=true&output=csv',
     ignoredRules,
+    semi,
   }
 }

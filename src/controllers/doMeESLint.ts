@@ -19,6 +19,7 @@ const doMeESLint = async (context: Context): Promise<void> => {
     projectDependencies: context.installedPackages.map(installedPackage => installedPackage.name),
     patterns: context.patterns,
     ignoredRules: context.ignoredRules,
+    semi: context.semi,
   })
 
   log.info('Checking required NPM dependencies for ESLint')

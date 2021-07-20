@@ -22,7 +22,7 @@ export default () => {
     log.debug(`monorepo root:\t${monorepoRoot}`)
   }
 
-  const { spreadsheet, spreadsheetCsv, ignoredRules } = settings
+  const { spreadsheet, spreadsheetCsv, ignoredRules, semi } = settings
 
   log.debug(`rules CSV:\t\t${spreadsheetCsv}`)
 
@@ -45,6 +45,7 @@ export default () => {
     monorepoRoot,
     patterns,
     ignoredRules,
+    semi,
   }
 }
 
@@ -57,4 +58,5 @@ export interface Context {
   patterns: Patterns
   ignoredRules: string[]
   dependencyManager?: DependencyManager
+  semi: boolean
 }

@@ -8,7 +8,7 @@ interface Parameters {
   ignorePattern: string
 }
 const deleteConflictingConfigurations = ({ directory, ignorePattern }: Parameters) => {
-  // todo [2021-07-17] make it one-level only
+  // todo [2021-08-21] make it one-level only
   const files: string[] = glob('**/.prettierrc*', {
     cwd: directory,
     ignore: ignorePattern,

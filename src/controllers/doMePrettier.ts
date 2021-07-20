@@ -7,7 +7,7 @@ import type { Context } from './getMeContext'
 
 const doMePrettier = async (context: Context): Promise<void> => {
   log.info('Generating Prettier config')
-  const config = getConfig()
+  const config = getConfig({ semi: context.semi })
 
   log.info('Searching for conflicting Prettier configurations')
   deleteConflictingConfigurations({
