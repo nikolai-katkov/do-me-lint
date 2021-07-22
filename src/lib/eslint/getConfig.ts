@@ -204,15 +204,10 @@ const getEnvironments = (projectDependencies: string[]): ByScope<Record<string, 
   }
   environments.all.es2021 = true
   environments.all.node = true
+  environments.all.browser = true
 
-  if (projectDependencies.includes('react')) {
-    environments.all.browser = true
-  }
   if (projectDependencies.includes('jest')) {
     environments.testJest['jest/globals'] = true
-  }
-  if (projectDependencies.includes('react')) {
-    environments.all.browser = true
   }
   return environments
 }
