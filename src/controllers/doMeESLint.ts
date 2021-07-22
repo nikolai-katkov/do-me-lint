@@ -5,6 +5,7 @@ import getSpreadsheetRules from '../lib/eslint/getSpreadsheetRules'
 import installDependencies from '../lib/eslint/installDependencies'
 import { getReport, outputReport } from '../lib/eslint/report'
 import saveConfig from '../lib/eslint/saveConfig'
+import saveIgnore from '../lib/ignore/saveIgnore'
 import log from '../util/log'
 import type { Context } from './getMeContext'
 
@@ -32,7 +33,6 @@ const doMeESLint = async (context: Context): Promise<void> => {
   log.info('Searching for conflicting ESLint configurations')
   deleteConflictingConfigurations({
     projectDirectory: context.projectDirectory,
-    ignorePattern: context.patterns.ignored,
   })
 
   log.info('Saving ESLing config (.eslintrc.yml)')
@@ -42,11 +42,17 @@ const doMeESLint = async (context: Context): Promise<void> => {
     spreadsheet: context.spreadsheet,
   })
 
+  log.info('Saving ESLint ignore file (.eslintignore)')
+  saveIgnore({
+    ignoreFileName: '.eslintignore',
+    projectDirectory: context.projectDirectory,
+    gitignore: context.gitignore,
+  })
+
   log.info('Fixing your codebase (ESLint)')
   const results = await fixProject({
     pattern: context.patterns.lintAll,
     cwd: context.projectDirectory,
-    ignorePattern: context.patterns.ignored,
   })
 
   const { report, errors } = getReport(results, context.projectDirectory)

@@ -1,3 +1,6 @@
+import fs from 'fs'
+import path from 'path'
+
 import type { DependencyManager, InstalledPackage } from '../lib/context/dependencies'
 import {
   getDependencyManager,
@@ -7,9 +10,36 @@ import {
 import type { Patterns } from '../lib/context/paths'
 import { getMonorepoRoot, getPatterns } from '../lib/context/paths'
 import { getSettings } from '../lib/context/settings'
+import { fileExists } from '../util/file'
 import log from '../util/log'
 
-export default () => {
+const getGitignore = (projectDirectory: string): string[] => {
+  const gitignoreFile = path.resolve(projectDirectory, '.gitignore')
+
+  if (!fileExists(gitignoreFile)) {
+    return []
+  }
+  const fileContent = fs.readFileSync(gitignoreFile, 'utf-8')
+  return fileContent
+    .split('\n')
+    .filter(Boolean)
+    .map(line => line.trim())
+    .filter(line => !line.startsWith('#'))
+}
+
+export interface Context {
+  installedPackages: InstalledPackage[]
+  spreadsheet: string
+  spreadsheetCsv: string
+  projectDirectory: string
+  monorepoRoot?: string
+  patterns: Patterns
+  ignoredRules: string[]
+  dependencyManager?: DependencyManager
+  semi: boolean
+  gitignore: string[]
+}
+const getMeContext = (): Context => {
   log.info('Gathering execution context')
 
   const projectDirectory = process.env.INIT_CWD ?? process.cwd()
@@ -36,6 +66,8 @@ export default () => {
       ? getInstalledPackages({ packageJson, dependencyManager, projectDirectory })
       : []
 
+  const gitignore = getGitignore(projectDirectory)
+
   return {
     dependencyManager,
     installedPackages,
@@ -46,17 +78,7 @@ export default () => {
     patterns,
     ignoredRules,
     semi,
+    gitignore,
   }
 }
-
-export interface Context {
-  installedPackages: InstalledPackage[]
-  spreadsheet: string
-  spreadsheetCsv: string
-  projectDirectory: string
-  monorepoRoot?: string
-  patterns: Patterns
-  ignoredRules: string[]
-  dependencyManager?: DependencyManager
-  semi: boolean
-}
+export default getMeContext

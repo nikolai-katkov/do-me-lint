@@ -1,3 +1,4 @@
+import saveIgnore from '../lib/ignore/saveIgnore'
 import deleteConflictingConfigurations from '../lib/prettier/deleteConflictingConfigurations'
 import fixProject from '../lib/prettier/fixProject'
 import getConfig from '../lib/prettier/getConfig'
@@ -12,16 +13,21 @@ const doMePrettier = async (context: Context): Promise<void> => {
   log.info('Searching for conflicting Prettier configurations')
   deleteConflictingConfigurations({
     directory: context.projectDirectory,
-    ignorePattern: context.patterns.ignored,
   })
 
   log.info('Saving Prettier config (.prettierrc.yml)')
   saveConfig({ config, projectDirectory: context.projectDirectory })
 
+  log.info('Saving Prettier ignore file (.prettierignore)')
+  saveIgnore({
+    ignoreFileName: '.prettierignore',
+    projectDirectory: context.projectDirectory,
+    gitignore: context.gitignore,
+  })
+
   log.info('Fixing your codebase (Prettier)')
   await fixProject({
     pattern: context.patterns.all,
-    ignorePattern: context.patterns.ignored,
     projectDirectory: context.projectDirectory,
   })
 }

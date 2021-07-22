@@ -29,16 +29,17 @@ For busy developers who appreciate the benefits of code linting but find it tedi
 
 - Configures ESLint, Prettier and your IDE (currently VSCode only)
 - Scans your codebase: fixes all fixable ESLint rules and formats all files with Prettier
-- Provides you a detailed report of the most common errors.
+- Adds all Git-ignored patterns to `.prettierignore` and `.eslintignore`
+- Provides you a detailed report of the most common errors
 - Rules are managed in a Google spreadsheet
 - Rules are finely selected for you
-- Your projects gets only relevant rules. E.g. you get Typescript plugin and rules only if you have typescript as a dependency.
+- Your projects gets only relevant rules, e.g. you get Typescript plugin and rules only if you have typescript as a dependency
 - All ESlint configuration is stored in a single `.eslintrc.yml` file. DoMeLint ensures there are no conflicting configurations. No extended, recommended or nested configurations - what you see is what you get.
 - No configuration needed
-- Still fully flexible: you can specify your file patterns, disable rules that are not worth fixing, and have completely own, team- or company-wide spreadsheet.
+- Still fully flexible: you can specify your file patterns, disable rules that are not worth fixing, and have completely own, team- or company-wide spreadsheet
 - Supports new projects and existing codebases
 - Automatically updates linting dependencies using your project's dependency manager, Yarn or NPM
-- Supports monorepos - configures IDE once for the whole repo while keeping linting configurations per project.
+- Supports monorepos - configures IDE once for the whole repo while keeping linting configurations per project
 
 <details>
 <summary>See it in action</summary>

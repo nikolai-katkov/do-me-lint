@@ -25,7 +25,6 @@ export interface Patterns {
   jestFiles: string[] | string
   yaml: string
   all: string
-  ignored: string
 }
 export const getPatterns = (settings: Settings): Patterns => ({
   lintAll: '**/*.{ts,tsx,js,jsx}',
@@ -34,5 +33,4 @@ export const getPatterns = (settings: Settings): Patterns => ({
   jestFiles: settings.jestFiles,
   yaml: '**/*.{yaml,yml}',
   all: '**/*',
-  ignored: '**/node_modules/**/*',
 })

@@ -5,13 +5,10 @@ import log from '../../util/log'
 
 interface Parameters {
   directory: string
-  ignorePattern: string
 }
-const deleteConflictingConfigurations = ({ directory, ignorePattern }: Parameters) => {
-  // todo [2021-08-21] make it one-level only
-  const files: string[] = glob('**/.prettierrc*', {
+const deleteConflictingConfigurations = ({ directory }: Parameters) => {
+  const files: string[] = glob('.prettierrc*', {
     cwd: directory,
-    ignore: ignorePattern,
     nodir: true,
   })
 

@@ -6,14 +6,12 @@ import log from '../../util/log'
 
 interface Parameters {
   pattern: string
-  ignorePattern: string
   projectDirectory: string
 }
 export const fixProject = async (parameters: Parameters): Promise<void> => {
-  const { pattern, ignorePattern, projectDirectory } = parameters
+  const { pattern, projectDirectory } = parameters
   const files: string[] = glob(pattern, {
     cwd: projectDirectory,
-    ignore: ignorePattern,
     nodir: true,
   })
 
@@ -23,7 +21,8 @@ export const fixProject = async (parameters: Parameters): Promise<void> => {
 }
 
 const makeFilePrettier = async (filePath: string): Promise<void> => {
-  const fileInfo = await getFileInfo(filePath)
+  const fileInfo = await getFileInfo(filePath, { ignorePath: '.prettierignore' })
+
   if (fileInfo.ignored) {
     return
   }

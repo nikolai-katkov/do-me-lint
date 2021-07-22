@@ -5,12 +5,11 @@ import log from '../../util/log'
 
 interface Parameters {
   projectDirectory: string
-  ignorePattern: string
 }
-const deleteConflictingConfigurations = ({ projectDirectory, ignorePattern }: Parameters) => {
+const deleteConflictingConfigurations = ({ projectDirectory }: Parameters) => {
   const files: string[] = glob('**/.eslintrc.{js,yml,yaml,json}', {
     cwd: projectDirectory,
-    ignore: ignorePattern,
+    ignore: '**/node_modules/**',
     nodir: true,
   })
 
