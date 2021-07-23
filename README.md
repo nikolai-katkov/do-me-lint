@@ -32,7 +32,7 @@ For busy developers who appreciate the benefits of code linting but find it tedi
 - Adds all Git-ignored patterns to `.prettierignore` and `.eslintignore`
 - Provides you a detailed report of the most common errors
 - Rules are managed in a Google spreadsheet
-- Rules are finely selected for you
+- Rules are finely selected for you from the [best plugins](#supported-eslint-plugins)
 - Your projects gets only relevant rules, e.g. you get Typescript plugin and rules only if you have typescript as a dependency
 - All ESlint configuration is stored in a single `.eslintrc.yml` file. DoMeLint ensures there are no conflicting configurations. No extended, recommended or nested configurations - what you see is what you get.
 - No configuration needed
@@ -103,6 +103,20 @@ For monorepos you need to run the script from each project's directory.
 | Spreadsheet URL (displayed in the script output)                | [link](https://docs.google.com/spreadsheets/d/149ecBpNj1mfgTKlCcVwxdKbi5VDNeJdsVW-c2Y62z9k/edit#gid=1499443148)                                                                   | `string` <br> DML_SPREADSHEET                               | `string` <br> spreadsheet         |
 | Ignored rules <br> <small>will be not added</small>             | ""                                                                                                                                                                                | `comma-separated string` <br> DML_IGNORED_RULES             | `Array<string>` <br> ignoredRules |
 | Force semicolons to be required (`true`) or forbidden (`false`) | 0 / false                                                                                                                                                                         | `"1"` <small>(other values are false)</small> <br> DML_SEMI | `boolean` <br> semi               |
+
+## Supported ESLint plugins
+
+- [Typescript](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin)
+- [array-func](https://github.com/freaktechnik/eslint-plugin-array-func)
+- [Jest](https://github.com/jest-community/eslint-plugin-jest)
+- [JSX a11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y)
+- [Promise](https://github.com/xjamundx/eslint-plugin-promise)
+- [React](https://github.com/yannickcr/eslint-plugin-react)
+- [React hooks](https://github.com/facebook/react/tree/master/packages/eslint-plugin-react-hooks)
+- [Simple import sort](https://github.com/lydell/eslint-plugin-simple-import-sort)
+- [SonarJS](https://github.com/SonarSource/eslint-plugin-sonarjs)
+- [Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn)
+- [YAML](https://github.com/ota-meshi/eslint-plugin-yml)
 
 ## Google Sheets as a source of truth
 

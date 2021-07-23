@@ -35,7 +35,7 @@ const doMeESLint = async (context: Context): Promise<void> => {
     projectDirectory: context.projectDirectory,
   })
 
-  log.info('Saving ESLing config (.eslintrc.yml)')
+  log.info('Saving ESLint config (.eslintrc.yml)')
   saveConfig({
     config,
     projectDirectory: context.projectDirectory,
