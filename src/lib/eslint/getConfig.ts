@@ -112,7 +112,7 @@ const getRules = ({
     .sort((previous, next) => previous.rule.localeCompare(next.rule))
     .forEach(ruleRow => {
       try {
-        if (/\bno\b/iu.test(ruleRow.preference)) {
+        if (ruleRow.enabled) {
           return
         }
         const requiredDependencies = ruleRow.requiresDeps.split(',').filter(Boolean)

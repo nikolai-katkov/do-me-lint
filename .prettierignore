@@ -1,6 +1,6 @@
 # >>> domelint-start
 # this block was auto-generated with https://github.com/nikolai-katkov/do-me-lint
-# on 22/07/2021, 17:10:43
-src/types/spreadsheet.d.ts
+# on 25/07/2021, 11:29:16
 .eslintcache
+dist/
 # <<< domelint-end

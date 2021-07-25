@@ -25,8 +25,10 @@ const hasFilesToLint = (parameters: Parameters): boolean => {
   const { pattern, cwd } = parameters
   const files: string[] = glob(pattern, {
     cwd,
+    ignore: '**/node_modules/**',
     nodir: true,
   })
+
   return files.length > 0
 }
 

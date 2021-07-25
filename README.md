@@ -36,7 +36,7 @@ For busy developers who appreciate the benefits of code linting but find it tedi
 - Your projects gets only relevant rules, e.g. you get Typescript plugin and rules only if you have typescript as a dependency
 - All ESlint configuration is stored in a single `.eslintrc.yml` file. DoMeLint ensures there are no conflicting configurations. No extended, recommended or nested configurations - what you see is what you get.
 - No configuration needed
-- Still fully flexible: you can specify your file patterns, disable rules that are not worth fixing, and have completely own, team- or company-wide spreadsheet
+- Still fully flexible: you can specify your file patterns, disable rules that are not worth fixing (see [Configuration](#configuration) section), and have completely own, team- or company-wide spreadsheet (see [Forking](#forking-the-rules-spreadsheet) section)
 - Supports new projects and existing codebases
 - Automatically updates linting dependencies using your project's dependency manager, Yarn or NPM
 - Supports monorepos - configures IDE once for the whole repo while keeping linting configurations per project
@@ -45,40 +45,19 @@ For busy developers who appreciate the benefits of code linting but find it tedi
 <summary>See it in action</summary>
 <p>
 
-![DoMeLint in action](docs/in-action.png)
+![DoMeLint in action](https://raw.githubusercontent.com/nikolai-katkov/do-me-lint/master/docs/in-action.png)
 
 </p>
 </details>
-
-## Installation
-
-1. Clone project and install dependencies
-
-   ```sh
-   git clone https://github.com/nikolai-katkov/do-me-lint
-   cd do-me-lint/
-   npm install
-   ```
-
-2. Install `do-me-lint` command globally
-
-   ```sh
-   # from the do-me-lint folder
-
-   npm install --global # preferred way
-
-   # or
-   npm link
-   # or
-   yarn link
-   ```
 
 ## Usage
 
 ```bash
 cd [path-to-your-project]
-do-me-lint
+npx do-me-lint
 ```
+
+If the result looks shocking, revert the changes, disable the rules you don't want to fix (see [Configuration](#configuration) section) and apply the command again.
 
 You can achieve best results running `do-me-lint` once or periodically if you want to keep the configuration up to date.
 
@@ -120,7 +99,7 @@ For monorepos you need to run the script from each project's directory.
 
 ## Google Sheets as a source of truth
 
-![Spreadsheet](docs/spreadsheet.png)
+![Spreadsheet](https://raw.githubusercontent.com/nikolai-katkov/do-me-lint/master/docs/spreadsheet.png)
 
 ### Motivation to use Google Sheets
 
@@ -131,21 +110,10 @@ For monorepos you need to run the script from each project's directory.
 
 ### Forking the rules spreadsheet
 
+> If you are forking the spreadsheet just for disabling a few rules, you may want to disable it in a `.domelintrc.yml` file instead (see [Configuration](#configuration) section).
+
 1. Open a [source](https://docs.google.com/spreadsheets/d/149ecBpNj1mfgTKlCcVwxdKbi5VDNeJdsVW-c2Y62z9k/edit#gid=1499443148) spreadsheet
 2. Clone it by selecting menu `File` -> `Make a copy`
 3. Make any changes, add rules, enable/disable desired rules etc.
-4. Export as CSV via `File` -> `Publish to the web`: <br /><img src="docs/csv-publish.png" width="300"/>
+4. Export as CSV via `File` -> `Publish to the web`: <br /><img src="https://raw.githubusercontent.com/nikolai-katkov/do-me-lint/master/docs/csv-publish.png" width="300"/>
 5. Configure spreadsheet and CSV URLs as stated in [configuration](#configuration) section
-
-## Uninstall
-
-```sh
-
-npm uninstall do-me-lint --global
-
-# or if you installed it with npm link
-npm unlink do-me-lint --global
-
-# or if you installed it with yarn link
-yarn unlink # run from the do-me-lint folder
-```

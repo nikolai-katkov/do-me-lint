@@ -1,0 +1,10 @@
+.eslintignore                                      
+.eslintrc.yml                                      
+.prettierignore                                    
+.prettierrc.yml                                    
+.vscode/settings.json                              
+docs/
+src/
+jest.config.js                                     
+tsconfig.json                                     
+**/*.test.* 

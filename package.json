@@ -1,20 +1,33 @@
 {
   "name": "do-me-lint",
   "version": "1.0.0",
-  "description": "",
-  "main": "src/index.ts",
+  "description": "CLI tool to make your JS/TS projects linted with ESLint and Prettier for the best possible developer experience.",
+  "main": "dist/index.js",
   "bin": {
     "do-me-lint": "bin/run"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nikolai-katkov/do-me-lint"
+  },
+  "keywords": [
+    "lint",
+    "eslint",
+    "prettier"
+  ],
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "prestart": "ts-node src/scripts/genTypes.ts",
-    "test": "jest"
+    "prepare": "npm run build",
+    "prebuild": "rm -rf dist/",
+    "build": "tsc",
+    "start": "bin/run",
+    "start:dev": "ts-node src/index.ts",
+    "test": "jest",
+    "preversion": "npm test",
+    "postversion": "git push && git push --tags"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@tsconfig/node12": "^1.0.7",
     "@types/eslint": "^7.2.13",
     "@types/glob": "^7.1.3",
     "@types/inquirer": "^7.3.1",
@@ -37,6 +50,7 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
+    "@tsconfig/node12": "^1.0.9",
     "@types/jest": "^26.0.24",
     "@yarnpkg/lockfile": "^1.1.0",
     "chalk": "^4.1.1",
