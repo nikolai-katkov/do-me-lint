@@ -1,6 +1,6 @@
 import type { JsonArray, JsonValue } from 'type-fest'
 
-type RuleLevel = 'error' | 'off' | 'warn' | 0 | 1 | 2
+export type RuleLevel = 'error' | 'off' | 'warn' | 0 | 1 | 2
 
 type Environment = Record<string, true>
 

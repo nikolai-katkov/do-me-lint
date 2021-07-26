@@ -5,10 +5,12 @@ import type {
   ESLintRules,
   OverrideConfig,
   ParserOptions,
+  RuleLevel,
   RuleValue,
   Settings,
 } from '../../types/eslint'
 import type { Scope, SpreadsheetRule } from '../../types/spreadsheet'
+import log from '../../util/log'
 import type { Patterns } from '../context/paths'
 
 interface Parameters {
@@ -74,24 +76,96 @@ const getPlugins = (projectDependencies: string[]): ByScope<string[]> => {
   return plugins
 }
 
-const getDynamicRuleOptions = (
-  rule: string,
-  { semi }: { semi: boolean }
-): JsonValue | undefined => {
-  if (rule === 'semi') {
-    return semi ? 'always' : 'never'
-  }
+// const parseSpreadsheetOptions = (ruleName: string, rawOptions: string): JsonObject | undefined => {
+//   try {
+//     const parsedOptions = JSON.parse(ruleRow.options) as JsonObject
+//     value = Array.isArray(parsedOptions)
+//       ? ['error', ...parsedOptions]
+//       : ['error', parsedOptions]
+//   } catch (error: Error) {
+//     log.warn(`Can't parse options for ${ruleName}: ${error.message}`)
+//     return undefined
+//   }
+// }
 
-  if (rule === '@typescript-eslint/member-delimiter-style') {
+const parseOptions = (ruleName: string, rawOptions: string): JsonValue | undefined => {
+  try {
+    return rawOptions === '' ? undefined : (JSON.parse(rawOptions) as JsonValue)
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      log.warn(`Can't parse options for ${ruleName}: ${error.message}`)
+    }
+  }
+}
+
+interface ModifyCertainRulesParameters {
+  ruleName: string
+  options?: JsonValue
+  enabled: boolean
+  level: RuleLevel
+  semi: boolean
+}
+interface ModifyCertainRulesResult {
+  options?: JsonValue
+  level: RuleLevel
+  enabled: boolean
+}
+// eslint-disable-next-line complexity
+const modifyCertainRules = ({
+  ruleName,
+  options,
+  enabled,
+  semi,
+  level,
+}: // eslint-disable-next-line sonarjs/cognitive-complexity
+ModifyCertainRulesParameters): ModifyCertainRulesResult => {
+  if (ruleName === 'semi') {
     return {
-      multiline: { delimiter: semi ? 'semi' : 'none' },
-      singleline: { delimiter: 'comma' },
+      enabled: true,
+      options: semi ? 'always' : 'never',
+      level,
     }
   }
 
-  if (rule === '@typescript-eslint/no-extra-semi') {
-    return semi ? 'always' : 'never'
+  if (ruleName === '@typescript-eslint/member-delimiter-style') {
+    if (typeof options === 'object' && !Array.isArray(options) && options !== null) {
+      options.multiline =
+        typeof options.multiline === 'object'
+          ? { ...options.multiline, delimiter: semi ? 'semi' : 'none' }
+          : { delimiter: semi ? 'semi' : 'none' }
+    } else {
+      // eslint-disable-next-line no-param-reassign
+      options = {
+        multiline: { delimiter: semi ? 'semi' : 'none' },
+        singleline: { delimiter: 'comma' },
+      }
+    }
+    return {
+      enabled: true,
+      options,
+      level,
+    }
   }
+
+  return {
+    options,
+    level,
+    enabled,
+  }
+}
+
+interface BuildValueParameters {
+  options?: JsonValue
+  level: RuleLevel
+}
+const buildValue = ({ options, level }: BuildValueParameters): RuleValue => {
+  if (options === null || options === undefined || options === '') {
+    return level
+  }
+  if (Array.isArray(options)) {
+    return [level, ...options]
+  }
+  return [level, options]
 }
 
 interface GetRulesParameters {
@@ -112,34 +186,33 @@ const getRules = ({
     .sort((previous, next) => previous.rule.localeCompare(next.rule))
     .forEach(ruleRow => {
       try {
-        if (ruleRow.enabled) {
-          return
-        }
-        const requiredDependencies = ruleRow.requiresDeps.split(',').filter(Boolean)
-
         if (ignoredRules.includes(ruleRow.rule)) {
           return
         }
 
+        const requiredDependencies = ruleRow.requiresDeps.split(',').filter(Boolean)
         for (const requiredDenendency of requiredDependencies) {
           if (!projectDependencies.includes(requiredDenendency)) {
             return
           }
         }
-        let value: RuleValue = 'error'
-        const dynamicOptions = getDynamicRuleOptions(ruleRow.rule, { semi })
-        if (dynamicOptions !== undefined) {
-          value = ['error', dynamicOptions]
-        } else if (ruleRow.options) {
-          const parsedOptions = JSON.parse(ruleRow.options) as JsonObject | []
-          value = Array.isArray(parsedOptions)
-            ? ['error', ...parsedOptions]
-            : ['error', parsedOptions]
-        } else {
-          value = 'error'
+
+        const spreadSheetOptions = parseOptions(ruleRow.rule, ruleRow.options)
+        // if (ruleRow.enabled !== 'TRUE') {
+        //   return
+        // }
+        const { options, level, enabled } = modifyCertainRules({
+          ruleName: ruleRow.rule,
+          semi,
+          enabled: ruleRow.enabled === 'TRUE',
+          options: spreadSheetOptions,
+          level: 'error',
+        })
+        if (!enabled) {
+          return
         }
 
-        result[ruleRow.scope][ruleRow.rule] = value
+        result[ruleRow.scope][ruleRow.rule] = buildValue({ options, level })
       } catch (error: unknown) {
         if (error instanceof Error) {
           console.log(`Couldn't add ${ruleRow.rule}: ${String(error.message)}`)

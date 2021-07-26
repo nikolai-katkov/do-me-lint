@@ -41,11 +41,19 @@ const installNpmDependencies = (parameters: InstallDependenciesParameters): void
     .join(' ')
 
   if (dependencyList) {
-    execSync(`npm i ${dependencyList}`, { stdio: 'ignore' })
+    try {
+      execSync(`npm i ${dependencyList}`, { stdio: 'ignore' })
+    } catch (error: unknown) {
+      execSync(`npm i ${dependencyList}`)
+    }
   }
 
   if (developmentDependencyList) {
-    execSync(`npm i -D ${developmentDependencyList}`, { stdio: 'ignore' })
+    try {
+      execSync(`npm i -D ${developmentDependencyList}`, { stdio: 'ignore' })
+    } catch (error: unknown) {
+      execSync(`npm i -D ${developmentDependencyList}`)
+    }
   }
 }
 
@@ -57,11 +65,19 @@ const installYarnDependencies = (parameters: InstallDependenciesParameters): voi
     .join(' ')
 
   if (dependencyList) {
-    execSync(`yarn add ${dependencyList}`, { stdio: 'ignore' })
+    try {
+      execSync(`yarn add ${dependencyList}`, { stdio: 'ignore' })
+    } catch (error: unknown) {
+      execSync(`yarn add ${dependencyList}`)
+    }
   }
 
   if (developmentDependencyList) {
-    execSync(`yarn add --dev ${developmentDependencyList}`, { stdio: 'ignore' })
+    try {
+      execSync(`yarn add --dev ${developmentDependencyList}`, { stdio: 'ignore' })
+    } catch (error: unknown) {
+      execSync(`yarn add --dev ${developmentDependencyList}`)
+    }
   }
 }
 
