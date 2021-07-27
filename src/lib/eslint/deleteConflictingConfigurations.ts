@@ -7,7 +7,7 @@ interface Parameters {
   projectDirectory: string
 }
 const deleteConflictingConfigurations = ({ projectDirectory }: Parameters) => {
-  const files: string[] = glob('**/.eslintrc.{js,yml,yaml,json}', {
+  const files: string[] = glob('**/.eslintrc{,.js,.yml,.yaml,.json}', {
     cwd: projectDirectory,
     ignore: '**/node_modules/**',
     nodir: true,
