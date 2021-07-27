@@ -14,7 +14,7 @@ const saveConfig = ({ config, projectDirectory, spreadsheet }: Parameters): void
   const disclaimer = outdent`
     # this file was auto-generated with do-me-lint
     # and this spreadsheet: ${spreadsheet}
-    # 
+    #
     # You can modify it to your needs
     
     # eslint-disable yml/key-name-casing

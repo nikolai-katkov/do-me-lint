@@ -52,6 +52,8 @@ const prettierLanguages = [
   'scss',
   'typescript',
   'typescriptreact',
+  'vue-html',
+  'vue',
   'yaml',
 ]
 // source: https://code.visualstudio.com/docs/languages/identifiers
