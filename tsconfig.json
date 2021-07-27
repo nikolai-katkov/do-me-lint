@@ -2,5 +2,6 @@
   "extends": "@tsconfig/node12/tsconfig.json",
   "compilerOptions": {
     "outDir": "dist"
-  }
+  },
+  "exclude": ["**/*.test.ts"]
 }
