@@ -49,5 +49,13 @@
   },
   "eslint.validate": [
     "yaml"
-  ]
+  ],
+  "[vue-html]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
