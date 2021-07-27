@@ -7,6 +7,7 @@ test('should return values from settings', () => {
     spreadsheet: 'bar',
     spreadsheetCsv: 'baz',
     semi: true,
+    debug: false,
     ignoredRules: ['fizz', 'buzz'],
   }
   expect(getPatterns(settings)).toHaveProperty('jestFiles', 'foo')

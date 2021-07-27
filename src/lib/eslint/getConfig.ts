@@ -1,4 +1,4 @@
-import type { JsonObject, JsonValue } from 'type-fest'
+import type { JsonValue } from 'type-fest'
 
 import type {
   ESLintConfig,
@@ -75,18 +75,6 @@ const getPlugins = (projectDependencies: string[]): ByScope<string[]> => {
   }
   return plugins
 }
-
-// const parseSpreadsheetOptions = (ruleName: string, rawOptions: string): JsonObject | undefined => {
-//   try {
-//     const parsedOptions = JSON.parse(ruleRow.options) as JsonObject
-//     value = Array.isArray(parsedOptions)
-//       ? ['error', ...parsedOptions]
-//       : ['error', parsedOptions]
-//   } catch (error: Error) {
-//     log.warn(`Can't parse options for ${ruleName}: ${error.message}`)
-//     return undefined
-//   }
-// }
 
 const parseOptions = (ruleName: string, rawOptions: string): JsonValue | undefined => {
   try {
@@ -198,9 +186,6 @@ const getRules = ({
         }
 
         const spreadSheetOptions = parseOptions(ruleRow.rule, ruleRow.options)
-        // if (ruleRow.enabled !== 'TRUE') {
-        //   return
-        // }
         const { options, level, enabled } = modifyCertainRules({
           ruleName: ruleRow.rule,
           semi,

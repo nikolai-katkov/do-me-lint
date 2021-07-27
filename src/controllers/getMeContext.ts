@@ -38,6 +38,7 @@ export interface Context {
   dependencyManager?: DependencyManager
   semi: boolean
   gitignore: string[]
+  debug: boolean
 }
 const getMeContext = (): Context => {
   log.info('Gathering execution context')
@@ -52,7 +53,7 @@ const getMeContext = (): Context => {
     log.debug(`monorepo root:\t${monorepoRoot}`)
   }
 
-  const { spreadsheet, spreadsheetCsv, ignoredRules, semi } = settings
+  const { spreadsheet, spreadsheetCsv, ignoredRules, semi, debug } = settings
 
   log.debug(`rules CSV:\t\t${spreadsheetCsv}`)
 
@@ -79,6 +80,7 @@ const getMeContext = (): Context => {
     ignoredRules,
     semi,
     gitignore,
+    debug,
   }
 }
 export default getMeContext

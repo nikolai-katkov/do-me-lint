@@ -28,6 +28,7 @@ const doMeESLint = async (context: Context): Promise<void> => {
     dependencyManager: context.dependencyManager,
     eslintDependencies: dependencies,
     installedPackages: context.installedPackages,
+    debug: context.debug,
   })
 
   log.info('Searching for conflicting ESLint configurations')

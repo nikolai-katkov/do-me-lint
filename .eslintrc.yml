@@ -1,6 +1,6 @@
 # this file was auto-generated with https://github.com/nikolai-katkov/do-me-lint
 # and this spreadsheet: https://docs.google.com/spreadsheets/d/149ecBpNj1mfgTKlCcVwxdKbi5VDNeJdsVW-c2Y62z9k/edit#gid=1499443148
-# on 27/07/2021, 00:09:26
+# on 27/07/2021, 07:42:52
 # 
 # You can modify it to your needs
 
@@ -168,6 +168,9 @@ rules:
   require-atomic-updates: error
   require-unicode-regexp: error
   require-yield: error
+  semi:
+    - error
+    - never
   simple-import-sort/exports: error
   simple-import-sort/imports: error
   sonarjs/cognitive-complexity: error
@@ -363,6 +366,12 @@ overrides:
       '@typescript-eslint/default-param-last': error
       '@typescript-eslint/dot-notation': error
       '@typescript-eslint/lines-between-class-members': error
+      '@typescript-eslint/member-delimiter-style':
+        - error
+        - multiline:
+            delimiter: none
+          singleline:
+            delimiter: comma
       '@typescript-eslint/method-signature-style': error
       '@typescript-eslint/naming-convention':
         - error

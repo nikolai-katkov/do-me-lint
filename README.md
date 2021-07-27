@@ -36,19 +36,10 @@ For busy developers who appreciate the benefits of code linting but find it tedi
 - Your projects gets only relevant rules, e.g. you get Typescript plugin and rules only if you have typescript as a dependency
 - All ESlint configuration is stored in a single `.eslintrc.yml` file. DoMeLint ensures there are no conflicting configurations. No extended, recommended or nested configurations - what you see is what you get.
 - No configuration needed
-- Still fully flexible: you can specify your file patterns, disable rules that are not worth fixing (see [Configuration](#configuration) section), and have completely own, team- or company-wide spreadsheet (see [Forking](#forking-the-rules-spreadsheet) section)
+- Still fully flexible: you can specify your file patterns, disable rules that are not worth fixing (see [configuration](#configuration) section), and have completely own, team- or company-wide spreadsheet (see [forking](#forking-the-rules-spreadsheet) section)
 - Supports new projects and existing codebases
 - Automatically updates linting dependencies using your project's dependency manager, Yarn or NPM
 - Supports monorepos - configures IDE once for the whole repo while keeping linting configurations per project
-
-<details>
-<summary>See it in action</summary>
-<p>
-
-![DoMeLint in action](https://raw.githubusercontent.com/nikolai-katkov/do-me-lint/master/docs/in-action.png)
-
-</p>
-</details>
 
 ## Usage
 
@@ -57,13 +48,36 @@ cd [path-to-your-project]
 npx do-me-lint
 ```
 
-If the result looks shocking, revert the changes, disable the rules you don't want to fix (see [Configuration](#configuration) section) and apply the command again.
+<details>
+<summary>What you'll see</summary>
+<p>
+
+![DoMeLint in action](https://raw.githubusercontent.com/nikolai-katkov/do-me-lint/master/docs/in-action.png)
+
+</p>
+</details>
+
+### Best practices
 
 You can achieve best results running `do-me-lint` once or periodically if you want to keep the configuration up to date.
 
 It makes sense to keep `.domelintrc.yml` as part of your git repository.
 
 For monorepos you need to run the script from each project's directory.
+
+## Troubleshooting
+
+If there are too many warnings to fix in one go:
+
+- revert the changes
+- disable the rules you don't want to fix (see [configuration](#configuration) section, `ignoreRules`)
+- apply the command again
+
+If do-me-lint throws an error or stops responding at _"Checking required NPM dependencies"_ step, run it again in the debug mode:
+
+```bash
+DML_DEBUG=1 npx do-me-lint
+```
 
 ## Configuration
 
@@ -75,13 +89,18 @@ For monorepos you need to run the script from each project's directory.
 
 > All settings are optional
 
-| Description                                                     | Default                                                                                                                                                                           | Environment variable                                        | Setting in `.domelintrc.yml`      |
-| --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- | --------------------------------- |
-| Pattern for Jest specs                                          | src/\*\*/{\_\_tests\_\_/\*,\*.{spec,test}}.{js,ts,jsx,tsx}                                                                                                                        | `string` <br> DML_JEST_FILES                                | `string` <br> jestFiles           |
-| Spreadsheet CSV <br> (for fetching rules)                       | [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vS0YEIZpNgczI9Y0J6r59onLdrhOXLv866Oz9CkhNByDiz5tl-dAABu5edZPlTchTeG4m6Gg-lJmYPX/pub?gid=1499443148&single=true&output=csv) | `string` <br> DML_SPREADSHEET_CSV                           | `string` <br> spreadsheetCsv      |
-| Spreadsheet URL (displayed in the script output)                | [link](https://docs.google.com/spreadsheets/d/149ecBpNj1mfgTKlCcVwxdKbi5VDNeJdsVW-c2Y62z9k/edit#gid=1499443148)                                                                   | `string` <br> DML_SPREADSHEET                               | `string` <br> spreadsheet         |
-| Ignored rules <br> <small>will be not added</small>             | ""                                                                                                                                                                                | `comma-separated string` <br> DML_IGNORED_RULES             | `Array<string>` <br> ignoredRules |
-| Force semicolons to be required (`true`) or forbidden (`false`) | 0 / false                                                                                                                                                                         | `"1"` <small>(other values are false)</small> <br> DML_SEMI | `boolean` <br> semi               |
+| Setting in `.domelintrc.yml`                     | Description                                                     | Default                                                                                                                                                                                                                                         | Environment variable                                          |
+| ------------------------------------------------ | --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| spreadsheet<br> <small>`string`</small>          | Spreadsheet URL (displayed in the script output)                | <small>[`https://docs.google.com/spreadsheets/d/149ecB...`](https://docs.google.com/spreadsheets/d/149ecBpNj1mfgTKlCcVwxdKbi5VDNeJdsVW-c2Y62z9k/edit#gid=1499443148) </small>                                                                   | DML_SPREADSHEET <br> <small>`string`</small>                  |
+| spreadsheetCsv<br> <small>`string`</small>       | Spreadsheet CSV <br> (for fetching rules)                       | <small>[`https://docs.google.com/spreadsheets/d/e/2PAC...`](https://docs.google.com/spreadsheets/d/e/2PACX-1vS0YEIZpNgczI9Y0J6r59onLdrhOXLv866Oz9CkhNByDiz5tl-dAABu5edZPlTchTeG4m6Gg-lJmYPX/pub?gid=1499443148&single=true&output=csv) </small> | DML_SPREADSHEET_CSV <br> <small>`string`</small>              |
+| semi <br> <small>`boolean`</small>               | Force semicolons to be required (`true`) or forbidden (`false`) |                                                                                                                                                                                                                                                 | DML_SEMI <br> <small>`"1"` (other values are false)</small>   |
+| ignoredRules <br> <small>`Array<string>`</small> | Ignored rules <br> <small>will be not added</small>             |                                                                                                                                                                                                                                                 | DML_IGNORED_RULES<br> <small>`comma-separated string`</small> |
+| jestFiles<br> <small>`string`</small>            | Pattern for Jest specs                                          | <small>`src/\*\*/{\_\_tests\_\_/\*,\*.{spec,test}}.{js,ts,jsx,tsx} ` </small>                                                                                                                                                                   | DML_JEST_FILES <br> <small>`string`</small>                   |
+| —                                                | Extended debug info                                             |                                                                                                                                                                                                                                                 | DML_DEBUG <br> <small>`"1"` (other values are false)</small>  |
+
+Your `.domelintrc.yml` may look like this:
+
+<img src="https://raw.githubusercontent.com/nikolai-katkov/do-me-lint/master/docs/domelintrc-example.png" width="500">
 
 ## Supported ESLint plugins
 
@@ -110,7 +129,18 @@ For monorepos you need to run the script from each project's directory.
 
 ### Forking the rules spreadsheet
 
-> If you are forking the spreadsheet just for disabling a few rules, you may want to disable it in a `.domelintrc.yml` file instead (see [Configuration](#configuration) section).
+You want to create your own spreadsheet if
+
+- You have your own (or team) guidelines that go against the default spreadsheet
+- You need to make sure the rule selection doesn't change in the future
+- You forked the repo to add custom logic and now want to add/modify meaning of the columns
+
+You **don't** want to create your own spreadsheet if
+
+- do-me-lint reported too many warnings that are not worth fixing. Use `ignoredRules` [setting](#configuration) instead.
+- you see that some rule in the default spreadsheet doesn't make sense, or missing, or broken. Open an [issue](https://github.com/nikolai-katkov/do-me-lint/issues) instead.
+
+#### Steps to fork the spreadsheet
 
 1. Open a [source](https://docs.google.com/spreadsheets/d/149ecBpNj1mfgTKlCcVwxdKbi5VDNeJdsVW-c2Y62z9k/edit#gid=1499443148) spreadsheet
 2. Clone it by selecting menu `File` -> `Make a copy`

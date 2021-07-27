@@ -35,6 +35,7 @@ export interface Settings {
   spreadsheetCsv: string
   ignoredRules: string[]
   semi: boolean
+  debug: boolean
 }
 
 // eslint-disable-next-line complexity
@@ -78,5 +79,6 @@ export const getSettings = (projectDirectory: string): Settings => {
       'https://docs.google.com/spreadsheets/d/e/2PACX-1vS0YEIZpNgczI9Y0J6r59onLdrhOXLv866Oz9CkhNByDiz5tl-dAABu5edZPlTchTeG4m6Gg-lJmYPX/pub?gid=1499443148&single=true&output=csv',
     ignoredRules,
     semi,
+    debug: process.env.DML_DEBUG === '1',
   }
 }
