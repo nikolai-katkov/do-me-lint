@@ -11,15 +11,13 @@ interface Parameters {
 }
 const saveIgnore = ({ ignoreFileName, projectDirectory, gitignore }: Parameters): void => {
   const filename = path.join(projectDirectory, ignoreFileName)
-  const now = new Date()
   const patterns = gitignore.filter(line => !line.startsWith('node_modules'))
   if (patterns.length === 0) {
     return
   }
   const newInset = outdent`
     # >>> domelint-start
-    # this block was auto-generated with https://github.com/nikolai-katkov/do-me-lint
-    # on ${now.toLocaleString()}
+    # this block was auto-generated with do-me-lint
     ${patterns.join('\n')}
     # <<< domelint-end
   `

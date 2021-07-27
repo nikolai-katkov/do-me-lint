@@ -11,11 +11,9 @@ interface Parameters {
   spreadsheet: string
 }
 const saveConfig = ({ config, projectDirectory, spreadsheet }: Parameters): void => {
-  const now = new Date()
   const disclaimer = outdent`
-    # this file was auto-generated with https://github.com/nikolai-katkov/do-me-lint
+    # this file was auto-generated with do-me-lint
     # and this spreadsheet: ${spreadsheet}
-    # on ${now.toLocaleString()}
     # 
     # You can modify it to your needs
     

@@ -109,7 +109,7 @@ const modifyCertainRules = ({
 ModifyCertainRulesParameters): ModifyCertainRulesResult => {
   if (ruleName === 'semi') {
     return {
-      enabled: true,
+      enabled,
       options: semi ? 'always' : 'never',
       level,
     }
@@ -129,7 +129,7 @@ ModifyCertainRulesParameters): ModifyCertainRulesResult => {
       }
     }
     return {
-      enabled: true,
+      enabled,
       options,
       level,
     }
