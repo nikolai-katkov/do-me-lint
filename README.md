@@ -1,5 +1,7 @@
 # DoMeLint
 
+[![tests](https://github.com/nikolai-katkov/do-me-lint/actions/workflows/tests.yml/badge.svg)](https://github.com/nikolai-katkov/do-me-lint/actions/workflows/tests.yml)
+
 ## What
 
 CLI tool to make your JS/TS projects linted with ESLint and Prettier for the best possible developer experience.
@@ -147,3 +149,4 @@ You **don't** want to create your own spreadsheet if
 3. Make any changes, add rules, enable/disable desired rules etc.
 4. Export as CSV via `File` -> `Publish to the web`: <br /><img src="https://raw.githubusercontent.com/nikolai-katkov/do-me-lint/master/docs/csv-publish.png" width="300"/>
 5. Configure spreadsheet and CSV URLs as stated in [configuration](#configuration) section
+6.

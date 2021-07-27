@@ -1,0 +1,32 @@
+name: publish
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: version
+        default: 1.1.0
+        required: true
+jobs:
+  publish-npm:
+    name: publish ${{github.event.inputs.version}} to npm
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone repo
+        uses: actions/checkout@v2
+      - name: set up Node environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+      - name: set up git environment
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+      - name: install dependencies
+        run: npm ci
+      - name: bump package version to ${{ github.event.inputs.version }}
+        run: npm version "${{ github.event.inputs.version }}" -m "release do-me-lint@%s"
+      - name: publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}

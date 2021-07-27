@@ -1,0 +1,26 @@
+name: unpublish
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: version
+        default: 1.1.0
+        required: true
+jobs:
+  publish-npm:
+    name: unpublish ${{github.event.inputs.version}} from npm
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone repo
+        uses: actions/checkout@v2
+      - name: set up Node environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+      - name: delete git tag
+        run: git push --delete origin v${{github.event.inputs.version}}
+      - name: unpublish
+        run: npm unpublish do-me-lint@${{github.event.inputs.version}}
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token_unpublish}}

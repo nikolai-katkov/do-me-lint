@@ -1,6 +1,6 @@
 {
   "name": "do-me-lint",
-  "version": "1.0.0",
+  "version": "1.1.0-beta.3",
   "description": "CLI tool to make your JS/TS projects linted with ESLint and Prettier for the best possible developer experience.",
   "main": "dist/index.js",
   "bin": {
@@ -23,7 +23,6 @@
     "start:dev": "ts-node src/index.ts",
     "test": "jest",
     "lint": "eslint . --cache",
-    "preversion": "npm test",
     "postversion": "git push && git push --tags"
   },
   "author": "",

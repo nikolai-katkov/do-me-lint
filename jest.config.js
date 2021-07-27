@@ -5,4 +5,5 @@ module.exports = {
   verbose: true,
   preset: 'ts-jest',
   resetMocks: true,
+  testMatch: ['**/*.test.ts'],
 }
