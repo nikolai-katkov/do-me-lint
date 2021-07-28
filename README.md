@@ -149,4 +149,3 @@ You **don't** want to create your own spreadsheet if
 3. Make any changes, add rules, enable/disable desired rules etc.
 4. Export as CSV via `File` -> `Publish to the web`: <br /><img src="https://raw.githubusercontent.com/nikolai-katkov/do-me-lint/master/docs/csv-publish.png" width="300"/>
 5. Configure spreadsheet and CSV URLs as stated in [configuration](#configuration) section
-6.
