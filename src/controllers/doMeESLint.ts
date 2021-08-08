@@ -1,7 +1,6 @@
 import deleteConflictingConfigurations from '../lib/eslint/deleteConflictingConfigurations'
 import fixProject from '../lib/eslint/fixProject'
 import getConfig from '../lib/eslint/getConfig'
-import getSpreadsheetRules from '../lib/eslint/getSpreadsheetRules'
 import installDependencies from '../lib/eslint/installDependencies'
 import { getReport, outputReport } from '../lib/eslint/report'
 import saveConfig from '../lib/eslint/saveConfig'
@@ -10,13 +9,8 @@ import log from '../util/log'
 import type { Context } from './getMeContext'
 
 const doMeESLint = async (context: Context): Promise<void> => {
-  log.info('Fetching spreadsheet')
-  const spreadsheetRules = await getSpreadsheetRules(context.spreadsheetCsv)
-  log.debug(`loaded ${spreadsheetRules.length} rules`)
-
   log.info('Generating ESLint config based on your project dependencies')
   const { config, dependencies } = getConfig({
-    spreadsheetRules,
     projectDependencies: context.installedPackages.map(installedPackage => installedPackage.name),
     patterns: context.patterns,
     ignoredRules: context.ignoredRules,
@@ -40,7 +34,6 @@ const doMeESLint = async (context: Context): Promise<void> => {
   saveConfig({
     config,
     projectDirectory: context.projectDirectory,
-    spreadsheet: context.spreadsheet,
   })
 
   log.info('Saving ESLint ignore file (.eslintignore)')

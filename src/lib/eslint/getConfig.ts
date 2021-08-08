@@ -1,5 +1,6 @@
 import type { JsonValue } from 'type-fest'
 
+import ruleset from '../../config/ruleset'
 import type {
   ESLintConfig,
   ESLintRules,
@@ -9,13 +10,12 @@ import type {
   RuleValue,
   Settings,
 } from '../../types/eslint'
-import type { Scope, SpreadsheetRule } from '../../types/spreadsheet'
-import log from '../../util/log'
 import type { Patterns } from '../context/paths'
+import type { Scope } from './rulesConfig'
+import { getProperty } from './rulesConfig'
 
 interface Parameters {
   projectDependencies: string[]
-  spreadsheetRules: SpreadsheetRule[]
   ignoredRules: string[]
   patterns: Patterns
   semi: boolean
@@ -26,9 +26,8 @@ interface Result {
   dependencies: string[]
 }
 const getConfig = (parameters: Parameters): Result => {
-  const { projectDependencies, spreadsheetRules, ignoredRules, patterns, semi } = parameters
+  const { projectDependencies, ignoredRules, patterns, semi } = parameters
   const rules = getRules({
-    spreadsheetRules,
     projectDependencies,
     ignoredRules,
     semi,
@@ -76,72 +75,6 @@ const getPlugins = (projectDependencies: string[]): ByScope<string[]> => {
   return plugins
 }
 
-const parseOptions = (ruleName: string, rawOptions: string): JsonValue | undefined => {
-  try {
-    return rawOptions === '' ? undefined : (JSON.parse(rawOptions) as JsonValue)
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      log.warn(`Can't parse options for ${ruleName}: ${error.message}`)
-    }
-  }
-}
-
-interface ModifyCertainRulesParameters {
-  ruleName: string
-  options?: JsonValue
-  enabled: boolean
-  level: RuleLevel
-  semi: boolean
-}
-interface ModifyCertainRulesResult {
-  options?: JsonValue
-  level: RuleLevel
-  enabled: boolean
-}
-// eslint-disable-next-line complexity
-const modifyCertainRules = ({
-  ruleName,
-  options,
-  enabled,
-  semi,
-  level,
-}: // eslint-disable-next-line sonarjs/cognitive-complexity
-ModifyCertainRulesParameters): ModifyCertainRulesResult => {
-  if (ruleName === 'semi') {
-    return {
-      enabled,
-      options: semi ? 'always' : 'never',
-      level,
-    }
-  }
-
-  if (ruleName === '@typescript-eslint/member-delimiter-style') {
-    if (typeof options === 'object' && !Array.isArray(options) && options !== null) {
-      options.multiline =
-        typeof options.multiline === 'object'
-          ? { ...options.multiline, delimiter: semi ? 'semi' : 'none' }
-          : { delimiter: semi ? 'semi' : 'none' }
-    } else {
-      // eslint-disable-next-line no-param-reassign
-      options = {
-        multiline: { delimiter: semi ? 'semi' : 'none' },
-        singleline: { delimiter: 'comma' },
-      }
-    }
-    return {
-      enabled,
-      options,
-      level,
-    }
-  }
-
-  return {
-    options,
-    level,
-    enabled,
-  }
-}
-
 interface BuildValueParameters {
   options?: JsonValue
   level: RuleLevel
@@ -157,54 +90,35 @@ const buildValue = ({ options, level }: BuildValueParameters): RuleValue => {
 }
 
 interface GetRulesParameters {
-  spreadsheetRules: SpreadsheetRule[]
   projectDependencies: string[]
   ignoredRules: string[]
   semi: boolean
 }
 const getRules = ({
-  spreadsheetRules,
   projectDependencies,
   ignoredRules,
   semi,
 }: GetRulesParameters): ByScope<ESLintRules> => {
+  const input = { projectDependencies, semi }
   const result: ByScope<ESLintRules> = { all: {}, js: {}, ts: {}, testJest: {}, yaml: {} }
-
-  spreadsheetRules
-    .sort((previous, next) => previous.rule.localeCompare(next.rule))
-    .forEach(ruleRow => {
-      try {
-        if (ignoredRules.includes(ruleRow.rule)) {
-          return
-        }
-
-        const requiredDependencies = ruleRow.requiresDeps.split(',').filter(Boolean)
-        for (const requiredDenendency of requiredDependencies) {
-          if (!projectDependencies.includes(requiredDenendency)) {
-            return
-          }
-        }
-
-        const spreadSheetOptions = parseOptions(ruleRow.rule, ruleRow.options)
-        const { options, level, enabled } = modifyCertainRules({
-          ruleName: ruleRow.rule,
-          semi,
-          enabled: ruleRow.enabled === 'TRUE',
-          options: spreadSheetOptions,
-          level: 'error',
-        })
-        if (!enabled) {
-          return
-        }
-
-        result[ruleRow.scope][ruleRow.rule] = buildValue({ options, level })
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          console.log(`Couldn't add ${ruleRow.rule}: ${String(error.message)}`)
-        }
+  Object.keys(ruleset)
+    .sort((previous, next) => previous.localeCompare(next))
+    .forEach(rulename => {
+      if (ignoredRules.includes(rulename)) {
+        return
       }
-    })
+      const rule = ruleset[rulename]
+      const enabled = getProperty(rule.enabled, input)
+      const options = getProperty(rule.options, input)
+      const scope = rule.scope || 'all'
+      const level = 'error'
 
+      if (!enabled) {
+        return false
+      }
+
+      result[scope][rulename] = buildValue({ options, level })
+    })
   return result
 }
 
@@ -309,6 +223,9 @@ const getDependencies = (projectDependencies: string[]): string[] => {
   if (projectDependencies.includes('jest')) {
     dependencies.push('eslint-plugin-jest')
   }
+  // if (projectDependencies.includes('vue')) {
+  //   dependencies.push('eslint-plugin-vue')
+  // }
   return dependencies
 }
 

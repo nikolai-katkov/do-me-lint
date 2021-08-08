@@ -1,5 +1,4 @@
 # this file was auto-generated with do-me-lint
-# and this spreadsheet: https://docs.google.com/spreadsheets/d/149ecBpNj1mfgTKlCcVwxdKbi5VDNeJdsVW-c2Y62z9k/edit#gid=1499443148
 #
 # You can modify it to your needs
 
@@ -220,6 +219,8 @@ rules:
   unicorn/no-this-assignment: error
   unicorn/no-unsafe-regex: error
   unicorn/no-unused-properties: error
+  unicorn/no-useless-length-check: error
+  unicorn/no-useless-spread: error
   unicorn/no-useless-undefined: error
   unicorn/no-zero-fractions: error
   unicorn/numeric-separators-style: error
@@ -243,6 +244,7 @@ rules:
   unicorn/prefer-number-properties:
     - error
     - checkInfinity: false
+  unicorn/prefer-object-from-entries: error
   unicorn/prefer-prototype-methods: error
   unicorn/prefer-query-selector: error
   unicorn/prefer-regexp-test: error

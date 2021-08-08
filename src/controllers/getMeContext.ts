@@ -29,8 +29,6 @@ const getGitignore = (projectDirectory: string): string[] => {
 
 export interface Context {
   installedPackages: InstalledPackage[]
-  spreadsheet: string
-  spreadsheetCsv: string
   projectDirectory: string
   monorepoRoot?: string
   patterns: Patterns
@@ -53,9 +51,7 @@ const getMeContext = (): Context => {
     log.debug(`monorepo root:\t${monorepoRoot}`)
   }
 
-  const { spreadsheet, spreadsheetCsv, ignoredRules, semi, debug } = settings
-
-  log.debug(`rules CSV:\t\t${spreadsheetCsv}`)
+  const { ignoredRules, semi, debug } = settings
 
   const patterns = getPatterns(settings)
   const packageJson = getPackageJson(projectDirectory)
@@ -72,8 +68,6 @@ const getMeContext = (): Context => {
   return {
     dependencyManager,
     installedPackages,
-    spreadsheet,
-    spreadsheetCsv,
     projectDirectory,
     monorepoRoot,
     patterns,

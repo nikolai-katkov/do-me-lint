@@ -31,8 +31,6 @@ const getRcSettings = (projectDirectory: string): JsonObject => {
 
 export interface Settings {
   jestFiles: string[] | string
-  spreadsheet: string
-  spreadsheetCsv: string
   ignoredRules: string[]
   semi: boolean
   debug: boolean
@@ -69,14 +67,6 @@ export const getSettings = (projectDirectory: string): Settings => {
       process.env.DML_JEST_FILES ??
       rcSettings.jestFiles?.toString() ??
       'src/**/{__tests__/*,*.{spec,test}}.{js,ts,jsx,tsx}',
-    spreadsheet:
-      process.env.DML_SPREADSHEET ??
-      rcSettings.spreadsheet?.toString() ??
-      'https://docs.google.com/spreadsheets/d/149ecBpNj1mfgTKlCcVwxdKbi5VDNeJdsVW-c2Y62z9k/edit#gid=1499443148',
-    spreadsheetCsv:
-      process.env.DML_SPREADSHEET_CSV ??
-      rcSettings.spreadsheetCsv?.toString() ??
-      'https://docs.google.com/spreadsheets/d/e/2PACX-1vS0YEIZpNgczI9Y0J6r59onLdrhOXLv866Oz9CkhNByDiz5tl-dAABu5edZPlTchTeG4m6Gg-lJmYPX/pub?gid=1499443148&single=true&output=csv',
     ignoredRules,
     semi,
     debug: process.env.DML_DEBUG === '1',
