@@ -1,6 +1,7 @@
 import type { Rule } from '../lib/eslint/rulesConfig'
 
 const ruleset: Record<string, Rule> = {
+  // YAML Rules
   'yml/block-mapping-question-indicator-newline': {
     enabled: false, // covered by Prettier
     scope: 'yaml',
@@ -68,6 +69,7 @@ const ruleset: Record<string, Rule> = {
     enabled: true, // I dont't do Vue, but will keep it just in case
     scope: 'yaml',
   },
+  // Extension Rules
   'yml/flow-mapping-curly-newline': {
     enabled: false, // covered by Prettier
     scope: 'yaml',
@@ -94,6 +96,10 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   'yml/no-irregular-whitespace': {
+    enabled: true,
+    scope: 'yaml',
+  },
+  'yml/no-multiple-empty-lines': {
     enabled: true,
     scope: 'yaml',
   },

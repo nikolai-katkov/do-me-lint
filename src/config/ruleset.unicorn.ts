@@ -63,6 +63,10 @@ const ruleset: Record<string, Rule> = {
     enabled: false, // I like forEach and its early returns
     fixable: true,
   },
+  'unicorn/no-array-method-this-argument': {
+    enabled: true,
+    fixable: true,
+  },
   'unicorn/no-array-push-push': {
     enabled: true,
     fixable: true,
@@ -70,12 +74,19 @@ const ruleset: Record<string, Rule> = {
   'unicorn/no-array-reduce': {
     enabled: false, // never heard that reduce is an anti-pattern
   },
+  'unicorn/no-await-expression-member': {
+    enabled: true,
+    fixable: true,
+  },
   'unicorn/no-console-spaces': {
     enabled: true,
     fixable: true,
   },
   'unicorn/no-document-cookie': {
     enabled: true,
+  },
+  'unicorn/no-empty-file': {
+    enabled: true, // need to test
   },
   'unicorn/no-for-loop': {
     enabled: true, // harsh but cool
@@ -88,6 +99,9 @@ const ruleset: Record<string, Rule> = {
   'unicorn/no-instanceof-array': {
     enabled: true,
     fixable: true,
+  },
+  'unicorn/no-invalid-remove-event-listener': {
+    enabled: true,
   },
   'unicorn/no-keyword-prefix': {
     enabled: false, // paranoidal rule
@@ -134,6 +148,10 @@ const ruleset: Record<string, Rule> = {
   },
   'unicorn/no-unused-properties': {
     enabled: true, // something scary and powerful
+  },
+  'unicorn/no-useless-fallback-in-spread': {
+    enabled: true,
+    fixable: true,
   },
   'unicorn/no-useless-length-check': {
     enabled: true,
@@ -187,6 +205,9 @@ const ruleset: Record<string, Rule> = {
     enabled: false, // not yet live in the current v33.0.1, change to confident yes in a few days
     fixable: true,
   },
+  'unicorn/prefer-code-point': {
+    enabled: true,
+  },
   'unicorn/prefer-date-now': {
     enabled: true,
     fixable: true,
@@ -208,6 +229,10 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   'unicorn/prefer-dom-node-text-content': {
+    enabled: true,
+    fixable: true,
+  },
+  'unicorn/prefer-export-from': {
     enabled: true,
     fixable: true,
   },
@@ -341,6 +366,10 @@ const ruleset: Record<string, Rule> = {
   },
   'unicorn/string-content': {
     enabled: false, // made-up use case
+    fixable: true,
+  },
+  'unicorn/template-indent': {
+    enabled: true, // wow, need to test
     fixable: true,
   },
   'unicorn/throw-new-error': {

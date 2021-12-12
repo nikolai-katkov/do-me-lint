@@ -51,6 +51,11 @@ const ruleset: Record<string, Rule> = {
     scope: 'ts',
     fixable: true,
   },
+  '@typescript-eslint/consistent-type-exports': {
+    enabled: projectHas('typescript'),
+    scope: 'ts',
+    fixable: true,
+  },
   '@typescript-eslint/consistent-type-imports': {
     enabled: projectHas('typescript'), // TIL - new TS syntax!, but conflicts with no-duplicate-imports (prefer this)
     scope: 'ts',
@@ -166,6 +171,10 @@ const ruleset: Record<string, Rule> = {
     enabled: projectHas('typescript'),
     scope: 'ts',
   },
+  '@typescript-eslint/no-meaningless-void-operator': {
+    enabled: projectHas('typescript'),
+    scope: 'ts',
+  },
   '@typescript-eslint/no-misused-new': {
     enabled: projectHas('typescript'),
     scope: 'ts',
@@ -264,6 +273,10 @@ const ruleset: Record<string, Rule> = {
     enabled: projectHas('typescript'),
     scope: 'ts',
     fixable: true,
+  },
+  '@typescript-eslint/padding-line-between-statements': {
+    enabled: false, // same as native padding-line-between-statements // projectHas('typescript')
+    scope: 'ts',
   },
   '@typescript-eslint/prefer-as-const': {
     enabled: projectHas('typescript'),
@@ -486,8 +499,16 @@ const ruleset: Record<string, Rule> = {
     enabled: false, // no one wants to suffer that much // projectHas('typescript')
     scope: 'ts',
   },
+  '@typescript-eslint/no-non-null-asserted-nullish-coalescing': {
+    enabled: projectHas('typescript'),
+    scope: 'ts',
+  },
   '@typescript-eslint/no-redeclare': {
     enabled: projectHas('typescript'),
+    scope: 'ts',
+  },
+  '@typescript-eslint/no-restricted-imports': {
+    enabled: false, // follow native no-restricted-imports // projectHas('typescript')
     scope: 'ts',
   },
   '@typescript-eslint/no-shadow': {

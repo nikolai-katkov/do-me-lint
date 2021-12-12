@@ -11,11 +11,10 @@ const ruleset: Record<string, Rule> = {
     enabled: projectHas('jest'),
     scope: 'testJest',
   },
-  'jest/lowercase-name': {
+  'jest/max-nested-describe': {
     enabled: projectHas('jest'),
-    options: { ignore: ['describe'] },
+    options: { max: 4 },
     scope: 'testJest',
-    fixable: true,
   },
   'jest/no-alias-methods': {
     enabled: projectHas('jest'),
@@ -113,9 +112,20 @@ const ruleset: Record<string, Rule> = {
     enabled: false, // leads to a bloated boilerplate // projectHas('jest')
     scope: 'testJest',
   },
+  'jest/prefer-expect-resolves': {
+    enabled: projectHas('jest'),
+    scope: 'testJest',
+    fixable: true,
+  },
   'jest/prefer-hooks-on-top': {
     enabled: projectHas('jest'),
     scope: 'testJest',
+  },
+  'jest/prefer-lowercase-title': {
+    enabled: projectHas('jest'),
+    options: { ignore: ['describe'] },
+    scope: 'testJest',
+    fixable: true,
   },
   'jest/prefer-spy-on': {
     enabled: projectHas('jest'),
@@ -126,12 +136,7 @@ const ruleset: Record<string, Rule> = {
     enabled: projectHas('jest'),
     scope: 'testJest',
   },
-  'jest/prefer-to-be-null': {
-    enabled: projectHas('jest'),
-    scope: 'testJest',
-    fixable: true,
-  },
-  'jest/prefer-to-be-undefined': {
+  'jest/prefer-to-be': {
     enabled: projectHas('jest'),
     scope: 'testJest',
     fixable: true,
@@ -151,6 +156,10 @@ const ruleset: Record<string, Rule> = {
     scope: 'testJest',
     fixable: true,
   },
+  'jest/require-hook': {
+    enabled: projectHas('jest'), // not sure, need to test
+    scope: 'testJest',
+  },
   'jest/require-to-throw-message': {
     enabled: false, // leads to a bloated boilerplate // projectHas('jest')
     scope: 'testJest',
@@ -159,7 +168,7 @@ const ruleset: Record<string, Rule> = {
     enabled: false, // not sure if it should be a requirement, especially for small codebases // projectHas('jest')
     scope: 'testJest',
   },
-  'jest/valid-describe': {
+  'jest/valid-describe-callback': {
     enabled: projectHas('jest'),
     scope: 'testJest',
   },

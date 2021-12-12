@@ -10,6 +10,7 @@ interface Parameters {
   projectDirectory: string
 }
 const saveConfig = ({ config, projectDirectory }: Parameters): void => {
+  // eslint-disable-next-line unicorn/template-indent
   const disclaimer = outdent`
     # this file was auto-generated with do-me-lint
     #

@@ -41,9 +41,11 @@ export type Rules = Record<
 
 export interface ParserOptions {
   // prettier-ignore
+  // eslint-disable-next-line @typescript-eslint/sort-type-union-intersection-members
   ecmaVersion?: 3 | 5 | 
     6    | 7    | 8    | 9    | 10   | 11   | 12   |
-    2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021
+    2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 |
+    'latest'
 
   ecmaFeatures?: {
     jsx?: boolean
