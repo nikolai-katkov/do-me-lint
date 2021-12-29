@@ -141,9 +141,9 @@ const getParserOptions = (projectDependencies: string[]): ByScope<ParserOptions>
 
   if (projectDependencies.includes('typescript')) {
     parserOptions.ts.project = 'tsconfig.json'
-    if (projectDependencies.includes('react')) {
-      parserOptions.ts.ecmaFeatures = { jsx: true }
-    }
+  }
+  if (projectDependencies.includes('react')) {
+    parserOptions.all.ecmaFeatures = { jsx: true }
   }
 
   return parserOptions
