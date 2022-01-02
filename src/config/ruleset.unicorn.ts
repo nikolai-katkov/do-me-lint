@@ -174,7 +174,7 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   'unicorn/numeric-separators-style': {
-    enabled: true,
+    enabled: false, // ugly
     fixable: true,
   },
   'unicorn/prefer-add-event-listener': {
