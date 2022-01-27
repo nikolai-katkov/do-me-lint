@@ -147,7 +147,7 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   'unicorn/no-unsafe-regex': {
-    enabled: true,
+    enabled: false, // annoying in webpack
   },
   'unicorn/no-unused-properties': {
     enabled: true, // something scary and powerful
@@ -353,13 +353,22 @@ const ruleset: Record<string, Rule> = {
     options: {
       checkFilenames: false,
       replacements: {
-        dir: { direction: false },
-        pkg: { package: false },
+        dir: false,
+        e: false,
+        i: false,
+        j: false,
+        param: false,
+        params: false,
+        pkg: false,
+        prop: false,
+        props: false,
+        ref: false,
+        req: false,
+        res: false,
+        tmp: false,
         cfg: { config: true },
         lang: { language: true },
         langs: { languages: true },
-        dep: { dependency: true },
-        deps: { dependencies: true },
       },
     },
     fixable: true,

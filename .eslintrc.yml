@@ -222,7 +222,6 @@ rules:
   unicorn/no-static-only-class: error
   unicorn/no-thenable: error
   unicorn/no-this-assignment: error
-  unicorn/no-unsafe-regex: error
   unicorn/no-unused-properties: error
   unicorn/no-useless-fallback-in-spread: error
   unicorn/no-useless-length-check: error
@@ -269,20 +268,25 @@ rules:
     - error
     - checkFilenames: false
       replacements:
-        dir:
-          direction: false
-        pkg:
-          package: false
+        dir: false
+        e: false
+        i: false
+        j: false
+        param: false
+        params: false
+        pkg: false
+        prop: false
+        props: false
+        ref: false
+        req: false
+        res: false
+        tmp: false
         cfg:
           config: true
         lang:
           language: true
         langs:
           languages: true
-        dep:
-          dependency: true
-        deps:
-          dependencies: true
   unicorn/require-array-join-separator: error
   unicorn/require-number-to-fixed-digits-argument: error
   unicorn/template-indent: error
@@ -465,7 +469,6 @@ overrides:
       '@typescript-eslint/restrict-plus-operands': error
       '@typescript-eslint/restrict-template-expressions': error
       '@typescript-eslint/return-await': error
-      '@typescript-eslint/sort-type-union-intersection-members': error
       '@typescript-eslint/strict-boolean-expressions': error
       '@typescript-eslint/switch-exhaustiveness-check': error
       '@typescript-eslint/triple-slash-reference': error

@@ -365,7 +365,7 @@ const ruleset: Record<string, Rule> = {
     scope: 'ts',
   },
   '@typescript-eslint/sort-type-union-intersection-members': {
-    enabled: projectHas('typescript'), // Weird, but autofixable
+    enabled: false, // Weird // projectHas('typescript'),
     scope: 'ts',
     fixable: true,
   },
