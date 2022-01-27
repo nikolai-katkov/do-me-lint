@@ -13,6 +13,7 @@ plugins:
   - simple-import-sort
   - unicorn
   - sonarjs
+  - promise
   - array-func
 parserOptions:
   sourceType: module
@@ -156,6 +157,11 @@ rules:
   prefer-regex-literals: error
   prefer-spread: error
   prefer-template: error
+  promise/no-nesting: error
+  promise/no-new-statics: error
+  promise/no-return-wrap: error
+  promise/param-names: error
+  promise/valid-params: error
   radix: error
   require-atomic-updates: error
   require-unicode-regexp: error
@@ -346,6 +352,7 @@ overrides:
       no-use-before-define: error
       no-useless-constructor: error
       prefer-rest-params: error
+      promise/no-return-in-finally: error
       require-await: error
       sonarjs/no-extra-arguments: error
       sonarjs/no-identical-expressions: error

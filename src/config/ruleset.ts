@@ -3,6 +3,7 @@ import arrayFunction from './ruleset.array-func'
 import eslint from './ruleset.eslint'
 import jest from './ruleset.jest'
 import jsxA11y from './ruleset.jsx-a11y'
+import promise from './ruleset.promise'
 import react from './ruleset.react'
 import reactHooks from './ruleset.react-hooks'
 import simpleSort from './ruleset.simple-import-sort'
@@ -21,6 +22,7 @@ const ruleset: Record<string, Rule> = {
   ...unicorn,
   ...jest,
   ...sonarjs,
+  ...promise,
   ...yml,
   ...arrayFunction,
 }

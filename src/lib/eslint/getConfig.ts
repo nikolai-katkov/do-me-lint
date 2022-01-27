@@ -60,7 +60,7 @@ const maybeObject = <T extends {}>(object: T): T | undefined =>
 
 const getPlugins = (projectDependencies: string[]): ByScope<string[]> => {
   const plugins: ByScope<string[]> = { all: [], js: [], ts: [], testJest: [], yaml: [] }
-  plugins.all.push('simple-import-sort', 'unicorn', 'sonarjs', 'array-func')
+  plugins.all.push('simple-import-sort', 'unicorn', 'sonarjs', 'promise', 'array-func')
   plugins.yaml.push('yml')
 
   if (projectDependencies.includes('react')) {
@@ -193,6 +193,7 @@ const getDependencies = (projectDependencies: string[]): string[] => {
     'eslint-plugin-simple-import-sort',
     'eslint-plugin-unicorn',
     'eslint-plugin-sonarjs',
+    'eslint-plugin-promise',
     'eslint-plugin-yml',
     'eslint-plugin-array-func'
   )
