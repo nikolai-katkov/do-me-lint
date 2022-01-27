@@ -136,6 +136,9 @@ const ruleset: Record<string, Rule> = {
     enabled: true,
     fixable: true,
   },
+  'unicorn/no-thenable': {
+    enabled: true,
+  },
   'unicorn/no-this-assignment': {
     enabled: true,
   },
@@ -154,6 +157,10 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   'unicorn/no-useless-length-check': {
+    enabled: true,
+    fixable: true,
+  },
+  'unicorn/no-useless-promise-resolve-reject': {
     enabled: true,
     fixable: true,
   },
@@ -238,6 +245,10 @@ const ruleset: Record<string, Rule> = {
   },
   'unicorn/prefer-includes': {
     enabled: true,
+    fixable: true,
+  },
+  'unicorn/prefer-json-parse-buffer': {
+    enabled: false, // exotic
     fixable: true,
   },
   'unicorn/prefer-keyboard-event-key': {
@@ -351,6 +362,10 @@ const ruleset: Record<string, Rule> = {
         deps: { dependencies: true },
       },
     },
+    fixable: true,
+  },
+  'unicorn/relative-url-style': {
+    enabled: false, // too specific, and I believe humans know better
     fixable: true,
   },
   'unicorn/require-array-join-separator': {

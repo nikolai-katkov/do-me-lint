@@ -398,6 +398,9 @@ const ruleset: Record<string, Rule> = {
   'prefer-named-capture-group': {
     enabled: true,
   },
+  'prefer-object-has-own': {
+    enabled: false, // until Object.hasOwn stops being experimental: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwn#browser_compatibility
+  },
   'prefer-promise-reject-errors': {
     enabled: true,
     options: { allowEmptyReject: true },

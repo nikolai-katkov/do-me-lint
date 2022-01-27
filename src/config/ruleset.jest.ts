@@ -108,6 +108,15 @@ const ruleset: Record<string, Rule> = {
     enabled: false, // it's fine to use toHaveBeenCalled() // projectHas('jest')
     scope: 'testJest',
   },
+  'jest/prefer-comparison-matcher': {
+    enabled: true,
+    fixable: true,
+    scope: 'testJest',
+  },
+  'jest/prefer-equality-matcher': {
+    enabled: true,
+    scope: 'testJest',
+  },
   'jest/prefer-expect-assertions': {
     enabled: false, // leads to a bloated boilerplate // projectHas('jest')
     scope: 'testJest',
