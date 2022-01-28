@@ -1,5 +1,6 @@
 import { ESLint } from 'eslint'
 import { sync as glob } from 'glob'
+import path from 'path'
 
 interface Parameters {
   pattern: string
@@ -11,12 +12,12 @@ const fixProject = async (parameters: Parameters): Promise<ESLint.LintResult[]> 
     return []
   }
 
-  const { pattern } = parameters
+  const { pattern, cwd } = parameters
 
   const eslint = new ESLint({ fix: true })
 
   // don't need to ignore node_modules, it's ignored by default
-  const results = await eslint.lintFiles(pattern)
+  const results = await eslint.lintFiles(path.join(cwd, pattern))
   await ESLint.outputFixes(results)
   return results
 }

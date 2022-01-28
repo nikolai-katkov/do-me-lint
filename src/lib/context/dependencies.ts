@@ -1,3 +1,4 @@
+/* eslint-disable no-continue */
 import type { LockFileObject } from '@yarnpkg/lockfile'
 import { parse as parseYarnLock } from '@yarnpkg/lockfile'
 import fs from 'fs'
@@ -40,21 +41,31 @@ const getYarnPackages = (
   const yarnLockRaw = fs.readFileSync(path.join(projectDirectory, 'yarn.lock'), 'utf-8')
   const lockFileObject = parseYarnLock(yarnLockRaw).object as LockFileObject
   for (const dependencyWithVersion in lockFileObject) {
-    if (Object.prototype.hasOwnProperty.call(lockFileObject, dependencyWithVersion)) {
-      const match = dependencyWithVersion.match(/^(?<package>.*?)@[^@]+$/u)
-      if (match?.groups) {
-        const packageName = match.groups.package
+    if (!Object.prototype.hasOwnProperty.call(lockFileObject, dependencyWithVersion)) {
+      continue
+    }
+    const match = dependencyWithVersion.match(/^(?<packageName>.*?)@(?<claimedVersion>[^@]+)$/u)
+    if (!match?.groups) {
+      continue
+    }
+    const { packageName, claimedVersion } = match.groups
 
-        installedPackages.push({
-          name: packageName,
-          isDev: packageJson.devDependencies
-            ? Object.keys(packageJson.devDependencies).includes(packageName)
-            : false,
-          version: lockFileObject[dependencyWithVersion].version,
-        })
-      }
+    const allDeps = {
+      ...packageJson.dependencies,
+      ...packageJson.devDependencies,
+    }
+
+    if (allDeps[packageName] && allDeps[packageName] === claimedVersion) {
+      installedPackages.push({
+        name: packageName,
+        isDev: packageJson.devDependencies
+          ? Object.keys(packageJson.devDependencies).includes(packageName)
+          : false,
+        version: lockFileObject[dependencyWithVersion].version,
+      })
     }
   }
+
   return installedPackages
 }
 

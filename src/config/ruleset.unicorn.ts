@@ -147,7 +147,7 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   'unicorn/no-unsafe-regex': {
-    enabled: false, // annoying in webpack
+    enabled: false, // nerdy
   },
   'unicorn/no-unused-properties': {
     enabled: true, // something scary and powerful

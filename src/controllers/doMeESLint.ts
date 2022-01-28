@@ -22,6 +22,7 @@ const doMeESLint = async (context: Context): Promise<void> => {
     dependencyManager: context.dependencyManager,
     eslintDependencies: dependencies,
     installedPackages: context.installedPackages,
+    cwd: context.projectDirectory,
     debug: context.debug,
   })
 

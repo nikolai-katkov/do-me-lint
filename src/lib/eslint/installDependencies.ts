@@ -31,38 +31,42 @@ async function getOutdatedDependencies(
 interface InstallDependenciesParameters {
   outdatedDependencies: string[]
   outdatedDevelopmentDependencies: string[]
+  cwd: string
   debug: boolean
 }
 
 const installNpmDependencies = (parameters: InstallDependenciesParameters): void => {
-  const { outdatedDependencies, outdatedDevelopmentDependencies, debug } = parameters
+  const { outdatedDependencies, outdatedDevelopmentDependencies, cwd, debug } = parameters
   const dependencyList = outdatedDependencies.map(dependency => `${dependency}@latest`).join(' ')
   const developmentDependencyList = outdatedDevelopmentDependencies
     .map(dependency => `${dependency}@latest`)
     .join(' ')
 
   if (dependencyList) {
-    execSync(`npm i ${dependencyList}`, { stdio: debug ? 'inherit' : 'ignore' })
+    execSync(`npm i ${dependencyList}`, { cwd, stdio: debug ? 'inherit' : 'ignore' })
   }
 
   if (developmentDependencyList) {
-    execSync(`npm i -D ${developmentDependencyList}`, { stdio: debug ? 'inherit' : 'ignore' })
+    execSync(`npm i -D ${developmentDependencyList}`, { cwd, stdio: debug ? 'inherit' : 'ignore' })
   }
 }
 
 const installYarnDependencies = (parameters: InstallDependenciesParameters): void => {
-  const { outdatedDependencies, outdatedDevelopmentDependencies, debug } = parameters
+  const { outdatedDependencies, outdatedDevelopmentDependencies, cwd, debug } = parameters
   const dependencyList = outdatedDependencies.map(dependency => `${dependency}@latest`).join(' ')
   const developmentDependencyList = outdatedDevelopmentDependencies
     .map(dependency => `${dependency}@latest`)
     .join(' ')
 
   if (dependencyList) {
-    execSync(`yarn add ${dependencyList}`, { stdio: debug ? 'inherit' : 'ignore' })
+    execSync(`yarn add ${dependencyList}`, { cwd, stdio: debug ? 'inherit' : 'ignore' })
   }
 
   if (developmentDependencyList) {
-    execSync(`yarn add --dev ${developmentDependencyList}`, { stdio: debug ? 'inherit' : 'ignore' })
+    execSync(`yarn add --dev ${developmentDependencyList}`, {
+      cwd,
+      stdio: debug ? 'inherit' : 'ignore',
+    })
   }
 }
 
@@ -70,10 +74,11 @@ interface Parameters {
   dependencyManager?: DependencyManager
   eslintDependencies: string[]
   installedPackages: InstalledPackage[]
+  cwd: string
   debug: boolean
 }
 const installDependencies = async (parameters: Parameters) => {
-  const { dependencyManager, eslintDependencies, installedPackages, debug } = parameters
+  const { dependencyManager, eslintDependencies, installedPackages, cwd, debug } = parameters
   const { outdatedDependencies, outdatedDevelopmentDependencies } = await getOutdatedDependencies(
     eslintDependencies,
     installedPackages
@@ -88,12 +93,12 @@ const installDependencies = async (parameters: Parameters) => {
   log.debug(`missing / outdated dependencies: ${allDependencies.join(', ')}`)
 
   if (!dependencyManager) {
-    execSync('npm init -y', { stdio: debug ? 'inherit' : 'ignore' })
-    installNpmDependencies({ outdatedDependencies, outdatedDevelopmentDependencies, debug })
+    execSync('npm init -y', { cwd, stdio: debug ? 'inherit' : 'ignore' })
+    installNpmDependencies({ outdatedDependencies, outdatedDevelopmentDependencies, cwd, debug })
   } else if (dependencyManager === 'npm') {
-    installNpmDependencies({ outdatedDependencies, outdatedDevelopmentDependencies, debug })
+    installNpmDependencies({ outdatedDependencies, outdatedDevelopmentDependencies, cwd, debug })
   } else {
-    installYarnDependencies({ outdatedDependencies, outdatedDevelopmentDependencies, debug })
+    installYarnDependencies({ outdatedDependencies, outdatedDevelopmentDependencies, cwd, debug })
   }
 }
 

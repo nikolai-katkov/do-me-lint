@@ -1,5 +1,6 @@
 import fs from 'fs'
 import { sync as glob } from 'glob'
+import path from 'path'
 import { check, format, getFileInfo, resolveConfig } from 'prettier'
 
 import log from '../../util/log'
@@ -16,7 +17,7 @@ export const fixProject = async (parameters: Parameters): Promise<void> => {
   })
 
   for (const filePath of files) {
-    await makeFilePrettier(filePath)
+    await makeFilePrettier(path.join(projectDirectory, filePath))
   }
 }
 
