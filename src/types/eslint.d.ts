@@ -9,7 +9,7 @@ export type RuleValue = RuleLevel | [RuleLevel, ...JsonArray]
 export type ESLintRules = Record<string, RuleValue>
 
 export interface Settings {
-  react: {
+  react?: {
     version: string
   }
   [key: string]: JsonValue | undefined

@@ -147,7 +147,7 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   'unicorn/no-unsafe-regex': {
-    enabled: false, // nerdy
+    enabled: false, // false positives, like /^(?:[A-Z][a-z]+)+$/u
   },
   'unicorn/no-unused-properties': {
     enabled: true, // something scary and powerful

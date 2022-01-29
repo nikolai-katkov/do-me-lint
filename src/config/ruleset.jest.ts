@@ -109,12 +109,12 @@ const ruleset: Record<string, Rule> = {
     scope: 'testJest',
   },
   'jest/prefer-comparison-matcher': {
-    enabled: true,
+    enabled: projectHas('jest'),
     fixable: true,
     scope: 'testJest',
   },
   'jest/prefer-equality-matcher': {
-    enabled: true,
+    enabled: projectHas('jest'),
     scope: 'testJest',
   },
   'jest/prefer-expect-assertions': {

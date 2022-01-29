@@ -164,7 +164,6 @@ rules:
   promise/valid-params: error
   radix: error
   require-atomic-updates: error
-  require-unicode-regexp: error
   require-yield: error
   simple-import-sort/exports: error
   simple-import-sort/imports: error
@@ -321,9 +320,7 @@ overrides:
       no-dupe-args: error
       no-dupe-class-members: error
       no-dupe-keys: error
-      no-duplicate-imports:
-        - error
-        - includeExports: true
+      no-duplicate-imports: error
       no-empty-function:
         - error
         - allow:
@@ -390,6 +387,7 @@ overrides:
         - selector: memberLike
           format:
             - camelCase
+            - UPPER_CASE
             - PascalCase
           leadingUnderscore: allow
           trailingUnderscore: allow
@@ -408,9 +406,7 @@ overrides:
       '@typescript-eslint/no-confusing-non-null-assertion': error
       '@typescript-eslint/no-confusing-void-expression': error
       '@typescript-eslint/no-dupe-class-members': error
-      '@typescript-eslint/no-duplicate-imports':
-        - error
-        - includeExports: true
+      '@typescript-eslint/no-duplicate-imports': error
       '@typescript-eslint/no-empty-function':
         - error
         - allow:

@@ -416,7 +416,7 @@ const ruleset: Record<string, Rule> = {
     scope: 'js', // @typescript-eslint/require-await
   },
   'require-unicode-regexp': {
-    enabled: true,
+    enabled: false, // reports even for latin-only regexps, annoying in webpack config
   },
   'vars-on-top': {
     enabled: false, // doesn't make sense in ES6 world
@@ -898,8 +898,7 @@ const ruleset: Record<string, Rule> = {
     scope: 'js', // ts(2393) & ts(2300), @typescript-eslint/no-dupe-class-members
   },
   'no-duplicate-imports': {
-    enabled: true,
-    options: { includeExports: true },
+    enabled: true, // not including includeExports option to allow re-export external library's stuff along with ours
     scope: 'js', // conflicts with @typescript-eslint/consistent-type-imports (prefer that), covered by @typescript-eslint/no-duplicate-imports
   },
   'no-new-symbol': {

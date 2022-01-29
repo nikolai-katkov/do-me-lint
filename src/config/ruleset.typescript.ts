@@ -97,7 +97,7 @@ const ruleset: Record<string, Rule> = {
     options: [
       {
         selector: 'memberLike',
-        format: ['camelCase', 'PascalCase'],
+        format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
         leadingUnderscore: 'allow',
         trailingUnderscore: 'allow',
       },
@@ -460,8 +460,7 @@ const ruleset: Record<string, Rule> = {
   },
   '@typescript-eslint/no-duplicate-imports': {
     enabled: projectHas('typescript'),
-    options: { includeExports: true },
-    scope: 'ts',
+    scope: 'ts', // not including includeExports option to allow re-export external library's stuff along with ours
   },
   '@typescript-eslint/no-empty-function': {
     enabled: projectHas('typescript'),
