@@ -6,7 +6,7 @@ interface Parameters {
   pattern: string
   cwd: string
 }
-const fixProject = async (parameters: Parameters): Promise<ESLint.LintResult[]> => {
+export const fixProject = async (parameters: Parameters): Promise<ESLint.LintResult[]> => {
   // unlike Prettier, ESLint throws an error when it can't find files to lint
   if (!hasFilesToLint(parameters)) {
     return []
@@ -32,5 +32,3 @@ const hasFilesToLint = (parameters: Parameters): boolean => {
 
   return files.length > 0
 }
-
-export default fixProject

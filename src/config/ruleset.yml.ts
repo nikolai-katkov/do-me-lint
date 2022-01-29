@@ -1,6 +1,6 @@
 import type { Rule } from '../lib/eslint/rulesConfig'
 
-const ruleset: Record<string, Rule> = {
+export const ruleset: Record<string, Rule> = {
   // YAML Rules
   'yml/block-mapping-question-indicator-newline': {
     enabled: false, // covered by Prettier
@@ -114,5 +114,3 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
 }
-
-export default ruleset

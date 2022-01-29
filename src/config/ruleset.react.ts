@@ -1,7 +1,7 @@
 import type { Rule } from '../lib/eslint/rulesConfig'
 import { projectHas } from '../lib/eslint/rulesConfig'
 
-const ruleset: Record<string, Rule> = {
+export const ruleset: Record<string, Rule> = {
   'react/boolean-prop-naming': {
     enabled: false, // too nerdy // projectHas('react')
   },
@@ -324,5 +324,3 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
 }
-
-export default ruleset

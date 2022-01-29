@@ -1,6 +1,6 @@
 import type { Rule } from '../lib/eslint/rulesConfig'
 
-const ruleset: Record<string, Rule> = {
+export const ruleset: Record<string, Rule> = {
   'promise/catch-or-return': {
     enabled: false, // I would rely on the outer-scope catch
   },
@@ -46,5 +46,3 @@ const ruleset: Record<string, Rule> = {
     enabled: false, // no documentation on the rule
   },
 }
-
-export default ruleset

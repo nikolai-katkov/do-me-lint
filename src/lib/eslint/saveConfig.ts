@@ -9,7 +9,7 @@ interface Parameters {
   config: ESLintConfig
   projectDirectory: string
 }
-const saveConfig = ({ config, projectDirectory }: Parameters): void => {
+export const saveConfig = ({ config, projectDirectory }: Parameters): void => {
   // eslint-disable-next-line unicorn/template-indent
   const disclaimer = outdent`
     # this file was auto-generated with do-me-lint
@@ -22,5 +22,3 @@ const saveConfig = ({ config, projectDirectory }: Parameters): void => {
   `
   fs.writeFileSync(path.join(projectDirectory, '.eslintrc.yml'), disclaimer + makeYAML(config))
 }
-
-export default saveConfig

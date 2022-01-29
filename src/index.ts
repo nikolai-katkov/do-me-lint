@@ -1,8 +1,8 @@
-import doMeESLint from './controllers/doMeESLint'
-import doMePrettier from './controllers/doMePrettier'
-import doMeVSCode from './controllers/doMeVSCode'
-import getMeContext from './controllers/getMeContext'
-import log from './util/log'
+import { doMeESLint } from './controllers/doMeESLint'
+import { doMePrettier } from './controllers/doMePrettier'
+import { doMeVSCode } from './controllers/doMeVSCode'
+import { getMeContext } from './controllers/getMeContext'
+import * as log from './util/log'
 
 const run = async () => {
   const context = getMeContext()

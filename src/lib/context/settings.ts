@@ -4,7 +4,7 @@ import path from 'path'
 import type { JsonObject } from 'type-fest'
 
 import { fileExists } from '../../util/file'
-import log from '../../util/log'
+import * as log from '../../util/log'
 
 const getRcSettings = (projectDirectory: string): JsonObject => {
   const userSettingsFile = path.resolve(projectDirectory, '.domelintrc.yml')

@@ -3,7 +3,7 @@ import type { JsonObject } from 'type-fest'
 interface Parameters {
   semi: boolean
 }
-const getConfig = ({ semi }: Parameters): JsonObject => ({
+export const getConfig = ({ semi }: Parameters): JsonObject => ({
   printWidth: 100,
   tabWidth: 2,
   useTabs: false,
@@ -16,5 +16,3 @@ const getConfig = ({ semi }: Parameters): JsonObject => ({
   bracketSameLine: false,
   arrowParens: 'avoid',
 })
-
-export default getConfig

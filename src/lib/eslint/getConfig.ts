@@ -1,6 +1,6 @@
 import type { JsonValue } from 'type-fest'
 
-import ruleset from '../../config/ruleset'
+import { ruleset } from '../../config/ruleset'
 import type {
   ESLintConfig,
   ESLintRules,
@@ -25,7 +25,7 @@ interface Result {
   config: ESLintConfig
   dependencies: string[]
 }
-const getConfig = (parameters: Parameters): Result => {
+export const getConfig = (parameters: Parameters): Result => {
   const { projectDependencies, ignoredRules, patterns, semi } = parameters
   const rules = getRules({
     projectDependencies,
@@ -44,7 +44,7 @@ const getConfig = (parameters: Parameters): Result => {
       plugins: plugins.all.length > 0 ? plugins.all : undefined,
       parserOptions: maybeObject(parserOptions.all),
       parser: parser.all || undefined,
-      settings: getSettings(projectDependencies),
+      settings: maybeObject(getSettings(projectDependencies)),
       rules: maybeObject(rules.all),
       overrides: getOverrides({ environments, patterns, plugins, rules, parser, parserOptions }),
     },
@@ -60,7 +60,7 @@ const maybeObject = <T extends {}>(object: T): T | undefined =>
 
 const getPlugins = (projectDependencies: string[]): ByScope<string[]> => {
   const plugins: ByScope<string[]> = { all: [], js: [], ts: [], testJest: [], yaml: [] }
-  plugins.all.push('simple-import-sort', 'unicorn', 'sonarjs', 'promise', 'array-func')
+  plugins.all.push('simple-import-sort', 'unicorn', 'sonarjs', 'promise', 'array-func', 'import')
   plugins.yaml.push('yml')
 
   if (projectDependencies.includes('react')) {
@@ -123,9 +123,23 @@ const getRules = ({
 }
 
 const getSettings = (projectDependencies: string[]) => {
-  let settings: Settings | undefined
+  const settings: Settings = {}
+  settings['import/extensions'] = ['.json', '.js', '.jsx']
+
+  if (projectDependencies.includes('typescript')) {
+    settings['import/extensions'].push('.ts', '.tsx')
+    settings['import/external-module-folders'] = ['node_modules', 'node_modules/@types']
+    settings['import/parsers'] = {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    }
+    settings['import/resolver'] = {
+      node: {
+        extensions: ['.json', '.js', '.jsx', '.ts', '.tsx'],
+      },
+    }
+  }
   if (projectDependencies.includes('react')) {
-    settings = { react: { version: 'detect' } }
+    settings.react = { version: 'detect' }
   }
   return settings
 }
@@ -140,6 +154,7 @@ const getParserOptions = (projectDependencies: string[]): ByScope<ParserOptions>
   }
 
   if (projectDependencies.includes('typescript')) {
+    // parserOptions.ts.project = '/Users/nikolai.katkov/git/dazn/goat-design-system/tsconfig.json'
     parserOptions.ts.project = 'tsconfig.json'
   }
   if (projectDependencies.includes('react')) {
@@ -195,37 +210,26 @@ const getDependencies = (projectDependencies: string[]): string[] => {
     'eslint-plugin-sonarjs',
     'eslint-plugin-promise',
     'eslint-plugin-yml',
-    'eslint-plugin-array-func'
+    'eslint-plugin-array-func',
+    'eslint-plugin-import'
   )
 
   if (projectDependencies.includes('babel')) {
-    // prettier-ignore
-    dependencies.push(
-      '@babel/core',
-      '@babel/eslint-parser',
-      )
+    dependencies.push('@babel/core', '@babel/eslint-parser')
   }
   if (projectDependencies.includes('typescript')) {
-    // prettier-ignore
     dependencies.push(
       '@typescript-eslint/parser',
       '@typescript-eslint/eslint-plugin',
-      )
+      'eslint-import-resolver-typescript'
+    )
   }
   if (projectDependencies.includes('react')) {
-    // prettier-ignore
-    dependencies.push(
-      'eslint-plugin-react', 
-      'eslint-plugin-react-hooks',
-      'eslint-plugin-jsx-a11y',
-      )
+    dependencies.push('eslint-plugin-react', 'eslint-plugin-react-hooks', 'eslint-plugin-jsx-a11y')
   }
   if (projectDependencies.includes('jest')) {
     dependencies.push('eslint-plugin-jest')
   }
-  // if (projectDependencies.includes('vue')) {
-  //   dependencies.push('eslint-plugin-vue')
-  // }
   return dependencies
 }
 
@@ -269,5 +273,3 @@ const getOverrides = (parameters: {
 
   return overrides.length > 0 ? overrides : undefined
 }
-
-export default getConfig

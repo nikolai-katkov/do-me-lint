@@ -11,7 +11,7 @@ import type { Patterns } from '../lib/context/paths'
 import { getMonorepoRoot, getPatterns } from '../lib/context/paths'
 import { getSettings } from '../lib/context/settings'
 import { fileExists } from '../util/file'
-import log from '../util/log'
+import * as log from '../util/log'
 
 const getGitignore = (projectDirectory: string): string[] => {
   const gitignoreFile = path.resolve(projectDirectory, '.gitignore')
@@ -38,7 +38,7 @@ export interface Context {
   gitignore: string[]
   debug: boolean
 }
-const getMeContext = (): Context => {
+export const getMeContext = (): Context => {
   log.info('Gathering execution context')
 
   const projectDirectory = process.env.INIT_CWD ?? process.cwd()
@@ -77,4 +77,3 @@ const getMeContext = (): Context => {
     debug,
   }
 }
-export default getMeContext

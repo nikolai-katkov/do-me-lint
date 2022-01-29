@@ -1,6 +1,6 @@
 import type { Rule } from '../lib/eslint/rulesConfig'
 
-const ruleset: Record<string, Rule> = {
+export const ruleset: Record<string, Rule> = {
   'for-direction': {
     enabled: true,
   },
@@ -987,5 +987,3 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
 }
-
-export default ruleset

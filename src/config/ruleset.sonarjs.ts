@@ -1,6 +1,6 @@
 import type { Rule } from '../lib/eslint/rulesConfig'
 
-const ruleset: Record<string, Rule> = {
+export const ruleset: Record<string, Rule> = {
   // Bug Detection 🐛
   'sonarjs/no-all-duplicated-branches': {
     enabled: true,
@@ -108,5 +108,3 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
 }
-
-export default ruleset

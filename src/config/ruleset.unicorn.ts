@@ -1,6 +1,6 @@
 import type { Rule } from '../lib/eslint/rulesConfig'
 
-const ruleset: Record<string, Rule> = {
+export const ruleset: Record<string, Rule> = {
   'unicorn/better-regex': {
     enabled: true,
     fixable: true,
@@ -401,5 +401,3 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
 }
-
-export default ruleset

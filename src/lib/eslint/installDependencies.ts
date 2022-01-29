@@ -1,7 +1,7 @@
 import { execSync } from 'child_process'
 import latestVersion from 'latest-version'
 
-import log from '../../util/log'
+import * as log from '../../util/log'
 import type { DependencyManager, InstalledPackage } from '../context/dependencies'
 
 async function getOutdatedDependencies(
@@ -77,7 +77,7 @@ interface Parameters {
   cwd: string
   debug: boolean
 }
-const installDependencies = async (parameters: Parameters) => {
+export const installDependencies = async (parameters: Parameters) => {
   const { dependencyManager, eslintDependencies, installedPackages, cwd, debug } = parameters
   const { outdatedDependencies, outdatedDevelopmentDependencies } = await getOutdatedDependencies(
     eslintDependencies,
@@ -101,5 +101,3 @@ const installDependencies = async (parameters: Parameters) => {
     installYarnDependencies({ outdatedDependencies, outdatedDevelopmentDependencies, cwd, debug })
   }
 }
-
-export default installDependencies

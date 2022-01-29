@@ -9,7 +9,7 @@ interface Parameters {
   projectDirectory: string
   gitignore: string[]
 }
-const saveIgnore = ({ ignoreFileName, projectDirectory, gitignore }: Parameters): void => {
+export const saveIgnore = ({ ignoreFileName, projectDirectory, gitignore }: Parameters): void => {
   const filename = path.join(projectDirectory, ignoreFileName)
   const patterns = gitignore.filter(line => !line.startsWith('node_modules'))
   if (patterns.length === 0) {
@@ -38,5 +38,3 @@ const saveIgnore = ({ ignoreFileName, projectDirectory, gitignore }: Parameters)
   }
   fs.writeFileSync(filename, newContent)
 }
-
-export default saveIgnore

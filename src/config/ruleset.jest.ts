@@ -1,7 +1,7 @@
 import type { Rule } from '../lib/eslint/rulesConfig'
 import { projectHas } from '../lib/eslint/rulesConfig'
 
-const ruleset: Record<string, Rule> = {
+export const ruleset: Record<string, Rule> = {
   'jest/consistent-test-it': {
     enabled: projectHas('jest'),
     scope: 'testJest',
@@ -195,5 +195,3 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
 }
-
-export default ruleset

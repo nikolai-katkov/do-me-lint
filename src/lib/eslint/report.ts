@@ -1,7 +1,7 @@
 import type { ESLint } from 'eslint'
 import path from 'path'
 
-import log from '../../util/log'
+import * as log from '../../util/log'
 
 type Report = Map<string, [number, Set<string>]>
 

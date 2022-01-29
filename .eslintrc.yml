@@ -15,9 +15,32 @@ plugins:
   - sonarjs
   - promise
   - array-func
+  - import
 parserOptions:
   sourceType: module
   ecmaVersion: 2021
+settings:
+  import/extensions:
+    - .json
+    - .js
+    - .jsx
+    - .ts
+    - .tsx
+  import/external-module-folders:
+    - node_modules
+    - node_modules/@types
+  import/parsers:
+    '@typescript-eslint/parser':
+      - .ts
+      - .tsx
+  import/resolver:
+    node:
+      extensions:
+        - .json
+        - .js
+        - .jsx
+        - .ts
+        - .tsx
 rules:
   accessor-pairs: error
   array-callback-return: error
@@ -50,6 +73,23 @@ rules:
     - error
     - min: 1
       max: 35
+  import/first: error
+  import/newline-after-import: error
+  import/no-absolute-path: error
+  import/no-anonymous-default-export: error
+  import/no-default-export: error
+  import/no-dynamic-require: error
+  import/no-extraneous-dependencies: error
+  import/no-mutable-exports: error
+  import/no-named-as-default: error
+  import/no-named-as-default-member: error
+  import/no-named-default: error
+  import/no-self-import: error
+  import/no-useless-path-segments:
+    - error
+    - noUselessIndex: true
+      commonjs: true
+  import/no-webpack-loader-syntax: error
   max-classes-per-file: error
   max-depth:
     - error
@@ -314,6 +354,10 @@ overrides:
       default-param-last: error
       dot-notation: error
       getter-return: error
+      import/default: error
+      import/named: error
+      import/namespace: error
+      import/no-deprecated: error
       lines-between-class-members: error
       no-array-constructor: error
       no-const-assign: error

@@ -1,12 +1,12 @@
 import fs from 'fs'
 import { sync as glob } from 'glob'
 
-import log from '../../util/log'
+import * as log from '../../util/log'
 
 interface Parameters {
   projectDirectory: string
 }
-const deleteConflictingConfigurations = ({ projectDirectory }: Parameters) => {
+export const deleteConflictingConfigurations = ({ projectDirectory }: Parameters) => {
   const files: string[] = glob('**/.eslintrc{,.js,.yml,.yaml,.json}', {
     cwd: projectDirectory,
     ignore: '**/node_modules/**',
@@ -20,5 +20,3 @@ const deleteConflictingConfigurations = ({ projectDirectory }: Parameters) => {
       fs.rmSync(file)
     })
 }
-
-export default deleteConflictingConfigurations

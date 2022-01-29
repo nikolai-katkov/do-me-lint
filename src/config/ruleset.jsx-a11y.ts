@@ -1,7 +1,7 @@
 import type { Rule } from '../lib/eslint/rulesConfig'
 import { projectHas } from '../lib/eslint/rulesConfig'
 
-const ruleset: Record<string, Rule> = {
+export const ruleset: Record<string, Rule> = {
   'jsx-a11y/alt-text': {
     enabled: projectHas('react'),
   },
@@ -99,5 +99,3 @@ const ruleset: Record<string, Rule> = {
     enabled: projectHas('react'),
   },
 }
-
-export default ruleset

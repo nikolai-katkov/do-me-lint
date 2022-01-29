@@ -1,12 +1,12 @@
 import fs from 'fs'
 import { sync as glob } from 'glob'
 
-import log from '../../util/log'
+import * as log from '../../util/log'
 
 interface Parameters {
   directory: string
 }
-const deleteConflictingConfigurations = ({ directory }: Parameters) => {
+export const deleteConflictingConfigurations = ({ directory }: Parameters) => {
   const files: string[] = glob('.prettierrc*', {
     cwd: directory,
     nodir: true,
@@ -19,5 +19,3 @@ const deleteConflictingConfigurations = ({ directory }: Parameters) => {
       fs.rmSync(file)
     })
 }
-
-export default deleteConflictingConfigurations

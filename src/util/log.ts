@@ -39,12 +39,4 @@ const tickEnd = (): void => {
   console.log('')
 }
 
-export default {
-  error,
-  warn,
-  info,
-  debug,
-  tickStart,
-  tick,
-  tickEnd,
-}
+export { debug, error, info, tick, tickEnd, tickStart, warn }
