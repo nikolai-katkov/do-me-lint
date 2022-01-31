@@ -349,7 +349,7 @@ export const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   'unicorn/prevent-abbreviations': {
-    enabled: false, // in some cases adds underscore that may conflict with orther naming convention rules.
+    enabled: false, // in some cases adds underscores that may conflict with other naming convention rules.
     options: {
       checkFilenames: false,
       replacements: {
