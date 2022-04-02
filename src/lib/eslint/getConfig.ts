@@ -220,8 +220,8 @@ const getDependencies = (projectDependencies: string[]): ExactDependency[] => {
   }
   if (projectDependencies.includes('typescript')) {
     dependencies.push(
-      ['@typescript-eslint/parser', '5.10.1'],
-      ['@typescript-eslint/eslint-plugin', '5.10.1'],
+      ['@typescript-eslint/parser', '5.17.0'],
+      ['@typescript-eslint/eslint-plugin', '5.17.0'],
       ['eslint-import-resolver-typescript', '2.5.0']
     )
   }

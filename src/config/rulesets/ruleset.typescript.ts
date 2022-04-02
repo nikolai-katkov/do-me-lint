@@ -101,6 +101,7 @@ export const ruleset: Record<string, Rule> = {
         leadingUnderscore: 'allow',
         trailingUnderscore: 'allow',
       },
+      { selector: 'memberLike', format: null, modifiers: ['requiresQuotes'] },
       {
         selector: 'variableLike',
         format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
