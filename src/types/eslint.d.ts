@@ -69,3 +69,6 @@ export interface ESLintConfig {
   overrides?: OverrideConfig[]
   [key: string]: JsonValue | undefined
 }
+
+/** [dependencyName, version] */
+export type ExactDependency = [string, string]

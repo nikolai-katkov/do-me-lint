@@ -1,24 +1,25 @@
 import { execSync } from 'child_process'
-import latestVersion from 'latest-version'
 
+import type { ExactDependency } from '../../types/eslint'
 import * as log from '../../util/log'
 import type { DependencyManager, InstalledPackage } from '../context/dependencies'
 
-async function getDependenciesToUpdate(
-  eslintDependencies: string[],
+function getDependenciesToUpdate(
+  dependencies: ExactDependency[],
   installedPackages: InstalledPackage[]
 ) {
-  const dependenciesToUpdate: string[] = []
-  const devDependenciesToUpdate: string[] = []
+  const dependenciesToUpdate: ExactDependency[] = []
+  const devDependenciesToUpdate: ExactDependency[] = []
 
-  for (const eslintDependency of eslintDependencies) {
-    const installedPackage = installedPackages.find(pkg => pkg.name === eslintDependency)
+  for (const exactDependency of dependencies) {
+    const [dependencyName, version] = exactDependency
+    const installedPackage = installedPackages.find(pkg => pkg.name === dependencyName)
 
-    if (installedPackage?.version !== (await latestVersion(eslintDependency))) {
+    if (installedPackage?.version !== version) {
       if (installedPackage === undefined || installedPackage.isDev) {
-        devDependenciesToUpdate.push(eslintDependency)
+        devDependenciesToUpdate.push(exactDependency)
       } else {
-        dependenciesToUpdate.push(eslintDependency)
+        dependenciesToUpdate.push(exactDependency)
       }
     }
   }
@@ -29,17 +30,19 @@ async function getDependenciesToUpdate(
 }
 
 interface InstallDependenciesParameters {
-  dependenciesToUpdate: string[]
-  devDependenciesToUpdate: string[]
+  dependenciesToUpdate: ExactDependency[]
+  devDependenciesToUpdate: ExactDependency[]
   cwd: string
   debug: boolean
 }
 
 const installNpmDependencies = (parameters: InstallDependenciesParameters): void => {
   const { dependenciesToUpdate, devDependenciesToUpdate, cwd, debug } = parameters
-  const dependencyList = dependenciesToUpdate.map(dependency => `${dependency}@latest`).join(' ')
+  const dependencyList = dependenciesToUpdate
+    .map(([dependency, version]) => `${dependency}@${version}`)
+    .join(' ')
   const developmentDependencyList = devDependenciesToUpdate
-    .map(dependency => `${dependency}@latest`)
+    .map(([dependency, version]) => `${dependency}@${version}`)
     .join(' ')
 
   if (dependencyList) {
@@ -53,9 +56,11 @@ const installNpmDependencies = (parameters: InstallDependenciesParameters): void
 
 const installYarnDependencies = (parameters: InstallDependenciesParameters): void => {
   const { dependenciesToUpdate, devDependenciesToUpdate, cwd, debug } = parameters
-  const dependencyList = dependenciesToUpdate.map(dependency => `${dependency}@latest`).join(' ')
+  const dependencyList = dependenciesToUpdate
+    .map(([dependency, version]) => `${dependency}@${version}`)
+    .join(' ')
   const developmentDependencyList = devDependenciesToUpdate
-    .map(dependency => `${dependency}@latest`)
+    .map(([dependency, version]) => `${dependency}@${version}`)
     .join(' ')
 
   if (dependencyList) {
@@ -72,15 +77,15 @@ const installYarnDependencies = (parameters: InstallDependenciesParameters): voi
 
 interface Parameters {
   dependencyManager?: DependencyManager
-  eslintDependencies: string[]
+  dependencies: ExactDependency[]
   installedPackages: InstalledPackage[]
   cwd: string
   debug: boolean
 }
-export const installDependencies = async (parameters: Parameters) => {
-  const { dependencyManager, eslintDependencies, installedPackages, cwd, debug } = parameters
-  const { dependenciesToUpdate, devDependenciesToUpdate } = await getDependenciesToUpdate(
-    eslintDependencies,
+export const installDependencies = (parameters: Parameters) => {
+  const { dependencyManager, dependencies, installedPackages, cwd, debug } = parameters
+  const { dependenciesToUpdate, devDependenciesToUpdate } = getDependenciesToUpdate(
+    dependencies,
     installedPackages
   )
 
@@ -90,7 +95,12 @@ export const installDependencies = async (parameters: Parameters) => {
     log.debug('all dependencies are up to date')
     return
   }
-  log.debug(`dependencies to install or update: ${allDependencies.join(', ')}`)
+
+  const readableDependencyList = allDependencies
+    .map(([dependency, version]) => `${dependency}@${version}`)
+    .join(', ')
+
+  log.debug(`dependencies to install or update: ${readableDependencyList}`)
 
   if (!dependencyManager) {
     execSync('npm init -y', { cwd, stdio: debug ? 'inherit' : 'ignore' })

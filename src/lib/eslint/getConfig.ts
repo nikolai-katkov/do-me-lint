@@ -4,6 +4,7 @@ import { ruleset } from '../../config/rulesets'
 import type {
   ESLintConfig,
   ESLintRules,
+  ExactDependency,
   OverrideConfig,
   ParserOptions,
   RuleLevel,
@@ -23,7 +24,7 @@ interface Parameters {
 
 interface Result {
   config: ESLintConfig
-  dependencies: string[]
+  dependencies: ExactDependency[]
 }
 export const getConfig = (parameters: Parameters): Result => {
   const { projectDependencies, ignoredRules, patterns, semi } = parameters
@@ -199,36 +200,40 @@ const getEnvironments = (projectDependencies: string[]): ByScope<Record<string, 
   return environments
 }
 
-const getDependencies = (projectDependencies: string[]): string[] => {
-  const dependencies: string[] = []
+const getDependencies = (projectDependencies: string[]): ExactDependency[] => {
+  const dependencies: ExactDependency[] = []
   dependencies.push(
-    'eslint',
-    'prettier',
-    'eslint-config-prettier',
-    'eslint-plugin-simple-import-sort',
-    'eslint-plugin-unicorn',
-    'eslint-plugin-sonarjs',
-    'eslint-plugin-promise',
-    'eslint-plugin-yml',
-    'eslint-plugin-array-func',
-    'eslint-plugin-import'
+    ['eslint', '8.8.0'],
+    ['prettier', '2.5.1'],
+    ['eslint-config-prettier', '8.3.0'],
+    ['eslint-plugin-simple-import-sort', '7.0.0'],
+    ['eslint-plugin-unicorn', '40.1.0'],
+    ['eslint-plugin-sonarjs', '0.11.0'],
+    ['eslint-plugin-promise', '6.0.0'],
+    ['eslint-plugin-yml', '0.13.0'],
+    ['eslint-plugin-array-func', '3.1.7'],
+    ['eslint-plugin-import', '2.25.4']
   )
 
   if (projectDependencies.includes('babel')) {
-    dependencies.push('@babel/core', '@babel/eslint-parser')
+    dependencies.push(['@babel/core', 'latest'], ['@babel/eslint-parser', 'latest'])
   }
   if (projectDependencies.includes('typescript')) {
     dependencies.push(
-      '@typescript-eslint/parser',
-      '@typescript-eslint/eslint-plugin',
-      'eslint-import-resolver-typescript'
+      ['@typescript-eslint/parser', '5.10.1'],
+      ['@typescript-eslint/eslint-plugin', '5.10.1'],
+      ['eslint-import-resolver-typescript', '2.5.0']
     )
   }
   if (projectDependencies.includes('react')) {
-    dependencies.push('eslint-plugin-react', 'eslint-plugin-react-hooks', 'eslint-plugin-jsx-a11y')
+    dependencies.push(
+      ['eslint-plugin-react', '7.28.0'],
+      ['eslint-plugin-react-hooks', '4.3.0'],
+      ['eslint-plugin-jsx-a11y', '6.5.1']
+    )
   }
   if (projectDependencies.includes('jest')) {
-    dependencies.push('eslint-plugin-jest')
+    dependencies.push(['eslint-plugin-jest', '26.0.0'])
   }
   return dependencies
 }

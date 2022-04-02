@@ -64,7 +64,6 @@
     "inquirer": "^8.2.0",
     "js-yaml": "^4.1.0",
     "jsonc-parser": "^3.0.0",
-    "latest-version": "^5.1.0",
     "outdent": "^0.8.0",
     "prettier": "^2.5.1",
     "ts-jest": "^27.1.3"

@@ -18,9 +18,9 @@ export const doMeESLint = async (context: Context): Promise<void> => {
   })
 
   log.info('Checking required NPM dependencies for ESLint')
-  await installDependencies({
+  installDependencies({
     dependencyManager: context.dependencyManager,
-    eslintDependencies: dependencies,
+    dependencies,
     installedPackages: context.installedPackages,
     cwd: context.projectDirectory,
     debug: context.debug,
