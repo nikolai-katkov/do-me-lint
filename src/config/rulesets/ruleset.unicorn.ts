@@ -146,6 +146,10 @@ export const ruleset: Record<string, Rule> = {
     enabled: false, // just not sure
     fixable: true,
   },
+  'unicorn/no-unreadable-iife': {
+    enabled: true,
+    fixable: true,
+  },
   'unicorn/no-unsafe-regex': {
     enabled: false, // false positives, like /^(?:[A-Z][a-z]+)+$/u
   },
@@ -165,6 +169,10 @@ export const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   'unicorn/no-useless-spread': {
+    enabled: true,
+    fixable: true,
+  },
+  'unicorn/no-useless-switch-case': {
     enabled: true,
     fixable: true,
   },
@@ -263,8 +271,16 @@ export const ruleset: Record<string, Rule> = {
     enabled: true,
     fixable: true,
   },
+  'unicorn/prefer-modern-math-apis': {
+    enabled: true,
+    fixable: true,
+  },
   'unicorn/prefer-module': {
     enabled: false, // there are other motivators to use one or another
+    fixable: true,
+  },
+  'unicorn/prefer-native-coercion-functions': {
+    enabled: true,
     fixable: true,
   },
   'unicorn/prefer-negative-index': {
@@ -394,6 +410,10 @@ export const ruleset: Record<string, Rule> = {
   },
   'unicorn/template-indent': {
     enabled: true, // wow, need to test
+    fixable: true,
+  },
+  'unicorn/text-encoding-identifier-case': {
+    enabled: true,
     fixable: true,
   },
   'unicorn/throw-new-error': {

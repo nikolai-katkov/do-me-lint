@@ -65,7 +65,7 @@ export const ruleset: Record<string, Rule> = {
     enabled: true,
   },
   'sonarjs/no-inverted-boolean-check': {
-    enabled: true,
+    enabled: false, // https://github.com/SonarSource/eslint-plugin-sonarjs/issues/211
     fixable: true,
   },
   'sonarjs/no-nested-switch': {

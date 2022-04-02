@@ -29,6 +29,12 @@ export const ruleset: Record<string, Rule> = {
     enabled: projectHas('jest'),
     scope: 'testJest',
   },
+
+  'jest/no-conditional-in-test': {
+    enabled: projectHas('jest'), // let's see. It deprecated jest/no-if
+    scope: 'testJest',
+  },
+
   'jest/no-deprecated-functions': {
     enabled: projectHas('jest'),
     scope: 'testJest',
@@ -63,7 +69,7 @@ export const ruleset: Record<string, Rule> = {
     scope: 'testJest',
   },
   'jest/no-if': {
-    enabled: projectHas('jest'), // let's see
+    enabled: false, // deprecated
     scope: 'testJest',
   },
   'jest/no-interpolation-in-snapshots': {
@@ -135,6 +141,10 @@ export const ruleset: Record<string, Rule> = {
     options: { ignore: ['describe'] },
     scope: 'testJest',
     fixable: true,
+  },
+  'jest/prefer-snapshot-hint': {
+    enabled: projectHas('jest'),
+    scope: 'testJest',
   },
   'jest/prefer-spy-on': {
     enabled: projectHas('jest'),

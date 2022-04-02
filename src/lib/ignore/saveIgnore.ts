@@ -25,7 +25,7 @@ export const saveIgnore = ({ ignoreFileName, projectDirectory, gitignore }: Para
   let newContent = ''
 
   if (fileExists(filename)) {
-    const oldContent = fs.readFileSync(filename, 'utf-8')
+    const oldContent = fs.readFileSync(filename, 'utf8')
     const match = oldContent.match(/# >>> domelint-start.*# <<< domelint-end/su)
     if (match) {
       const [oldInset] = match

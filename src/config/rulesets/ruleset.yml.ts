@@ -103,6 +103,11 @@ export const ruleset: Record<string, Rule> = {
     enabled: true,
     scope: 'yaml',
   },
+  'yml/sort-sequence-values': {
+    enabled: false, // I may want to group them by some logc
+    scope: 'yaml',
+    fixable: true,
+  },
   'yml/sort-keys': {
     enabled: false, // I may want to group them by some logc
     scope: 'yaml',

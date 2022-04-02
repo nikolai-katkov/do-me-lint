@@ -448,7 +448,7 @@ export const ruleset: Record<string, Rule> = {
   },
   'no-shadow': {
     enabled: true,
-    options: { builtinGlobals: false, hoist: 'functions' },
+    options: { builtinGlobals: false, hoist: 'functions', ignoreOnInitialization: true },
     scope: 'js', // @typescript-eslint/no-shadow
   },
   'no-shadow-restricted-names': {

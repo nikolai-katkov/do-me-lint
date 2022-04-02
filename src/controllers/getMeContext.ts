@@ -19,7 +19,7 @@ const getGitignore = (projectDirectory: string): string[] => {
   if (!fileExists(gitignoreFile)) {
     return []
   }
-  const fileContent = fs.readFileSync(gitignoreFile, 'utf-8')
+  const fileContent = fs.readFileSync(gitignoreFile, 'utf8')
   return fileContent
     .split('\n')
     .filter(Boolean)

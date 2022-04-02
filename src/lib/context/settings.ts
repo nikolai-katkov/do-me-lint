@@ -12,7 +12,7 @@ const getRcSettings = (projectDirectory: string): JsonObject => {
   if (!fileExists(userSettingsFile)) {
     return {}
   }
-  const fileContent = fs.readFileSync(userSettingsFile, 'utf-8')
+  const fileContent = fs.readFileSync(userSettingsFile, 'utf8')
   let parseResult: ReturnType<typeof yaml.load>
   try {
     parseResult = yaml.load(fileContent)

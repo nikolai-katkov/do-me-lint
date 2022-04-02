@@ -221,7 +221,6 @@ rules:
   sonarjs/no-identical-conditions: error
   sonarjs/no-identical-functions: error
   sonarjs/no-ignored-return: error
-  sonarjs/no-inverted-boolean-check: error
   sonarjs/no-nested-switch: error
   sonarjs/no-nested-template-literals: error
   sonarjs/no-small-switch: error
@@ -267,11 +266,13 @@ rules:
   unicorn/no-static-only-class: error
   unicorn/no-thenable: error
   unicorn/no-this-assignment: error
+  unicorn/no-unreadable-iife: error
   unicorn/no-unused-properties: error
   unicorn/no-useless-fallback-in-spread: error
   unicorn/no-useless-length-check: error
   unicorn/no-useless-promise-resolve-reject: error
   unicorn/no-useless-spread: error
+  unicorn/no-useless-switch-case: error
   unicorn/no-useless-undefined: error
   unicorn/no-zero-fractions: error
   unicorn/prefer-add-event-listener: error
@@ -292,6 +293,8 @@ rules:
   unicorn/prefer-keyboard-event-key: error
   unicorn/prefer-math-trunc: error
   unicorn/prefer-modern-dom-apis: error
+  unicorn/prefer-modern-math-apis: error
+  unicorn/prefer-native-coercion-functions: error
   unicorn/prefer-negative-index: error
   unicorn/prefer-number-properties:
     - error
@@ -312,6 +315,7 @@ rules:
   unicorn/require-array-join-separator: error
   unicorn/require-number-to-fixed-digits-argument: error
   unicorn/template-indent: error
+  unicorn/text-encoding-identifier-case: error
   unicorn/throw-new-error: error
   use-isnan: error
   yoda: error
@@ -360,6 +364,7 @@ overrides:
         - error
         - builtinGlobals: false
           hoist: functions
+          ignoreOnInitialization: true
       no-this-before-super: error
       no-throw-literal: error
       no-undef: error
@@ -515,6 +520,7 @@ overrides:
         - max: 4
       jest/no-alias-methods: error
       jest/no-conditional-expect: error
+      jest/no-conditional-in-test: error
       jest/no-deprecated-functions: error
       jest/no-disabled-tests: error
       jest/no-done-callback: error
@@ -522,7 +528,6 @@ overrides:
       jest/no-export: error
       jest/no-focused-tests: error
       jest/no-identical-title: error
-      jest/no-if: error
       jest/no-interpolation-in-snapshots: error
       jest/no-jasmine-globals: error
       jest/no-jest-import: error
@@ -539,6 +544,7 @@ overrides:
         - error
         - ignore:
             - describe
+      jest/prefer-snapshot-hint: error
       jest/prefer-spy-on: error
       jest/prefer-strict-equal: error
       jest/prefer-to-be: error

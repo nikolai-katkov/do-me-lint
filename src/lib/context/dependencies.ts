@@ -18,7 +18,7 @@ export interface InstalledPackage {
 
 const getNpmPackages = (projectDirectory: string): InstalledPackage[] => {
   const installedPackages: InstalledPackage[] = []
-  const packageLockRaw = fs.readFileSync(path.join(projectDirectory, 'package-lock.json'), 'utf-8')
+  const packageLockRaw = fs.readFileSync(path.join(projectDirectory, 'package-lock.json'), 'utf8')
   const packageLock = JSON.parse(packageLockRaw) as PackageLock
   for (const packageName in packageLock.dependencies) {
     if (Object.prototype.hasOwnProperty.call(packageLock.dependencies, packageName)) {
@@ -38,7 +38,7 @@ const getYarnPackages = (
   projectDirectory: string
 ): InstalledPackage[] => {
   const installedPackages: InstalledPackage[] = []
-  const yarnLockRaw = fs.readFileSync(path.join(projectDirectory, 'yarn.lock'), 'utf-8')
+  const yarnLockRaw = fs.readFileSync(path.join(projectDirectory, 'yarn.lock'), 'utf8')
   const lockFileObject = parseYarnLock(yarnLockRaw).object as LockFileObject
   for (const dependencyWithVersion in lockFileObject) {
     if (!Object.prototype.hasOwnProperty.call(lockFileObject, dependencyWithVersion)) {
@@ -99,7 +99,7 @@ export const getDependencyManager = (projectDirectory: string): DependencyManage
 export const getPackageJson = (projectDirectory: string): PackageJson | undefined => {
   const fileName = path.join(projectDirectory, 'package.json')
   try {
-    const packageJsonRaw = fs.readFileSync(fileName, 'utf-8')
+    const packageJsonRaw = fs.readFileSync(fileName, 'utf8')
     return JSON.parse(packageJsonRaw) as PackageJson
   } catch (error: unknown) {
     return undefined
