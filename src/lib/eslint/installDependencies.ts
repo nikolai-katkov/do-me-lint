@@ -4,41 +4,41 @@ import latestVersion from 'latest-version'
 import * as log from '../../util/log'
 import type { DependencyManager, InstalledPackage } from '../context/dependencies'
 
-async function getOutdatedDependencies(
+async function getDependenciesToUpdate(
   eslintDependencies: string[],
   installedPackages: InstalledPackage[]
 ) {
-  const outdatedDependencies: string[] = []
-  const outdatedDevelopmentDependencies: string[] = []
+  const dependenciesToUpdate: string[] = []
+  const devDependenciesToUpdate: string[] = []
 
   for (const eslintDependency of eslintDependencies) {
     const installedPackage = installedPackages.find(pkg => pkg.name === eslintDependency)
 
     if (installedPackage?.version !== (await latestVersion(eslintDependency))) {
       if (installedPackage === undefined || installedPackage.isDev) {
-        outdatedDevelopmentDependencies.push(eslintDependency)
+        devDependenciesToUpdate.push(eslintDependency)
       } else {
-        outdatedDependencies.push(eslintDependency)
+        dependenciesToUpdate.push(eslintDependency)
       }
     }
   }
   return {
-    outdatedDependencies,
-    outdatedDevelopmentDependencies,
+    dependenciesToUpdate,
+    devDependenciesToUpdate,
   }
 }
 
 interface InstallDependenciesParameters {
-  outdatedDependencies: string[]
-  outdatedDevelopmentDependencies: string[]
+  dependenciesToUpdate: string[]
+  devDependenciesToUpdate: string[]
   cwd: string
   debug: boolean
 }
 
 const installNpmDependencies = (parameters: InstallDependenciesParameters): void => {
-  const { outdatedDependencies, outdatedDevelopmentDependencies, cwd, debug } = parameters
-  const dependencyList = outdatedDependencies.map(dependency => `${dependency}@latest`).join(' ')
-  const developmentDependencyList = outdatedDevelopmentDependencies
+  const { dependenciesToUpdate, devDependenciesToUpdate, cwd, debug } = parameters
+  const dependencyList = dependenciesToUpdate.map(dependency => `${dependency}@latest`).join(' ')
+  const developmentDependencyList = devDependenciesToUpdate
     .map(dependency => `${dependency}@latest`)
     .join(' ')
 
@@ -52,9 +52,9 @@ const installNpmDependencies = (parameters: InstallDependenciesParameters): void
 }
 
 const installYarnDependencies = (parameters: InstallDependenciesParameters): void => {
-  const { outdatedDependencies, outdatedDevelopmentDependencies, cwd, debug } = parameters
-  const dependencyList = outdatedDependencies.map(dependency => `${dependency}@latest`).join(' ')
-  const developmentDependencyList = outdatedDevelopmentDependencies
+  const { dependenciesToUpdate, devDependenciesToUpdate, cwd, debug } = parameters
+  const dependencyList = dependenciesToUpdate.map(dependency => `${dependency}@latest`).join(' ')
+  const developmentDependencyList = devDependenciesToUpdate
     .map(dependency => `${dependency}@latest`)
     .join(' ')
 
@@ -79,25 +79,40 @@ interface Parameters {
 }
 export const installDependencies = async (parameters: Parameters) => {
   const { dependencyManager, eslintDependencies, installedPackages, cwd, debug } = parameters
-  const { outdatedDependencies, outdatedDevelopmentDependencies } = await getOutdatedDependencies(
+  const { dependenciesToUpdate, devDependenciesToUpdate } = await getDependenciesToUpdate(
     eslintDependencies,
     installedPackages
   )
 
-  const allDependencies = [...outdatedDependencies, ...outdatedDevelopmentDependencies]
+  const allDependencies = [...dependenciesToUpdate, ...devDependenciesToUpdate]
 
   if (allDependencies.length === 0) {
     log.debug('all dependencies are up to date')
     return
   }
-  log.debug(`missing / outdated dependencies: ${allDependencies.join(', ')}`)
+  log.debug(`dependencies to install or update: ${allDependencies.join(', ')}`)
 
   if (!dependencyManager) {
     execSync('npm init -y', { cwd, stdio: debug ? 'inherit' : 'ignore' })
-    installNpmDependencies({ outdatedDependencies, outdatedDevelopmentDependencies, cwd, debug })
+    installNpmDependencies({
+      dependenciesToUpdate,
+      devDependenciesToUpdate,
+      cwd,
+      debug,
+    })
   } else if (dependencyManager === 'npm') {
-    installNpmDependencies({ outdatedDependencies, outdatedDevelopmentDependencies, cwd, debug })
+    installNpmDependencies({
+      dependenciesToUpdate,
+      devDependenciesToUpdate,
+      cwd,
+      debug,
+    })
   } else {
-    installYarnDependencies({ outdatedDependencies, outdatedDevelopmentDependencies, cwd, debug })
+    installYarnDependencies({
+      dependenciesToUpdate,
+      devDependenciesToUpdate,
+      cwd,
+      debug,
+    })
   }
 }

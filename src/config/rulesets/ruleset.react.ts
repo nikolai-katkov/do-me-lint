@@ -1,5 +1,5 @@
-import type { Rule } from '../lib/eslint/rulesConfig'
-import { projectHas } from '../lib/eslint/rulesConfig'
+import type { Rule } from '../../lib/eslint/rulesConfig'
+import { projectHas } from '../../lib/eslint/rulesConfig'
 
 export const ruleset: Record<string, Rule> = {
   'react/boolean-prop-naming': {

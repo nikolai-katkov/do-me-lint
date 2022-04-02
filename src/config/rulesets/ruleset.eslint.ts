@@ -1,4 +1,4 @@
-import type { Rule } from '../lib/eslint/rulesConfig'
+import type { Rule } from '../../lib/eslint/rulesConfig'
 
 export const ruleset: Record<string, Rule> = {
   'for-direction': {

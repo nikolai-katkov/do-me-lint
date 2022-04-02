@@ -1,7 +1,7 @@
 /* eslint-disable id-length */
 
-import type { Rule } from '../lib/eslint/rulesConfig'
-import { projectHas } from '../lib/eslint/rulesConfig'
+import type { Rule } from '../../lib/eslint/rulesConfig'
+import { projectHas } from '../../lib/eslint/rulesConfig'
 
 export const ruleset: Record<string, Rule> = {
   '@typescript-eslint/adjacent-overload-signatures': {

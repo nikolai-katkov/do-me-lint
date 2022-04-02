@@ -1,6 +1,6 @@
 import type { JsonValue } from 'type-fest'
 
-import { ruleset } from '../../config/ruleset'
+import { ruleset } from '../../config/rulesets'
 import type {
   ESLintConfig,
   ESLintRules,
