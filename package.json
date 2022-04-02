@@ -48,9 +48,7 @@
     "eslint-plugin-sonarjs": "^0.13.0",
     "eslint-plugin-unicorn": "^42.0.0",
     "eslint-plugin-yml": "^0.14.0",
-    "inquirer": "^8.2.2",
     "jest": "^27.5.1",
-    "prettier": "^2.6.2",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
     "type-fest": "^2.12.2",
@@ -63,8 +61,10 @@
     "eslint": "^8.12.0",
     "find-up": "^5.0.0",
     "glob": "^7.2.0",
+    "inquirer": "^8.2.2",
     "js-yaml": "^4.1.0",
     "jsonc-parser": "^3.0.0",
-    "outdent": "^0.8.0"
+    "outdent": "^0.8.0",
+    "prettier": "^2.6.2"
   }
 }
