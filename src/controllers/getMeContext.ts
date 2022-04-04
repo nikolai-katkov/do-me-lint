@@ -39,6 +39,10 @@ export interface Context {
   debug: boolean
 }
 export const getMeContext = (): Context => {
+  if (process.env.npm_package_version !== undefined) {
+    log.debug(`do-me-lint v${process.env.npm_package_version}`)
+  }
+
   log.info('Gathering execution context')
 
   const projectDirectory = process.env.INIT_CWD ?? process.cwd()
@@ -55,6 +59,7 @@ export const getMeContext = (): Context => {
 
   const patterns = getPatterns(settings)
   const packageJson = getPackageJson(projectDirectory)
+
   const dependencyManager = packageJson && getDependencyManager(projectDirectory)
   log.debug(`project type:\t\t${dependencyManager ?? 'start from scratch'}`)
 
