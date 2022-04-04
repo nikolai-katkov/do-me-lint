@@ -39,8 +39,9 @@ export interface Context {
   debug: boolean
 }
 export const getMeContext = (): Context => {
-  if (process.env.npm_package_version !== undefined) {
-    log.debug(`do-me-lint v${process.env.npm_package_version}`)
+  const doMeLintPackageJson = getPackageJson('.')
+  if (doMeLintPackageJson?.version !== undefined) {
+    log.debug(`do-me-lint v${doMeLintPackageJson.version}`)
   }
 
   log.info('Gathering execution context')
