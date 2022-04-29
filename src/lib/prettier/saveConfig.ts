@@ -4,7 +4,7 @@ import type { JsonObject } from 'type-fest'
 
 import { makeYAML } from '../../util/file'
 
-const saveConfig = ({
+export const saveConfig = ({
   config,
   projectDirectory,
 }: {
@@ -13,5 +13,3 @@ const saveConfig = ({
 }): void => {
   fs.writeFileSync(path.join(projectDirectory, '.prettierrc.yml'), makeYAML(config))
 }
-
-export default saveConfig

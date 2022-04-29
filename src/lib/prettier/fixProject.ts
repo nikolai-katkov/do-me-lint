@@ -1,8 +1,9 @@
 import fs from 'fs'
 import { sync as glob } from 'glob'
+import path from 'path'
 import { check, format, getFileInfo, resolveConfig } from 'prettier'
 
-import log from '../../util/log'
+import * as log from '../../util/log'
 
 interface Parameters {
   pattern: string
@@ -16,12 +17,14 @@ export const fixProject = async (parameters: Parameters): Promise<void> => {
   })
 
   for (const filePath of files) {
-    await makeFilePrettier(filePath)
+    await makeFilePrettier(path.join(projectDirectory, filePath), projectDirectory)
   }
 }
 
-const makeFilePrettier = async (filePath: string): Promise<void> => {
-  const fileInfo = await getFileInfo(filePath, { ignorePath: '.prettierignore' })
+const makeFilePrettier = async (filePath: string, cwd: string): Promise<void> => {
+  const fileInfo = await getFileInfo(filePath, {
+    ignorePath: `${cwd}/.prettierignore`,
+  })
 
   if (fileInfo.ignored) {
     return
@@ -42,7 +45,5 @@ const makeFilePrettier = async (filePath: string): Promise<void> => {
 
   log.debug(`formatting with Prettier ${filePath}`)
   const fileContentFormatted = format(fileContent, { ...config, filepath: filePath })
-  fs.writeFileSync(filePath, fileContentFormatted, { encoding: 'utf-8' })
+  fs.writeFileSync(filePath, fileContentFormatted, { encoding: 'utf8' })
 }
-
-export default fixProject

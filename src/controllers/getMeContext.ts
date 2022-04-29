@@ -11,7 +11,7 @@ import type { Patterns } from '../lib/context/paths'
 import { getMonorepoRoot, getPatterns } from '../lib/context/paths'
 import { getSettings } from '../lib/context/settings'
 import { fileExists } from '../util/file'
-import log from '../util/log'
+import * as log from '../util/log'
 
 const getGitignore = (projectDirectory: string): string[] => {
   const gitignoreFile = path.resolve(projectDirectory, '.gitignore')
@@ -19,7 +19,7 @@ const getGitignore = (projectDirectory: string): string[] => {
   if (!fileExists(gitignoreFile)) {
     return []
   }
-  const fileContent = fs.readFileSync(gitignoreFile, 'utf-8')
+  const fileContent = fs.readFileSync(gitignoreFile, 'utf8')
   return fileContent
     .split('\n')
     .filter(Boolean)
@@ -38,7 +38,12 @@ export interface Context {
   gitignore: string[]
   debug: boolean
 }
-const getMeContext = (): Context => {
+export const getMeContext = (): Context => {
+  const doMeLintPackageJson = getPackageJson(path.resolve(__dirname, '../..'))
+  if (doMeLintPackageJson?.version !== undefined) {
+    log.debug(`do-me-lint ${doMeLintPackageJson.version}`)
+  }
+
   log.info('Gathering execution context')
 
   const projectDirectory = process.env.INIT_CWD ?? process.cwd()
@@ -55,6 +60,7 @@ const getMeContext = (): Context => {
 
   const patterns = getPatterns(settings)
   const packageJson = getPackageJson(projectDirectory)
+
   const dependencyManager = packageJson && getDependencyManager(projectDirectory)
   log.debug(`project type:\t\t${dependencyManager ?? 'start from scratch'}`)
 
@@ -77,4 +83,3 @@ const getMeContext = (): Context => {
     debug,
   }
 }
-export default getMeContext

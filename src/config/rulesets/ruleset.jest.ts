@@ -1,7 +1,7 @@
-import type { Rule } from '../lib/eslint/rulesConfig'
-import { projectHas } from '../lib/eslint/rulesConfig'
+import type { Rule } from '../../lib/eslint/rulesConfig'
+import { projectHas } from '../../lib/eslint/rulesConfig'
 
-const ruleset: Record<string, Rule> = {
+export const ruleset: Record<string, Rule> = {
   'jest/consistent-test-it': {
     enabled: projectHas('jest'),
     scope: 'testJest',
@@ -11,11 +11,10 @@ const ruleset: Record<string, Rule> = {
     enabled: projectHas('jest'),
     scope: 'testJest',
   },
-  'jest/lowercase-name': {
+  'jest/max-nested-describe': {
     enabled: projectHas('jest'),
-    options: { ignore: ['describe'] },
+    options: { max: 4 },
     scope: 'testJest',
-    fixable: true,
   },
   'jest/no-alias-methods': {
     enabled: projectHas('jest'),
@@ -30,6 +29,12 @@ const ruleset: Record<string, Rule> = {
     enabled: projectHas('jest'),
     scope: 'testJest',
   },
+
+  'jest/no-conditional-in-test': {
+    enabled: projectHas('jest'), // let's see. It deprecated jest/no-if
+    scope: 'testJest',
+  },
+
   'jest/no-deprecated-functions': {
     enabled: projectHas('jest'),
     scope: 'testJest',
@@ -64,7 +69,7 @@ const ruleset: Record<string, Rule> = {
     scope: 'testJest',
   },
   'jest/no-if': {
-    enabled: projectHas('jest'), // let's see
+    enabled: false, // deprecated
     scope: 'testJest',
   },
   'jest/no-interpolation-in-snapshots': {
@@ -109,11 +114,35 @@ const ruleset: Record<string, Rule> = {
     enabled: false, // it's fine to use toHaveBeenCalled() // projectHas('jest')
     scope: 'testJest',
   },
+  'jest/prefer-comparison-matcher': {
+    enabled: projectHas('jest'),
+    fixable: true,
+    scope: 'testJest',
+  },
+  'jest/prefer-equality-matcher': {
+    enabled: projectHas('jest'),
+    scope: 'testJest',
+  },
   'jest/prefer-expect-assertions': {
     enabled: false, // leads to a bloated boilerplate // projectHas('jest')
     scope: 'testJest',
   },
+  'jest/prefer-expect-resolves': {
+    enabled: projectHas('jest'),
+    scope: 'testJest',
+    fixable: true,
+  },
   'jest/prefer-hooks-on-top': {
+    enabled: projectHas('jest'),
+    scope: 'testJest',
+  },
+  'jest/prefer-lowercase-title': {
+    enabled: projectHas('jest'),
+    options: { ignore: ['describe'] },
+    scope: 'testJest',
+    fixable: true,
+  },
+  'jest/prefer-snapshot-hint': {
     enabled: projectHas('jest'),
     scope: 'testJest',
   },
@@ -126,12 +155,7 @@ const ruleset: Record<string, Rule> = {
     enabled: projectHas('jest'),
     scope: 'testJest',
   },
-  'jest/prefer-to-be-null': {
-    enabled: projectHas('jest'),
-    scope: 'testJest',
-    fixable: true,
-  },
-  'jest/prefer-to-be-undefined': {
+  'jest/prefer-to-be': {
     enabled: projectHas('jest'),
     scope: 'testJest',
     fixable: true,
@@ -151,6 +175,10 @@ const ruleset: Record<string, Rule> = {
     scope: 'testJest',
     fixable: true,
   },
+  'jest/require-hook': {
+    enabled: projectHas('jest'), // not sure, need to test
+    scope: 'testJest',
+  },
   'jest/require-to-throw-message': {
     enabled: false, // leads to a bloated boilerplate // projectHas('jest')
     scope: 'testJest',
@@ -159,7 +187,7 @@ const ruleset: Record<string, Rule> = {
     enabled: false, // not sure if it should be a requirement, especially for small codebases // projectHas('jest')
     scope: 'testJest',
   },
-  'jest/valid-describe': {
+  'jest/valid-describe-callback': {
     enabled: projectHas('jest'),
     scope: 'testJest',
   },
@@ -177,5 +205,3 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
 }
-
-export default ruleset

@@ -9,7 +9,7 @@ interface Parameters {
   projectDirectory: string
   gitignore: string[]
 }
-const saveIgnore = ({ ignoreFileName, projectDirectory, gitignore }: Parameters): void => {
+export const saveIgnore = ({ ignoreFileName, projectDirectory, gitignore }: Parameters): void => {
   const filename = path.join(projectDirectory, ignoreFileName)
   const patterns = gitignore.filter(line => !line.startsWith('node_modules'))
   if (patterns.length === 0) {
@@ -25,7 +25,7 @@ const saveIgnore = ({ ignoreFileName, projectDirectory, gitignore }: Parameters)
   let newContent = ''
 
   if (fileExists(filename)) {
-    const oldContent = fs.readFileSync(filename, 'utf-8')
+    const oldContent = fs.readFileSync(filename, 'utf8')
     const match = oldContent.match(/# >>> domelint-start.*# <<< domelint-end/su)
     if (match) {
       const [oldInset] = match
@@ -38,5 +38,3 @@ const saveIgnore = ({ ignoreFileName, projectDirectory, gitignore }: Parameters)
   }
   fs.writeFileSync(filename, newContent)
 }
-
-export default saveIgnore

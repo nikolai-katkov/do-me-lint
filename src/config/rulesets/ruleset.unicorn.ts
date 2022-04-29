@@ -1,6 +1,6 @@
-import type { Rule } from '../lib/eslint/rulesConfig'
+import type { Rule } from '../../lib/eslint/rulesConfig'
 
-const ruleset: Record<string, Rule> = {
+export const ruleset: Record<string, Rule> = {
   'unicorn/better-regex': {
     enabled: true,
     fixable: true,
@@ -63,6 +63,10 @@ const ruleset: Record<string, Rule> = {
     enabled: false, // I like forEach and its early returns
     fixable: true,
   },
+  'unicorn/no-array-method-this-argument': {
+    enabled: true,
+    fixable: true,
+  },
   'unicorn/no-array-push-push': {
     enabled: true,
     fixable: true,
@@ -70,12 +74,19 @@ const ruleset: Record<string, Rule> = {
   'unicorn/no-array-reduce': {
     enabled: false, // never heard that reduce is an anti-pattern
   },
+  'unicorn/no-await-expression-member': {
+    enabled: true,
+    fixable: true,
+  },
   'unicorn/no-console-spaces': {
     enabled: true,
     fixable: true,
   },
   'unicorn/no-document-cookie': {
     enabled: true,
+  },
+  'unicorn/no-empty-file': {
+    enabled: true, // need to test
   },
   'unicorn/no-for-loop': {
     enabled: true, // harsh but cool
@@ -88,6 +99,9 @@ const ruleset: Record<string, Rule> = {
   'unicorn/no-instanceof-array': {
     enabled: true,
     fixable: true,
+  },
+  'unicorn/no-invalid-remove-event-listener': {
+    enabled: true,
   },
   'unicorn/no-keyword-prefix': {
     enabled: false, // paranoidal rule
@@ -122,6 +136,9 @@ const ruleset: Record<string, Rule> = {
     enabled: true,
     fixable: true,
   },
+  'unicorn/no-thenable': {
+    enabled: true,
+  },
   'unicorn/no-this-assignment': {
     enabled: true,
   },
@@ -129,17 +146,33 @@ const ruleset: Record<string, Rule> = {
     enabled: false, // just not sure
     fixable: true,
   },
-  'unicorn/no-unsafe-regex': {
+  'unicorn/no-unreadable-iife': {
     enabled: true,
+    fixable: true,
+  },
+  'unicorn/no-unsafe-regex': {
+    enabled: false, // false positives, like /^(?:[A-Z][a-z]+)+$/u
   },
   'unicorn/no-unused-properties': {
     enabled: true, // something scary and powerful
+  },
+  'unicorn/no-useless-fallback-in-spread': {
+    enabled: true,
+    fixable: true,
   },
   'unicorn/no-useless-length-check': {
     enabled: true,
     fixable: true,
   },
+  'unicorn/no-useless-promise-resolve-reject': {
+    enabled: true,
+    fixable: true,
+  },
   'unicorn/no-useless-spread': {
+    enabled: true,
+    fixable: true,
+  },
+  'unicorn/no-useless-switch-case': {
     enabled: true,
     fixable: true,
   },
@@ -156,7 +189,7 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   'unicorn/numeric-separators-style': {
-    enabled: true,
+    enabled: false, // ugly
     fixable: true,
   },
   'unicorn/prefer-add-event-listener': {
@@ -187,6 +220,9 @@ const ruleset: Record<string, Rule> = {
     enabled: false, // not yet live in the current v33.0.1, change to confident yes in a few days
     fixable: true,
   },
+  'unicorn/prefer-code-point': {
+    enabled: true,
+  },
   'unicorn/prefer-date-now': {
     enabled: true,
     fixable: true,
@@ -211,8 +247,16 @@ const ruleset: Record<string, Rule> = {
     enabled: true,
     fixable: true,
   },
+  'unicorn/prefer-export-from': {
+    enabled: true,
+    fixable: true,
+  },
   'unicorn/prefer-includes': {
     enabled: true,
+    fixable: true,
+  },
+  'unicorn/prefer-json-parse-buffer': {
+    enabled: false, // exotic
     fixable: true,
   },
   'unicorn/prefer-keyboard-event-key': {
@@ -227,8 +271,16 @@ const ruleset: Record<string, Rule> = {
     enabled: true,
     fixable: true,
   },
+  'unicorn/prefer-modern-math-apis': {
+    enabled: true,
+    fixable: true,
+  },
   'unicorn/prefer-module': {
     enabled: false, // there are other motivators to use one or another
+    fixable: true,
+  },
+  'unicorn/prefer-native-coercion-functions': {
+    enabled: true,
     fixable: true,
   },
   'unicorn/prefer-negative-index': {
@@ -313,19 +365,32 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   'unicorn/prevent-abbreviations': {
-    enabled: true, // absolutely brilliant
+    enabled: false, // in some cases adds underscores that may conflict with other naming convention rules.
     options: {
       checkFilenames: false,
       replacements: {
-        dir: { direction: false },
-        pkg: { package: false },
+        dir: false,
+        e: false,
+        i: false,
+        j: false,
+        param: false,
+        params: false,
+        pkg: false,
+        prop: false,
+        props: false,
+        ref: false,
+        req: false,
+        res: false,
+        tmp: false,
         cfg: { config: true },
         lang: { language: true },
         langs: { languages: true },
-        dep: { dependency: true },
-        deps: { dependencies: true },
       },
     },
+    fixable: true,
+  },
+  'unicorn/relative-url-style': {
+    enabled: false, // too specific, and I believe humans know better
     fixable: true,
   },
   'unicorn/require-array-join-separator': {
@@ -343,10 +408,16 @@ const ruleset: Record<string, Rule> = {
     enabled: false, // made-up use case
     fixable: true,
   },
+  'unicorn/template-indent': {
+    enabled: true, // wow, need to test
+    fixable: true,
+  },
+  'unicorn/text-encoding-identifier-case': {
+    enabled: true,
+    fixable: true,
+  },
   'unicorn/throw-new-error': {
     enabled: true,
     fixable: true,
   },
 }
-
-export default ruleset

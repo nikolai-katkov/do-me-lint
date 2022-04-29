@@ -1,6 +1,6 @@
-import type { Rule } from '../lib/eslint/rulesConfig'
+import type { Rule } from '../../lib/eslint/rulesConfig'
 
-const ruleset: Record<string, Rule> = {
+export const ruleset: Record<string, Rule> = {
   'for-direction': {
     enabled: true,
   },
@@ -398,6 +398,9 @@ const ruleset: Record<string, Rule> = {
   'prefer-named-capture-group': {
     enabled: true,
   },
+  'prefer-object-has-own': {
+    enabled: false, // until Object.hasOwn stops being experimental: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwn#browser_compatibility
+  },
   'prefer-promise-reject-errors': {
     enabled: true,
     options: { allowEmptyReject: true },
@@ -413,7 +416,7 @@ const ruleset: Record<string, Rule> = {
     scope: 'js', // @typescript-eslint/require-await
   },
   'require-unicode-regexp': {
-    enabled: true,
+    enabled: false, // reports even for latin-only regexps, annoying in webpack config
   },
   'vars-on-top': {
     enabled: false, // doesn't make sense in ES6 world
@@ -445,7 +448,7 @@ const ruleset: Record<string, Rule> = {
   },
   'no-shadow': {
     enabled: true,
-    options: { builtinGlobals: false, hoist: 'functions' },
+    options: { builtinGlobals: false, hoist: 'functions', ignoreOnInitialization: true },
     scope: 'js', // @typescript-eslint/no-shadow
   },
   'no-shadow-restricted-names': {
@@ -895,8 +898,7 @@ const ruleset: Record<string, Rule> = {
     scope: 'js', // ts(2393) & ts(2300), @typescript-eslint/no-dupe-class-members
   },
   'no-duplicate-imports': {
-    enabled: true,
-    options: { includeExports: true },
+    enabled: true, // not including includeExports option to allow re-export external library's stuff along with ours
     scope: 'js', // conflicts with @typescript-eslint/consistent-type-imports (prefer that), covered by @typescript-eslint/no-duplicate-imports
   },
   'no-new-symbol': {
@@ -985,5 +987,3 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
 }
-
-export default ruleset

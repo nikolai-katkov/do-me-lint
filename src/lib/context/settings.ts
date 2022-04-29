@@ -4,7 +4,7 @@ import path from 'path'
 import type { JsonObject } from 'type-fest'
 
 import { fileExists } from '../../util/file'
-import log from '../../util/log'
+import * as log from '../../util/log'
 
 const getRcSettings = (projectDirectory: string): JsonObject => {
   const userSettingsFile = path.resolve(projectDirectory, '.domelintrc.yml')
@@ -12,7 +12,7 @@ const getRcSettings = (projectDirectory: string): JsonObject => {
   if (!fileExists(userSettingsFile)) {
     return {}
   }
-  const fileContent = fs.readFileSync(userSettingsFile, 'utf-8')
+  const fileContent = fs.readFileSync(userSettingsFile, 'utf8')
   let parseResult: ReturnType<typeof yaml.load>
   try {
     parseResult = yaml.load(fileContent)

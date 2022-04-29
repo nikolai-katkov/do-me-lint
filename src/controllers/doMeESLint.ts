@@ -1,14 +1,14 @@
-import deleteConflictingConfigurations from '../lib/eslint/deleteConflictingConfigurations'
-import fixProject from '../lib/eslint/fixProject'
-import getConfig from '../lib/eslint/getConfig'
-import installDependencies from '../lib/eslint/installDependencies'
+import { deleteConflictingConfigurations } from '../lib/eslint/deleteConflictingConfigurations'
+import { fixProject } from '../lib/eslint/fixProject'
+import { getConfig } from '../lib/eslint/getConfig'
+import { installDependencies } from '../lib/eslint/installDependencies'
 import { getReport, outputReport } from '../lib/eslint/report'
-import saveConfig from '../lib/eslint/saveConfig'
-import saveIgnore from '../lib/ignore/saveIgnore'
-import log from '../util/log'
+import { saveConfig } from '../lib/eslint/saveConfig'
+import { saveIgnore } from '../lib/ignore/saveIgnore'
+import * as log from '../util/log'
 import type { Context } from './getMeContext'
 
-const doMeESLint = async (context: Context): Promise<void> => {
+export const doMeESLint = async (context: Context): Promise<void> => {
   log.info('Generating ESLint config based on your project dependencies')
   const { config, dependencies } = getConfig({
     projectDependencies: context.installedPackages.map(installedPackage => installedPackage.name),
@@ -18,10 +18,11 @@ const doMeESLint = async (context: Context): Promise<void> => {
   })
 
   log.info('Checking required NPM dependencies for ESLint')
-  await installDependencies({
+  installDependencies({
     dependencyManager: context.dependencyManager,
-    eslintDependencies: dependencies,
+    dependencies,
     installedPackages: context.installedPackages,
+    cwd: context.projectDirectory,
     debug: context.debug,
   })
 
@@ -57,5 +58,3 @@ const doMeESLint = async (context: Context): Promise<void> => {
     log.debug(`no ESLint problems`)
   }
 }
-
-export default doMeESLint

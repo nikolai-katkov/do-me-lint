@@ -1,9 +1,10 @@
 import type { JsonValue } from 'type-fest'
 
-import ruleset from '../../config/ruleset'
+import { ruleset } from '../../config/rulesets'
 import type {
   ESLintConfig,
   ESLintRules,
+  ExactDependency,
   OverrideConfig,
   ParserOptions,
   RuleLevel,
@@ -23,9 +24,9 @@ interface Parameters {
 
 interface Result {
   config: ESLintConfig
-  dependencies: string[]
+  dependencies: ExactDependency[]
 }
-const getConfig = (parameters: Parameters): Result => {
+export const getConfig = (parameters: Parameters): Result => {
   const { projectDependencies, ignoredRules, patterns, semi } = parameters
   const rules = getRules({
     projectDependencies,
@@ -44,7 +45,7 @@ const getConfig = (parameters: Parameters): Result => {
       plugins: plugins.all.length > 0 ? plugins.all : undefined,
       parserOptions: maybeObject(parserOptions.all),
       parser: parser.all || undefined,
-      settings: getSettings(projectDependencies),
+      settings: maybeObject(getSettings(projectDependencies)),
       rules: maybeObject(rules.all),
       overrides: getOverrides({ environments, patterns, plugins, rules, parser, parserOptions }),
     },
@@ -60,7 +61,7 @@ const maybeObject = <T extends {}>(object: T): T | undefined =>
 
 const getPlugins = (projectDependencies: string[]): ByScope<string[]> => {
   const plugins: ByScope<string[]> = { all: [], js: [], ts: [], testJest: [], yaml: [] }
-  plugins.all.push('simple-import-sort', 'unicorn', 'sonarjs', 'promise', 'array-func')
+  plugins.all.push('simple-import-sort', 'unicorn', 'sonarjs', 'promise', 'array-func', 'import')
   plugins.yaml.push('yml')
 
   if (projectDependencies.includes('react')) {
@@ -123,9 +124,23 @@ const getRules = ({
 }
 
 const getSettings = (projectDependencies: string[]) => {
-  let settings: Settings | undefined
+  const settings: Settings = {}
+  settings['import/extensions'] = ['.json', '.js', '.jsx']
+
+  if (projectDependencies.includes('typescript')) {
+    settings['import/extensions'].push('.ts', '.tsx')
+    settings['import/external-module-folders'] = ['node_modules', 'node_modules/@types']
+    settings['import/parsers'] = {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    }
+    settings['import/resolver'] = {
+      node: {
+        extensions: ['.json', '.js', '.jsx', '.ts', '.tsx'],
+      },
+    }
+  }
   if (projectDependencies.includes('react')) {
-    settings = { react: { version: 'detect' } }
+    settings.react = { version: 'detect' }
   }
   return settings
 }
@@ -141,9 +156,9 @@ const getParserOptions = (projectDependencies: string[]): ByScope<ParserOptions>
 
   if (projectDependencies.includes('typescript')) {
     parserOptions.ts.project = 'tsconfig.json'
-    if (projectDependencies.includes('react')) {
-      parserOptions.ts.ecmaFeatures = { jsx: true }
-    }
+  }
+  if (projectDependencies.includes('react')) {
+    parserOptions.all.ecmaFeatures = { jsx: true }
   }
 
   return parserOptions
@@ -184,48 +199,40 @@ const getEnvironments = (projectDependencies: string[]): ByScope<Record<string, 
   return environments
 }
 
-const getDependencies = (projectDependencies: string[]): string[] => {
-  const dependencies: string[] = []
+const getDependencies = (projectDependencies: string[]): ExactDependency[] => {
+  const dependencies: ExactDependency[] = []
   dependencies.push(
-    'eslint',
-    'prettier',
-    'eslint-config-prettier',
-    'eslint-plugin-simple-import-sort',
-    'eslint-plugin-unicorn',
-    'eslint-plugin-sonarjs',
-    'eslint-plugin-promise',
-    'eslint-plugin-yml',
-    'eslint-plugin-array-func'
+    ['eslint', '8.12.0'],
+    ['prettier', '2.6.2'],
+    ['eslint-plugin-simple-import-sort', '7.0.0'],
+    ['eslint-plugin-unicorn', '42.0.0'],
+    ['eslint-plugin-sonarjs', '0.13.0'],
+    ['eslint-plugin-promise', '6.0.0'],
+    ['eslint-plugin-yml', '0.14.0'],
+    ['eslint-plugin-array-func', '3.1.7'],
+    ['eslint-plugin-import', '2.25.4']
   )
 
   if (projectDependencies.includes('babel')) {
-    // prettier-ignore
-    dependencies.push(
-      '@babel/core',
-      '@babel/eslint-parser',
-      )
+    dependencies.push(['@babel/core', 'latest'], ['@babel/eslint-parser', 'latest'])
   }
   if (projectDependencies.includes('typescript')) {
-    // prettier-ignore
     dependencies.push(
-      '@typescript-eslint/parser',
-      '@typescript-eslint/eslint-plugin',
-      )
+      ['@typescript-eslint/parser', '5.17.0'],
+      ['@typescript-eslint/eslint-plugin', '5.17.0'],
+      ['eslint-import-resolver-typescript', '2.7.0']
+    )
   }
   if (projectDependencies.includes('react')) {
-    // prettier-ignore
     dependencies.push(
-      'eslint-plugin-react', 
-      'eslint-plugin-react-hooks',
-      'eslint-plugin-jsx-a11y',
-      )
+      ['eslint-plugin-react', '7.28.0'],
+      ['eslint-plugin-react-hooks', '4.3.0'],
+      ['eslint-plugin-jsx-a11y', '6.5.1']
+    )
   }
   if (projectDependencies.includes('jest')) {
-    dependencies.push('eslint-plugin-jest')
+    dependencies.push(['eslint-plugin-jest', '26.1.3'])
   }
-  // if (projectDependencies.includes('vue')) {
-  //   dependencies.push('eslint-plugin-vue')
-  // }
   return dependencies
 }
 
@@ -269,5 +276,3 @@ const getOverrides = (parameters: {
 
   return overrides.length > 0 ? overrides : undefined
 }
-
-export default getConfig

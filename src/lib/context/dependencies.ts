@@ -1,3 +1,4 @@
+/* eslint-disable no-continue */
 import type { LockFileObject } from '@yarnpkg/lockfile'
 import { parse as parseYarnLock } from '@yarnpkg/lockfile'
 import fs from 'fs'
@@ -17,7 +18,7 @@ export interface InstalledPackage {
 
 const getNpmPackages = (projectDirectory: string): InstalledPackage[] => {
   const installedPackages: InstalledPackage[] = []
-  const packageLockRaw = fs.readFileSync(path.join(projectDirectory, 'package-lock.json'), 'utf-8')
+  const packageLockRaw = fs.readFileSync(path.join(projectDirectory, 'package-lock.json'), 'utf8')
   const packageLock = JSON.parse(packageLockRaw) as PackageLock
   for (const packageName in packageLock.dependencies) {
     if (Object.prototype.hasOwnProperty.call(packageLock.dependencies, packageName)) {
@@ -37,24 +38,34 @@ const getYarnPackages = (
   projectDirectory: string
 ): InstalledPackage[] => {
   const installedPackages: InstalledPackage[] = []
-  const yarnLockRaw = fs.readFileSync(path.join(projectDirectory, 'yarn.lock'), 'utf-8')
+  const yarnLockRaw = fs.readFileSync(path.join(projectDirectory, 'yarn.lock'), 'utf8')
   const lockFileObject = parseYarnLock(yarnLockRaw).object as LockFileObject
   for (const dependencyWithVersion in lockFileObject) {
-    if (Object.prototype.hasOwnProperty.call(lockFileObject, dependencyWithVersion)) {
-      const match = dependencyWithVersion.match(/^(?<package>.*?)@[^@]+$/u)
-      if (match?.groups) {
-        const packageName = match.groups.package
+    if (!Object.prototype.hasOwnProperty.call(lockFileObject, dependencyWithVersion)) {
+      continue
+    }
+    const match = dependencyWithVersion.match(/^(?<packageName>.*?)@(?<claimedVersion>[^@]+)$/u)
+    if (!match?.groups) {
+      continue
+    }
+    const { packageName, claimedVersion } = match.groups
 
-        installedPackages.push({
-          name: packageName,
-          isDev: packageJson.devDependencies
-            ? Object.keys(packageJson.devDependencies).includes(packageName)
-            : false,
-          version: lockFileObject[dependencyWithVersion].version,
-        })
-      }
+    const allDeps = {
+      ...packageJson.dependencies,
+      ...packageJson.devDependencies,
+    }
+
+    if (allDeps[packageName] && allDeps[packageName] === claimedVersion) {
+      installedPackages.push({
+        name: packageName,
+        isDev: packageJson.devDependencies
+          ? Object.keys(packageJson.devDependencies).includes(packageName)
+          : false,
+        version: lockFileObject[dependencyWithVersion].version,
+      })
     }
   }
+
   return installedPackages
 }
 
@@ -88,7 +99,7 @@ export const getDependencyManager = (projectDirectory: string): DependencyManage
 export const getPackageJson = (projectDirectory: string): PackageJson | undefined => {
   const fileName = path.join(projectDirectory, 'package.json')
   try {
-    const packageJsonRaw = fs.readFileSync(fileName, 'utf-8')
+    const packageJsonRaw = fs.readFileSync(fileName, 'utf8')
     return JSON.parse(packageJsonRaw) as PackageJson
   } catch (error: unknown) {
     return undefined

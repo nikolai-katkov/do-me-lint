@@ -7,7 +7,7 @@ interface Parameters {
   monorepoRoot?: string
 }
 
-const generateSettings = (parameters: Parameters): JsonObject => {
+export const generateSettings = (parameters: Parameters): JsonObject => {
   const { existingSettings, projectDirectory, monorepoRoot } = parameters
   const newSettings = JSON.parse(JSON.stringify(existingSettings)) as JsonObject
 
@@ -57,5 +57,3 @@ const prettierLanguages = [
   'yaml',
 ]
 // source: https://code.visualstudio.com/docs/languages/identifiers
-
-export default generateSettings

@@ -15,9 +15,32 @@ plugins:
   - sonarjs
   - promise
   - array-func
+  - import
 parserOptions:
   sourceType: module
   ecmaVersion: 2021
+settings:
+  import/extensions:
+    - .json
+    - .js
+    - .jsx
+    - .ts
+    - .tsx
+  import/external-module-folders:
+    - node_modules
+    - node_modules/@types
+  import/parsers:
+    '@typescript-eslint/parser':
+      - .ts
+      - .tsx
+  import/resolver:
+    node:
+      extensions:
+        - .json
+        - .js
+        - .jsx
+        - .ts
+        - .tsx
 rules:
   accessor-pairs: error
   array-callback-return: error
@@ -50,6 +73,23 @@ rules:
     - error
     - min: 1
       max: 35
+  import/first: error
+  import/newline-after-import: error
+  import/no-absolute-path: error
+  import/no-anonymous-default-export: error
+  import/no-default-export: error
+  import/no-dynamic-require: error
+  import/no-extraneous-dependencies: error
+  import/no-mutable-exports: error
+  import/no-named-as-default: error
+  import/no-named-as-default-member: error
+  import/no-named-default: error
+  import/no-self-import: error
+  import/no-useless-path-segments:
+    - error
+    - noUselessIndex: true
+      commonjs: true
+  import/no-webpack-loader-syntax: error
   max-classes-per-file: error
   max-depth:
     - error
@@ -164,7 +204,6 @@ rules:
   promise/valid-params: error
   radix: error
   require-atomic-updates: error
-  require-unicode-regexp: error
   require-yield: error
   simple-import-sort/exports: error
   simple-import-sort/imports: error
@@ -177,11 +216,16 @@ rules:
     - 5
   sonarjs/no-duplicated-branches: error
   sonarjs/no-element-overwrite: error
+  sonarjs/no-empty-collection: error
+  sonarjs/no-gratuitous-expressions: error
   sonarjs/no-identical-conditions: error
   sonarjs/no-identical-functions: error
-  sonarjs/no-inverted-boolean-check: error
+  sonarjs/no-ignored-return: error
+  sonarjs/no-nested-switch: error
+  sonarjs/no-nested-template-literals: error
   sonarjs/no-small-switch: error
   sonarjs/no-unused-collection: error
+  sonarjs/non-existent-operator: error
   sonarjs/prefer-immediate-return: error
   sonarjs/prefer-object-literal: error
   sonarjs/prefer-while: error
@@ -205,41 +249,52 @@ rules:
   unicorn/import-index: error
   unicorn/import-style: error
   unicorn/no-abusive-eslint-disable: error
+  unicorn/no-array-method-this-argument: error
   unicorn/no-array-push-push: error
+  unicorn/no-await-expression-member: error
   unicorn/no-console-spaces: error
   unicorn/no-document-cookie: error
+  unicorn/no-empty-file: error
   unicorn/no-for-loop: error
   unicorn/no-hex-escape: error
   unicorn/no-instanceof-array: error
+  unicorn/no-invalid-remove-event-listener: error
   unicorn/no-lonely-if: error
   unicorn/no-new-array: error
   unicorn/no-new-buffer: error
   unicorn/no-object-as-default-parameter: error
   unicorn/no-static-only-class: error
+  unicorn/no-thenable: error
   unicorn/no-this-assignment: error
-  unicorn/no-unsafe-regex: error
+  unicorn/no-unreadable-iife: error
   unicorn/no-unused-properties: error
+  unicorn/no-useless-fallback-in-spread: error
   unicorn/no-useless-length-check: error
+  unicorn/no-useless-promise-resolve-reject: error
   unicorn/no-useless-spread: error
+  unicorn/no-useless-switch-case: error
   unicorn/no-useless-undefined: error
   unicorn/no-zero-fractions: error
-  unicorn/numeric-separators-style: error
   unicorn/prefer-add-event-listener: error
   unicorn/prefer-array-find: error
   unicorn/prefer-array-flat: error
   unicorn/prefer-array-flat-map: error
   unicorn/prefer-array-index-of: error
   unicorn/prefer-array-some: error
+  unicorn/prefer-code-point: error
   unicorn/prefer-date-now: error
   unicorn/prefer-default-parameters: error
   unicorn/prefer-dom-node-append: error
   unicorn/prefer-dom-node-dataset: error
   unicorn/prefer-dom-node-remove: error
   unicorn/prefer-dom-node-text-content: error
+  unicorn/prefer-export-from: error
   unicorn/prefer-includes: error
   unicorn/prefer-keyboard-event-key: error
   unicorn/prefer-math-trunc: error
   unicorn/prefer-modern-dom-apis: error
+  unicorn/prefer-modern-math-apis: error
+  unicorn/prefer-native-coercion-functions: error
   unicorn/prefer-negative-index: error
   unicorn/prefer-number-properties:
     - error
@@ -257,26 +312,10 @@ rules:
     - error
     - only-single-line
   unicorn/prefer-type-error: error
-  unicorn/prevent-abbreviations:
-    - error
-    - checkFilenames: false
-      replacements:
-        dir:
-          direction: false
-        pkg:
-          package: false
-        cfg:
-          config: true
-        lang:
-          language: true
-        langs:
-          languages: true
-        dep:
-          dependency: true
-        deps:
-          dependencies: true
   unicorn/require-array-join-separator: error
   unicorn/require-number-to-fixed-digits-argument: error
+  unicorn/template-indent: error
+  unicorn/text-encoding-identifier-case: error
   unicorn/throw-new-error: error
   use-isnan: error
   yoda: error
@@ -296,15 +335,17 @@ overrides:
       default-param-last: error
       dot-notation: error
       getter-return: error
+      import/default: error
+      import/named: error
+      import/namespace: error
+      import/no-deprecated: error
       lines-between-class-members: error
       no-array-constructor: error
       no-const-assign: error
       no-dupe-args: error
       no-dupe-class-members: error
       no-dupe-keys: error
-      no-duplicate-imports:
-        - error
-        - includeExports: true
+      no-duplicate-imports: error
       no-empty-function:
         - error
         - allow:
@@ -323,6 +364,7 @@ overrides:
         - error
         - builtinGlobals: false
           hoist: functions
+          ignoreOnInitialization: true
       no-this-before-super: error
       no-throw-literal: error
       no-undef: error
@@ -360,6 +402,7 @@ overrides:
       '@typescript-eslint/consistent-indexed-object-style': error
       '@typescript-eslint/consistent-type-assertions': error
       '@typescript-eslint/consistent-type-definitions': error
+      '@typescript-eslint/consistent-type-exports': error
       '@typescript-eslint/consistent-type-imports': error
       '@typescript-eslint/default-param-last': error
       '@typescript-eslint/dot-notation': error
@@ -370,9 +413,14 @@ overrides:
         - selector: memberLike
           format:
             - camelCase
+            - UPPER_CASE
             - PascalCase
           leadingUnderscore: allow
           trailingUnderscore: allow
+        - selector: memberLike
+          format: null
+          modifiers:
+            - requiresQuotes
         - selector: variableLike
           format:
             - camelCase
@@ -388,9 +436,7 @@ overrides:
       '@typescript-eslint/no-confusing-non-null-assertion': error
       '@typescript-eslint/no-confusing-void-expression': error
       '@typescript-eslint/no-dupe-class-members': error
-      '@typescript-eslint/no-duplicate-imports':
-        - error
-        - includeExports: true
+      '@typescript-eslint/no-duplicate-imports': error
       '@typescript-eslint/no-empty-function':
         - error
         - allow:
@@ -407,9 +453,11 @@ overrides:
       '@typescript-eslint/no-invalid-void-type': error
       '@typescript-eslint/no-loop-func': error
       '@typescript-eslint/no-loss-of-precision': error
+      '@typescript-eslint/no-meaningless-void-operator': error
       '@typescript-eslint/no-misused-new': error
       '@typescript-eslint/no-misused-promises': error
       '@typescript-eslint/no-namespace': error
+      '@typescript-eslint/no-non-null-asserted-nullish-coalescing': error
       '@typescript-eslint/no-non-null-asserted-optional-chain': error
       '@typescript-eslint/no-non-null-assertion': error
       '@typescript-eslint/no-redeclare': error
@@ -454,7 +502,6 @@ overrides:
       '@typescript-eslint/restrict-plus-operands': error
       '@typescript-eslint/restrict-template-expressions': error
       '@typescript-eslint/return-await': error
-      '@typescript-eslint/sort-type-union-intersection-members': error
       '@typescript-eslint/strict-boolean-expressions': error
       '@typescript-eslint/switch-exhaustiveness-check': error
       '@typescript-eslint/triple-slash-reference': error
@@ -468,12 +515,12 @@ overrides:
     rules:
       jest/consistent-test-it: error
       jest/expect-expect: error
-      jest/lowercase-name:
+      jest/max-nested-describe:
         - error
-        - ignore:
-            - describe
+        - max: 4
       jest/no-alias-methods: error
       jest/no-conditional-expect: error
+      jest/no-conditional-in-test: error
       jest/no-deprecated-functions: error
       jest/no-disabled-tests: error
       jest/no-done-callback: error
@@ -481,7 +528,6 @@ overrides:
       jest/no-export: error
       jest/no-focused-tests: error
       jest/no-identical-title: error
-      jest/no-if: error
       jest/no-interpolation-in-snapshots: error
       jest/no-jasmine-globals: error
       jest/no-jest-import: error
@@ -490,15 +536,23 @@ overrides:
       jest/no-standalone-expect: error
       jest/no-test-prefixes: error
       jest/no-test-return-statement: error
+      jest/prefer-comparison-matcher: error
+      jest/prefer-equality-matcher: error
+      jest/prefer-expect-resolves: error
       jest/prefer-hooks-on-top: error
+      jest/prefer-lowercase-title:
+        - error
+        - ignore:
+            - describe
+      jest/prefer-snapshot-hint: error
       jest/prefer-spy-on: error
       jest/prefer-strict-equal: error
-      jest/prefer-to-be-null: error
-      jest/prefer-to-be-undefined: error
+      jest/prefer-to-be: error
       jest/prefer-to-contain: error
       jest/prefer-to-have-length: error
       jest/prefer-todo: error
-      jest/valid-describe: error
+      jest/require-hook: error
+      jest/valid-describe-callback: error
       jest/valid-expect: error
       jest/valid-expect-in-promise: error
   - files:
@@ -517,6 +571,7 @@ overrides:
       yml/no-empty-mapping-value: error
       yml/no-empty-sequence-entry: error
       yml/no-irregular-whitespace: error
+      yml/no-multiple-empty-lines: error
       yml/no-tab-indent: error
       yml/plain-scalar: error
       yml/require-string-key: error

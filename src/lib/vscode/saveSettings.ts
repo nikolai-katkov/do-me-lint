@@ -8,10 +8,8 @@ interface Parameters {
   settings: JsonObject
   directory: string
 }
-const saveSettings = ({ settings, directory }: Parameters): void => {
+export const saveSettings = ({ settings, directory }: Parameters): void => {
   const fullDirectory = path.resolve(directory, '.vscode')
   fs.mkdirSync(fullDirectory, { recursive: true })
   fs.writeFileSync(path.join(fullDirectory, 'settings.json'), makeJSON(settings))
 }
-
-export default saveSettings

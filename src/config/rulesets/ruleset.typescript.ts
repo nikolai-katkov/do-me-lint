@@ -1,9 +1,9 @@
 /* eslint-disable id-length */
 
-import type { Rule } from '../lib/eslint/rulesConfig'
-import { projectHas } from '../lib/eslint/rulesConfig'
+import type { Rule } from '../../lib/eslint/rulesConfig'
+import { projectHas } from '../../lib/eslint/rulesConfig'
 
-const ruleset: Record<string, Rule> = {
+export const ruleset: Record<string, Rule> = {
   '@typescript-eslint/adjacent-overload-signatures': {
     enabled: projectHas('typescript'),
     scope: 'ts',
@@ -51,6 +51,11 @@ const ruleset: Record<string, Rule> = {
     scope: 'ts',
     fixable: true,
   },
+  '@typescript-eslint/consistent-type-exports': {
+    enabled: projectHas('typescript'),
+    scope: 'ts',
+    fixable: true,
+  },
   '@typescript-eslint/consistent-type-imports': {
     enabled: projectHas('typescript'), // TIL - new TS syntax!, but conflicts with no-duplicate-imports (prefer this)
     scope: 'ts',
@@ -92,10 +97,11 @@ const ruleset: Record<string, Rule> = {
     options: [
       {
         selector: 'memberLike',
-        format: ['camelCase', 'PascalCase'],
+        format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
         leadingUnderscore: 'allow',
         trailingUnderscore: 'allow',
       },
+      { selector: 'memberLike', format: null, modifiers: ['requiresQuotes'] },
       {
         selector: 'variableLike',
         format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
@@ -163,6 +169,10 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   '@typescript-eslint/no-invalid-void-type': {
+    enabled: projectHas('typescript'),
+    scope: 'ts',
+  },
+  '@typescript-eslint/no-meaningless-void-operator': {
     enabled: projectHas('typescript'),
     scope: 'ts',
   },
@@ -265,6 +275,10 @@ const ruleset: Record<string, Rule> = {
     scope: 'ts',
     fixable: true,
   },
+  '@typescript-eslint/padding-line-between-statements': {
+    enabled: false, // same as native padding-line-between-statements // projectHas('typescript')
+    scope: 'ts',
+  },
   '@typescript-eslint/prefer-as-const': {
     enabled: projectHas('typescript'),
     scope: 'ts',
@@ -352,7 +366,7 @@ const ruleset: Record<string, Rule> = {
     scope: 'ts',
   },
   '@typescript-eslint/sort-type-union-intersection-members': {
-    enabled: projectHas('typescript'), // Weird, but autofixable
+    enabled: false, // Weird // projectHas('typescript'),
     scope: 'ts',
     fixable: true,
   },
@@ -447,8 +461,7 @@ const ruleset: Record<string, Rule> = {
   },
   '@typescript-eslint/no-duplicate-imports': {
     enabled: projectHas('typescript'),
-    options: { includeExports: true },
-    scope: 'ts',
+    scope: 'ts', // not including includeExports option to allow re-export external library's stuff along with ours
   },
   '@typescript-eslint/no-empty-function': {
     enabled: projectHas('typescript'),
@@ -486,8 +499,16 @@ const ruleset: Record<string, Rule> = {
     enabled: false, // no one wants to suffer that much // projectHas('typescript')
     scope: 'ts',
   },
+  '@typescript-eslint/no-non-null-asserted-nullish-coalescing': {
+    enabled: projectHas('typescript'),
+    scope: 'ts',
+  },
   '@typescript-eslint/no-redeclare': {
     enabled: projectHas('typescript'),
+    scope: 'ts',
+  },
+  '@typescript-eslint/no-restricted-imports': {
+    enabled: false, // follow native no-restricted-imports // projectHas('typescript')
     scope: 'ts',
   },
   '@typescript-eslint/no-shadow': {
@@ -553,5 +574,3 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
 }
-
-export default ruleset

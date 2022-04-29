@@ -1,10 +1,10 @@
-import generateSettings from '../lib/vscode/generateSettings'
-import getExistingSettings from '../lib/vscode/getExistingSettings'
-import saveSettings from '../lib/vscode/saveSettings'
-import log from '../util/log'
+import { generateSettings } from '../lib/vscode/generateSettings'
+import { getExistingSettings } from '../lib/vscode/getExistingSettings'
+import { saveSettings } from '../lib/vscode/saveSettings'
+import * as log from '../util/log'
 import type { Context } from './getMeContext'
 
-const doMeVSCode = (context: Context): void => {
+export const doMeVSCode = (context: Context): void => {
   log.info('Reading your current VS Code settings')
   const existingSettings = getExistingSettings(context.monorepoRoot ?? context.projectDirectory)
 
@@ -23,5 +23,3 @@ const doMeVSCode = (context: Context): void => {
 
   // maybe install extensions ['dbaeumer.vscode-eslint', 'esbenp.prettier-vscode']
 }
-
-export default doMeVSCode

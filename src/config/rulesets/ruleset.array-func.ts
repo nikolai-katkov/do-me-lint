@@ -1,6 +1,6 @@
-import type { Rule } from '../lib/eslint/rulesConfig'
+import type { Rule } from '../../lib/eslint/rulesConfig'
 
-const ruleset: Record<string, Rule> = {
+export const ruleset: Record<string, Rule> = {
   'array-func/from-map': {
     enabled: true,
     fixable: true,
@@ -27,5 +27,3 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
 }
-
-export default ruleset

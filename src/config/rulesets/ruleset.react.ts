@@ -1,7 +1,7 @@
-import type { Rule } from '../lib/eslint/rulesConfig'
-import { projectHas } from '../lib/eslint/rulesConfig'
+import type { Rule } from '../../lib/eslint/rulesConfig'
+import { projectHas } from '../../lib/eslint/rulesConfig'
 
-const ruleset: Record<string, Rule> = {
+export const ruleset: Record<string, Rule> = {
   'react/boolean-prop-naming': {
     enabled: false, // too nerdy // projectHas('react')
   },
@@ -131,7 +131,7 @@ const ruleset: Record<string, Rule> = {
     scope: 'js', // with TS types you don't need PropTypes
   },
   'react/react-in-jsx-scope': {
-    enabled: projectHas('react'), // doesn't work with pragmas
+    enabled: false, // https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#eslint
   },
   'react/require-default-props': {
     enabled: projectHas('react'), // need to check if it's playing well in real codebases
@@ -305,7 +305,7 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   'react/jsx-uses-react': {
-    enabled: projectHas('react'),
+    enabled: false, // https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#eslint
   },
   'react/jsx-uses-vars': {
     enabled: projectHas('react'),
@@ -324,5 +324,3 @@ const ruleset: Record<string, Rule> = {
     fixable: true,
   },
 }
-
-export default ruleset
