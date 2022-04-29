@@ -6,8 +6,9 @@ import * as log from '../../util/log'
 interface Parameters {
   projectDirectory: string
 }
+
 export const deleteConflictingConfigurations = ({ projectDirectory }: Parameters) => {
-  const files: string[] = glob('**/.eslintrc{,.js,.yml,.yaml,.json}', {
+  const files: string[] = glob('./.eslintrc{,.js,.yml,.yaml,.json}', {
     cwd: projectDirectory,
     ignore: '**/node_modules/**',
     nodir: true,
