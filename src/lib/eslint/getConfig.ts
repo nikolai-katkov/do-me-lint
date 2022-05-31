@@ -202,15 +202,15 @@ const getEnvironments = (projectDependencies: string[]): ByScope<Record<string, 
 const getDependencies = (projectDependencies: string[]): ExactDependency[] => {
   const dependencies: ExactDependency[] = []
   dependencies.push(
-    ['eslint', '8.12.0'],
+    ['eslint', '8.16.0'],
     ['prettier', '2.6.2'],
     ['eslint-plugin-simple-import-sort', '7.0.0'],
     ['eslint-plugin-unicorn', '42.0.0'],
     ['eslint-plugin-sonarjs', '0.13.0'],
     ['eslint-plugin-promise', '6.0.0'],
-    ['eslint-plugin-yml', '0.14.0'],
+    ['eslint-plugin-yml', '1.0.0'],
     ['eslint-plugin-array-func', '3.1.7'],
-    ['eslint-plugin-import', '2.25.4']
+    ['eslint-plugin-import', '2.26.0']
   )
 
   if (projectDependencies.includes('babel')) {
@@ -218,9 +218,9 @@ const getDependencies = (projectDependencies: string[]): ExactDependency[] => {
   }
   if (projectDependencies.includes('typescript')) {
     dependencies.push(
-      ['@typescript-eslint/parser', '5.17.0'],
-      ['@typescript-eslint/eslint-plugin', '5.17.0'],
-      ['eslint-import-resolver-typescript', '2.7.0']
+      ['@typescript-eslint/parser', '5.27.0'],
+      ['@typescript-eslint/eslint-plugin', '5.27.0'],
+      ['eslint-import-resolver-typescript', '2.7.1']
     )
   }
   if (projectDependencies.includes('react')) {
@@ -231,7 +231,7 @@ const getDependencies = (projectDependencies: string[]): ExactDependency[] => {
     )
   }
   if (projectDependencies.includes('jest')) {
-    dependencies.push(['eslint-plugin-jest', '26.1.3'])
+    dependencies.push(['eslint-plugin-jest', '26.4.6'])
   }
   return dependencies
 }

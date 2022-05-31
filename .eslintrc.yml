@@ -78,6 +78,7 @@ rules:
   import/no-absolute-path: error
   import/no-anonymous-default-export: error
   import/no-default-export: error
+  import/no-duplicates: error
   import/no-dynamic-require: error
   import/no-extraneous-dependencies: error
   import/no-mutable-exports: error
@@ -104,6 +105,7 @@ rules:
   no-class-assign: error
   no-compare-neg-zero: error
   no-cond-assign: error
+  no-constant-binary-expression: error
   no-constant-condition: error
   no-constructor-return: error
   no-continue: error
@@ -436,7 +438,6 @@ overrides:
       '@typescript-eslint/no-confusing-non-null-assertion': error
       '@typescript-eslint/no-confusing-void-expression': error
       '@typescript-eslint/no-dupe-class-members': error
-      '@typescript-eslint/no-duplicate-imports': error
       '@typescript-eslint/no-empty-function':
         - error
         - allow:
@@ -539,6 +540,7 @@ overrides:
       jest/prefer-comparison-matcher: error
       jest/prefer-equality-matcher: error
       jest/prefer-expect-resolves: error
+      jest/prefer-hooks-in-order: error
       jest/prefer-hooks-on-top: error
       jest/prefer-lowercase-title:
         - error

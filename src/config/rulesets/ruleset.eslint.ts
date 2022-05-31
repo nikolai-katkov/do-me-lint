@@ -437,6 +437,9 @@ export const ruleset: Record<string, Rule> = {
     enabled: false, // too harsh, we should have freedom to init undefined vars
     scope: 'js', // @typescript-eslint/init-declarations
   },
+  'no-constant-binary-expression': {
+    enabled: true,
+  },
   'no-delete-var': {
     enabled: true,
   },

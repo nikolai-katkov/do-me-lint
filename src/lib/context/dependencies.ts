@@ -55,7 +55,7 @@ const getYarnPackages = (
       ...packageJson.devDependencies,
     }
 
-    if (allDeps[packageName] && allDeps[packageName] === claimedVersion) {
+    if (allDeps[packageName] === claimedVersion) {
       installedPackages.push({
         name: packageName,
         isDev: packageJson.devDependencies

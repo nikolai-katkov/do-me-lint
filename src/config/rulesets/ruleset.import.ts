@@ -63,7 +63,7 @@ export const ruleset: Record<string, Rule> = {
     scope: 'js', // ts(6387)
   },
   'import/no-duplicates': {
-    enabled: false, // see no-duplicate-imports, which is almost the same
+    enabled: true,
     fixable: true,
   },
   'import/no-dynamic-require': {
@@ -102,6 +102,7 @@ export const ruleset: Record<string, Rule> = {
   },
   'import/no-relative-packages': {
     enabled: false, // not everything is Lerna yet
+    fixable: true,
   },
   'import/no-relative-parent-imports': {
     enabled: false, // too specific and invasive

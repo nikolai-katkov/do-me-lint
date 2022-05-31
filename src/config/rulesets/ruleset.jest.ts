@@ -132,6 +132,10 @@ export const ruleset: Record<string, Rule> = {
     scope: 'testJest',
     fixable: true,
   },
+  'jest/prefer-hooks-in-order': {
+    enabled: projectHas('jest'),
+    scope: 'testJest',
+  },
   'jest/prefer-hooks-on-top': {
     enabled: projectHas('jest'),
     scope: 'testJest',
