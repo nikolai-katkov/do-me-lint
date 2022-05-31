@@ -112,3 +112,4 @@ ignoredRules:
 - [YAML](https://github.com/ota-meshi/eslint-plugin-yml)
 - [array-func](https://github.com/freaktechnik/eslint-plugin-array-func)
 - [import](https://github.com/import-js/eslint-plugin-import)
+- [Playwright](https://github.com/playwright-community/eslint-plugin-playwright)

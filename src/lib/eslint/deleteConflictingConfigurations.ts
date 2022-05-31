@@ -8,14 +8,13 @@ interface Parameters {
 }
 
 export const deleteConflictingConfigurations = ({ projectDirectory }: Parameters) => {
-  const files: string[] = glob('./.eslintrc{,.js,.yml,.yaml,.json}', {
-    cwd: projectDirectory,
+  const files: string[] = glob(projectDirectory + '/.eslintrc{,.js,.yml,.yaml,.json}', {
     ignore: '**/node_modules/**',
     nodir: true,
   })
 
   files
-    .filter(file => file !== '.eslintrc.yml') // will be just overwritten, no need to report as conflict
+    .filter(file => file !== projectDirectory + '/.eslintrc.yml') // will be just overwritten, no need to report as conflict
     .forEach(file => {
       log.debug(`deleting ${file}`)
       fs.rmSync(file)

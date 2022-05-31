@@ -1,4 +1,5 @@
 import type { Rule } from '../../lib/eslint/rulesConfig'
+import { projectDoesntHave } from '../../lib/eslint/rulesConfig'
 
 export const ruleset: Record<string, Rule> = {
   'for-direction': {
@@ -235,7 +236,7 @@ export const ruleset: Record<string, Rule> = {
     scope: 'js', // @typescript-eslint/no-empty-function
   },
   'no-empty-pattern': {
-    enabled: true,
+    enabled: projectDoesntHave('@playwright/test'), // https://github.com/microsoft/playwright/issues/8798
   },
   'no-eq-null': {
     enabled: false, // covered by eqeqeq

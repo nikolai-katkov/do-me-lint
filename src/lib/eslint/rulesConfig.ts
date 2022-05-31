@@ -19,6 +19,11 @@ export const projectHas =
   ({ projectDependencies }: RuleInput) =>
     projectDependencies.includes(dependency)
 
+export const projectDoesntHave =
+  (dependency: string) =>
+  ({ projectDependencies }: RuleInput) =>
+    !projectDependencies.includes(dependency)
+
 export const getProperty = <T, P>(
   property: T extends (input: RuleInput) => P ? (input: RuleInput) => P : T,
   input: RuleInput

@@ -73,6 +73,9 @@ const getPlugins = (projectDependencies: string[]): ByScope<string[]> => {
   if (projectDependencies.includes('jest')) {
     plugins.testJest.push('jest')
   }
+  if (projectDependencies.includes('@playwright/test')) {
+    plugins.testJest.push('playwright')
+  }
   return plugins
 }
 
@@ -196,6 +199,9 @@ const getEnvironments = (projectDependencies: string[]): ByScope<Record<string, 
   if (projectDependencies.includes('jest')) {
     environments.testJest['jest/globals'] = true
   }
+  if (projectDependencies.includes('@playwright/test')) {
+    environments.all['shared-node-browser'] = true
+  }
   return environments
 }
 
@@ -232,6 +238,9 @@ const getDependencies = (projectDependencies: string[]): ExactDependency[] => {
   }
   if (projectDependencies.includes('jest')) {
     dependencies.push(['eslint-plugin-jest', '26.4.6'])
+  }
+  if (projectDependencies.includes('@playwright/test')) {
+    dependencies.push(['eslint-plugin-playwright', '0.9.0'])
   }
   return dependencies
 }

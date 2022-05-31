@@ -12,6 +12,7 @@ import { ruleset as sonarjs } from './rulesets/ruleset.sonarjs'
 import { ruleset as typescript } from './rulesets/ruleset.typescript'
 import { ruleset as unicorn } from './rulesets/ruleset.unicorn'
 import { ruleset as yml } from './rulesets/ruleset.yml'
+import { ruleset as playwright } from './rulesets/ruleset.playwright'
 
 export const ruleset: Record<string, Rule> = {
   ...eslint,
@@ -27,4 +28,5 @@ export const ruleset: Record<string, Rule> = {
   ...yml,
   ...arrayFunction,
   ...importPlugin,
+  ...playwright,
 }
