@@ -169,7 +169,9 @@ export const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   '@typescript-eslint/no-invalid-void-type': {
-    enabled: projectHas('typescript'),
+    enabled: ({ projectDependencies }) =>
+      projectDependencies.includes('typescript') &&
+      !projectDependencies.includes('@playwright/test'), // conflicts with a recommended Playwright syntax https://playwright.dev/docs/test-fixtures#automatic-fixtures
     scope: 'ts',
   },
   '@typescript-eslint/no-meaningless-void-operator': {
