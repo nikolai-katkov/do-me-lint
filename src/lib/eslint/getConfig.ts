@@ -208,15 +208,15 @@ const getEnvironments = (projectDependencies: string[]): ByScope<Record<string, 
 const getDependencies = (projectDependencies: string[]): ExactDependency[] => {
   const dependencies: ExactDependency[] = []
   dependencies.push(
-    ['eslint', '8.16.0'],
-    ['prettier', '2.6.2'],
-    ['eslint-plugin-simple-import-sort', '7.0.0'],
-    ['eslint-plugin-unicorn', '42.0.0'],
-    ['eslint-plugin-sonarjs', '0.13.0'],
-    ['eslint-plugin-promise', '6.0.0'],
-    ['eslint-plugin-yml', '1.0.0'],
-    ['eslint-plugin-array-func', '3.1.7'],
-    ['eslint-plugin-import', '2.26.0']
+    ['eslint', '8.30.0'],
+    ['prettier', '2.8.8'],
+    ['eslint-plugin-simple-import-sort', '10.0.0'],
+    ['eslint-plugin-unicorn', '43.0.1'],
+    ['eslint-plugin-sonarjs', '0.19.0'],
+    ['eslint-plugin-promise', '6.1.1'],
+    ['eslint-plugin-yml', '1.7.0'],
+    ['eslint-plugin-array-func', '3.1.8'],
+    ['eslint-plugin-import', '2.27.5']
   )
 
   if (projectDependencies.includes('babel')) {
@@ -224,23 +224,23 @@ const getDependencies = (projectDependencies: string[]): ExactDependency[] => {
   }
   if (projectDependencies.includes('typescript')) {
     dependencies.push(
-      ['@typescript-eslint/parser', '5.27.0'],
-      ['@typescript-eslint/eslint-plugin', '5.27.0'],
-      ['eslint-import-resolver-typescript', '2.7.1']
+      ['@typescript-eslint/parser', '5.59.6'],
+      ['@typescript-eslint/eslint-plugin', '5.59.6'],
+      ['eslint-import-resolver-typescript', '3.5.5']
     )
   }
   if (projectDependencies.includes('react')) {
     dependencies.push(
-      ['eslint-plugin-react', '7.28.0'],
-      ['eslint-plugin-react-hooks', '4.3.0'],
-      ['eslint-plugin-jsx-a11y', '6.5.1']
+      ['eslint-plugin-react', '7.32.2'],
+      ['eslint-plugin-react-hooks', '4.6.0'],
+      ['eslint-plugin-jsx-a11y', '6.7.1']
     )
   }
   if (projectDependencies.includes('jest')) {
-    dependencies.push(['eslint-plugin-jest', '26.4.6'])
+    dependencies.push(['eslint-plugin-jest', '27.2.1'])
   }
   if (projectDependencies.includes('@playwright/test')) {
-    dependencies.push(['eslint-plugin-playwright', '0.9.0'])
+    dependencies.push(['eslint-plugin-playwright', '0.12.0'])
   }
   return dependencies
 }

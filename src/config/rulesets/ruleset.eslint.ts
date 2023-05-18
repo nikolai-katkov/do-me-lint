@@ -207,6 +207,9 @@ export const ruleset: Record<string, Rule> = {
   'guard-for-in': {
     enabled: true,
   },
+  'logical-assignment-operators': {
+    enabled: false, // too fancy imo
+  },
   'max-classes-per-file': {
     enabled: true,
   },
@@ -237,6 +240,9 @@ export const ruleset: Record<string, Rule> = {
   },
   'no-empty-pattern': {
     enabled: projectDoesntHave('@playwright/test'), // https://github.com/microsoft/playwright/issues/8798
+  },
+  'no-empty-static-block': {
+    enabled: true,
   },
   'no-eq-null': {
     enabled: false, // covered by eqeqeq
@@ -309,6 +315,10 @@ export const ruleset: Record<string, Rule> = {
   },
   'no-new-func': {
     enabled: true,
+  },
+  'no-new-native-nonconstructor': {
+    enabled: true,
+    fixable: true,
   },
   'no-new-wrappers': {
     enabled: true,

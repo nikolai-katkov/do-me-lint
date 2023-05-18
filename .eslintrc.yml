@@ -74,12 +74,15 @@ rules:
     - min: 1
       max: 35
   import/first: error
-  import/newline-after-import: error
+  import/newline-after-import:
+    - error
+    - considerComments: true
   import/no-absolute-path: error
   import/no-anonymous-default-export: error
   import/no-default-export: error
   import/no-duplicates: error
   import/no-dynamic-require: error
+  import/no-empty-named-blocks: error
   import/no-extraneous-dependencies: error
   import/no-mutable-exports: error
   import/no-named-as-default: error
@@ -119,6 +122,7 @@ rules:
     - allowEmptyCatch: true
   no-empty-character-class: error
   no-empty-pattern: error
+  no-empty-static-block: error
   no-eval: error
   no-ex-assign: error
   no-extend-native: error
@@ -141,6 +145,7 @@ rules:
   no-negated-condition: error
   no-new: error
   no-new-func: error
+  no-new-native-nonconstructor: error
   no-new-object: error
   no-new-wrappers: error
   no-nonoctal-decimal-escape: error
@@ -199,6 +204,7 @@ rules:
   prefer-regex-literals: error
   prefer-spread: error
   prefer-template: error
+  promise/no-multiple-resolved: error
   promise/no-nesting: error
   promise/no-new-statics: error
   promise/no-return-wrap: error
@@ -248,7 +254,6 @@ rules:
     - error
     - allowWarningComments: false
   unicorn/explicit-length-check: error
-  unicorn/import-index: error
   unicorn/import-style: error
   unicorn/no-abusive-eslint-disable: error
   unicorn/no-array-method-this-argument: error
@@ -275,7 +280,6 @@ rules:
   unicorn/no-useless-promise-resolve-reject: error
   unicorn/no-useless-spread: error
   unicorn/no-useless-switch-case: error
-  unicorn/no-useless-undefined: error
   unicorn/no-zero-fractions: error
   unicorn/prefer-add-event-listener: error
   unicorn/prefer-array-find: error
@@ -290,9 +294,11 @@ rules:
   unicorn/prefer-dom-node-dataset: error
   unicorn/prefer-dom-node-remove: error
   unicorn/prefer-dom-node-text-content: error
+  unicorn/prefer-event-target: error
   unicorn/prefer-export-from: error
   unicorn/prefer-includes: error
   unicorn/prefer-keyboard-event-key: error
+  unicorn/prefer-logical-operator-over-ternary: error
   unicorn/prefer-math-trunc: error
   unicorn/prefer-modern-dom-apis: error
   unicorn/prefer-modern-math-apis: error
@@ -383,6 +389,7 @@ overrides:
       sonarjs/no-identical-expressions: error
       sonarjs/no-redundant-boolean: error
       sonarjs/no-use-of-empty-return-value: error
+      unicorn/no-useless-undefined: error
       valid-typeof: error
   - files:
       - '**/*.{ts,tsx}'
@@ -401,6 +408,7 @@ overrides:
       '@typescript-eslint/ban-tslint-comment': error
       '@typescript-eslint/ban-types': error
       '@typescript-eslint/class-literal-property-style': error
+      '@typescript-eslint/consistent-generic-constructors': error
       '@typescript-eslint/consistent-indexed-object-style': error
       '@typescript-eslint/consistent-type-assertions': error
       '@typescript-eslint/consistent-type-definitions': error
@@ -457,6 +465,7 @@ overrides:
       '@typescript-eslint/no-meaningless-void-operator': error
       '@typescript-eslint/no-misused-new': error
       '@typescript-eslint/no-misused-promises': error
+      '@typescript-eslint/no-mixed-enums': error
       '@typescript-eslint/no-namespace': error
       '@typescript-eslint/no-non-null-asserted-nullish-coalescing': error
       '@typescript-eslint/no-non-null-asserted-optional-chain': error
@@ -480,6 +489,8 @@ overrides:
       '@typescript-eslint/no-unsafe-argument': error
       '@typescript-eslint/no-unsafe-assignment': error
       '@typescript-eslint/no-unsafe-call': error
+      '@typescript-eslint/no-unsafe-declaration-merging': error
+      '@typescript-eslint/no-unsafe-enum-comparison': error
       '@typescript-eslint/no-unsafe-member-access': error
       '@typescript-eslint/no-unsafe-return': error
       '@typescript-eslint/no-unused-expressions': error
@@ -507,6 +518,9 @@ overrides:
       '@typescript-eslint/switch-exhaustiveness-check': error
       '@typescript-eslint/triple-slash-reference': error
       '@typescript-eslint/unified-signatures': error
+      import/consistent-type-specifier-style:
+        - error
+        - prefer-top-level
   - files:
       - src/**/{__tests__/*,*.{spec,test}}.{js,ts,jsx,tsx}
     env:
@@ -516,6 +530,7 @@ overrides:
     rules:
       jest/consistent-test-it: error
       jest/expect-expect: error
+      jest/max-expects: error
       jest/max-nested-describe:
         - error
         - max: 4
@@ -531,13 +546,13 @@ overrides:
       jest/no-identical-title: error
       jest/no-interpolation-in-snapshots: error
       jest/no-jasmine-globals: error
-      jest/no-jest-import: error
       jest/no-large-snapshots: error
       jest/no-mocks-import: error
       jest/no-standalone-expect: error
       jest/no-test-prefixes: error
       jest/no-test-return-statement: error
       jest/prefer-comparison-matcher: error
+      jest/prefer-each: error
       jest/prefer-equality-matcher: error
       jest/prefer-expect-resolves: error
       jest/prefer-hooks-in-order: error
@@ -546,6 +561,7 @@ overrides:
         - error
         - ignore:
             - describe
+      jest/prefer-mock-promise-shorthand: error
       jest/prefer-snapshot-hint: error
       jest/prefer-spy-on: error
       jest/prefer-strict-equal: error
@@ -575,6 +591,7 @@ overrides:
       yml/no-irregular-whitespace: error
       yml/no-multiple-empty-lines: error
       yml/no-tab-indent: error
+      yml/no-trailing-zeros: error
       yml/plain-scalar: error
       yml/require-string-key: error
       yml/spaced-comment: error

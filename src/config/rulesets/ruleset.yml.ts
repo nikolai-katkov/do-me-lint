@@ -12,6 +12,11 @@ export const ruleset: Record<string, Rule> = {
     scope: 'yaml',
     fixable: true,
   },
+  'yml/block-mapping-colon-indicator-newline': {
+    enabled: false, // seems too opinionated, can reconsider in the future
+    scope: 'yaml',
+    fixable: true,
+  },
   'yml/block-sequence-hyphen-indicator-newline': {
     enabled: false, // covered by Prettier
     scope: 'yaml',
@@ -26,6 +31,10 @@ export const ruleset: Record<string, Rule> = {
     enabled: false, // covered by Prettier
     scope: 'yaml',
     fixable: true,
+  },
+  'yml/file-extension': {
+    enabled: false, // will likely be noisy and potentially conflicting with standard libs
+    scope: 'yaml',
   },
   'yml/key-name-casing': {
     enabled: true, // need to see it in action; incompatible with eslintrc.yml
@@ -48,6 +57,10 @@ export const ruleset: Record<string, Rule> = {
     scope: 'yaml',
   },
   'yml/no-tab-indent': {
+    enabled: true,
+    scope: 'yaml',
+  },
+  'yml/no-trailing-zeros': {
     enabled: true,
     scope: 'yaml',
   },

@@ -36,6 +36,10 @@ export const ruleset: Record<string, Rule> = {
     enabled: false, // too opinionated // projectHas('react')
     fixable: true,
   },
+  'react/hook-use-state': {
+    enabled: false, // no use cases in my mind
+    fixable: true,
+  },
   'react/no-access-state-in-setstate': {
     enabled: projectHas('react'),
   },
@@ -74,6 +78,9 @@ export const ruleset: Record<string, Rule> = {
   },
   'react/no-multi-comp': {
     enabled: false, // too strict, I see cases where I'd like to define several components // projectHas('react')
+  },
+  'react/no-object-type-as-default-prop': {
+    enabled: projectHas('react'), // wow, til
   },
   'react/no-redundant-should-component-update': {
     enabled: projectHas('react'),
@@ -135,6 +142,9 @@ export const ruleset: Record<string, Rule> = {
   },
   'react/require-default-props': {
     enabled: projectHas('react'), // need to check if it's playing well in real codebases
+    options: {
+      functions: 'defaultArguments', // not sure, maybe default option will work better
+    },
     scope: 'js', // with TS types you wont do mistakes with defaultProps
   },
   'react/require-optimization': {
@@ -149,6 +159,9 @@ export const ruleset: Record<string, Rule> = {
   },
   'react/sort-comp': {
     enabled: projectHas('react'),
+  },
+  'react/sort-default-props': {
+    enabled: false, // I may want to group props to some logic // projectHas('react')
   },
   'react/sort-prop-types': {
     enabled: false, // I may want to group them by some logic // projectHas('react')
@@ -166,6 +179,10 @@ export const ruleset: Record<string, Rule> = {
   'react/void-dom-elements-no-children': {
     enabled: projectHas('react'),
   },
+  'react/iframe-missing-sandbox': {
+    enabled: projectHas('react'),
+  },
+
   'react/jsx-boolean-value': {
     enabled: projectHas('react'),
     fixable: true,
@@ -263,6 +280,10 @@ export const ruleset: Record<string, Rule> = {
   'react/jsx-no-undef': {
     enabled: projectHas('react'), // didn't test it
   },
+  'react/jsx-no-leaked-render': {
+    enabled: projectHas('react'),
+    fixable: true,
+  },
   'react/jsx-no-useless-fragment': {
     enabled: projectHas('react'),
     fixable: true,
@@ -282,9 +303,6 @@ export const ruleset: Record<string, Rule> = {
   },
   'react/jsx-props-no-spreading': {
     enabled: false, // turning off assuming that TSX works fine with spread, need to test // projectHas('react')
-  },
-  'react/jsx-sort-default-props': {
-    enabled: false, // I may want to group props to some logic // projectHas('react')
   },
   'react/jsx-sort-props': {
     enabled: false, // I may want to group props to some logic // projectHas('react')

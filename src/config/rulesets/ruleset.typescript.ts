@@ -37,6 +37,11 @@ export const ruleset: Record<string, Rule> = {
     scope: 'ts',
     fixable: true,
   },
+  '@typescript-eslint/consistent-generic-constructors': {
+    enabled: projectHas('typescript'),
+    scope: 'ts',
+    fixable: true,
+  },
   '@typescript-eslint/consistent-indexed-object-style': {
     enabled: projectHas('typescript'),
     scope: 'ts',
@@ -44,6 +49,7 @@ export const ruleset: Record<string, Rule> = {
   },
   '@typescript-eslint/consistent-type-assertions': {
     enabled: projectHas('typescript'),
+    fixable: true,
     scope: 'ts',
   },
   '@typescript-eslint/consistent-type-definitions': {
@@ -186,6 +192,10 @@ export const ruleset: Record<string, Rule> = {
     enabled: projectHas('typescript'),
     scope: 'ts',
   },
+  '@typescript-eslint/no-mixed-enums': {
+    enabled: projectHas('typescript'),
+    scope: 'ts',
+  },
   '@typescript-eslint/no-namespace': {
     enabled: projectHas('typescript'),
     scope: 'ts',
@@ -257,6 +267,14 @@ export const ruleset: Record<string, Rule> = {
     scope: 'ts',
   },
   '@typescript-eslint/no-unsafe-call': {
+    enabled: projectHas('typescript'),
+    scope: 'ts',
+  },
+  '@typescript-eslint/no-unsafe-declaration-merging': {
+    enabled: projectHas('typescript'),
+    scope: 'ts',
+  },
+  '@typescript-eslint/no-unsafe-enum-comparison': {
     enabled: projectHas('typescript'),
     scope: 'ts',
   },
@@ -399,7 +417,7 @@ export const ruleset: Record<string, Rule> = {
     scope: 'ts',
   },
   '@typescript-eslint/unbound-method': {
-    enabled: false, // didn't work well with react-hook-forms // projectHas('typescript')
+    enabled: false, // didn't work well with react-hook-forms, see also jest/unbound-method // projectHas('typescript')
     scope: 'ts',
   },
   '@typescript-eslint/unified-signatures': {
@@ -463,6 +481,11 @@ export const ruleset: Record<string, Rule> = {
   },
   '@typescript-eslint/no-dupe-class-members': {
     enabled: projectHas('typescript'),
+    scope: 'ts',
+  },
+  '@typescript-eslint/no-duplicate-type-constituents': {
+    enabled: false,
+    fixable: true,
     scope: 'ts',
   },
   '@typescript-eslint/no-duplicate-imports': {

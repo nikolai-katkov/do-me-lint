@@ -1,6 +1,12 @@
 import type { Rule } from '../../lib/eslint/rulesConfig'
 
 export const ruleset: Record<string, Rule> = {
+  'import/consistent-type-specifier-style': {
+    enabled: true,
+    options: 'prefer-top-level',
+    fixable: true,
+    scope: 'ts',
+  },
   'import/default': {
     enabled: true,
     scope: 'js', // ts(2613), ts(1192), and I couldn't make it work in TS
@@ -37,10 +43,14 @@ export const ruleset: Record<string, Rule> = {
   },
   'import/newline-after-import': {
     enabled: true,
+    options: {
+      considerComments: true,
+    },
     fixable: true,
   },
   'import/no-absolute-path': {
     enabled: true,
+    fixable: true,
   },
   'import/no-amd': {
     enabled: false, // intended for temporary use when migrating to pure ES6 modules.
@@ -53,7 +63,6 @@ export const ruleset: Record<string, Rule> = {
   },
   'import/no-cycle': {
     enabled: false, // too computationally expensive to use in such a big rule list
-    // fixable: true,
   },
   'import/no-default-export': {
     enabled: true, // big bang rule, be careful; see also import/no-named-export and import/prefer-default-export
@@ -68,6 +77,10 @@ export const ruleset: Record<string, Rule> = {
   },
   'import/no-dynamic-require': {
     enabled: true,
+  },
+  'import/no-empty-named-blocks': {
+    enabled: true,
+    fixable: true,
   },
   'import/no-extraneous-dependencies': {
     enabled: true,

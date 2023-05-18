@@ -5,6 +5,9 @@ export const ruleset: Record<string, Rule> = {
   'jsx-a11y/alt-text': {
     enabled: projectHas('react'),
   },
+  'jsx-a11y/anchor-ambiguous-text': {
+    enabled: projectHas('react'),
+  },
   'jsx-a11y/anchor-has-content': {
     enabled: projectHas('react'),
   },
@@ -59,6 +62,9 @@ export const ruleset: Record<string, Rule> = {
   'jsx-a11y/no-access-key': {
     enabled: projectHas('react'),
   },
+  'jsx-a11y/no-aria-hidden-on-focusable': {
+    enabled: projectHas('react'),
+  },
   'jsx-a11y/no-autofocus': {
     enabled: projectHas('react'),
   },
@@ -85,6 +91,9 @@ export const ruleset: Record<string, Rule> = {
   },
   'jsx-a11y/no-static-element-interactions': {
     enabled: projectHas('react'),
+  },
+  'jsx-a11y/prefer-tag-over-role': {
+    enabled: projectHas('react'), // need to see in battle
   },
   'jsx-a11y/role-has-required-aria-props': {
     enabled: projectHas('react'),

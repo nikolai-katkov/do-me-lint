@@ -42,10 +42,6 @@ export const ruleset: Record<string, Rule> = {
   'unicorn/filename-case': {
     enabled: false, // will bring more headache than profit
   },
-  'unicorn/import-index': {
-    enabled: true,
-    fixable: true,
-  },
   'unicorn/import-style': {
     enabled: true,
   },
@@ -178,6 +174,7 @@ export const ruleset: Record<string, Rule> = {
   },
   'unicorn/no-useless-undefined': {
     enabled: true,
+    scope: 'js', // conflicts with void return type in TS
     fixable: true,
   },
   'unicorn/no-zero-fractions': {
@@ -251,6 +248,10 @@ export const ruleset: Record<string, Rule> = {
     enabled: true,
     fixable: true,
   },
+  'unicorn/prefer-event-target': {
+    enabled: true, // Node 16+ only
+    fixable: true,
+  },
   'unicorn/prefer-includes': {
     enabled: true,
     fixable: true,
@@ -260,6 +261,10 @@ export const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   'unicorn/prefer-keyboard-event-key': {
+    enabled: true,
+    fixable: true,
+  },
+  'unicorn/prefer-logical-operator-over-ternary': {
     enabled: true,
     fixable: true,
   },

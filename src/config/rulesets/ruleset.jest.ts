@@ -11,6 +11,10 @@ export const ruleset: Record<string, Rule> = {
     enabled: projectHas('jest'),
     scope: 'testJest',
   },
+  'jest/max-expects': {
+    enabled: projectHas('jest'),
+    scope: 'testJest',
+  },
   'jest/max-nested-describe': {
     enabled: projectHas('jest'),
     options: { max: 4 },
@@ -81,16 +85,16 @@ export const ruleset: Record<string, Rule> = {
     scope: 'testJest',
     fixable: true,
   },
-  'jest/no-jest-import': {
-    enabled: projectHas('jest'),
-    scope: 'testJest',
-  },
   'jest/no-large-snapshots': {
     enabled: projectHas('jest'),
     scope: 'testJest',
   },
   'jest/no-mocks-import': {
     enabled: projectHas('jest'),
+    scope: 'testJest',
+  },
+  'jest/no-restricted-jest-methods': {
+    enabled: false, // no use case yet // projectHas('jest'),
     scope: 'testJest',
   },
   'jest/no-restricted-matchers': {
@@ -110,6 +114,11 @@ export const ruleset: Record<string, Rule> = {
     enabled: projectHas('jest'),
     scope: 'testJest',
   },
+  'jest/no-untyped-mock-factory': {
+    enabled: false, // needs a custom override, which is too much hassle // projectHas('jest'),
+    fixable: true,
+    scope: 'testJest',
+  },
   'jest/prefer-called-with': {
     enabled: false, // it's fine to use toHaveBeenCalled() // projectHas('jest')
     scope: 'testJest',
@@ -117,6 +126,10 @@ export const ruleset: Record<string, Rule> = {
   'jest/prefer-comparison-matcher': {
     enabled: projectHas('jest'),
     fixable: true,
+    scope: 'testJest',
+  },
+  'jest/prefer-each': {
+    enabled: projectHas('jest'),
     scope: 'testJest',
   },
   'jest/prefer-equality-matcher': {
@@ -138,6 +151,11 @@ export const ruleset: Record<string, Rule> = {
   },
   'jest/prefer-hooks-on-top': {
     enabled: projectHas('jest'),
+    scope: 'testJest',
+  },
+  'jest/prefer-mock-promise-shorthand': {
+    enabled: projectHas('jest'),
+    fixable: true,
     scope: 'testJest',
   },
   'jest/prefer-lowercase-title': {
@@ -189,6 +207,10 @@ export const ruleset: Record<string, Rule> = {
   },
   'jest/require-top-level-describe': {
     enabled: false, // not sure if it should be a requirement, especially for small codebases // projectHas('jest')
+    scope: 'testJest',
+  },
+  'jest/unbound-method': {
+    enabled: false, // see @typescript-eslint/unbound-method // projectHas('jest'),
     scope: 'testJest',
   },
   'jest/valid-describe-callback': {
