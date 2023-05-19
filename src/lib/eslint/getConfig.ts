@@ -208,10 +208,10 @@ const getEnvironments = (projectDependencies: string[]): ByScope<Record<string, 
 const getDependencies = (projectDependencies: string[]): ExactDependency[] => {
   const dependencies: ExactDependency[] = []
   dependencies.push(
-    ['eslint', '8.30.0'],
+    ['eslint', '8.40.0'],
     ['prettier', '2.8.8'],
     ['eslint-plugin-simple-import-sort', '10.0.0'],
-    ['eslint-plugin-unicorn', '43.0.1'],
+    ['eslint-plugin-unicorn', '47.0.0'],
     ['eslint-plugin-sonarjs', '0.19.0'],
     ['eslint-plugin-promise', '6.1.1'],
     ['eslint-plugin-yml', '1.7.0'],

@@ -106,6 +106,10 @@ export const ruleset: Record<string, Rule> = {
     enabled: true,
     fixable: true,
   },
+  'unicorn/no-negated-condition': {
+    enabled: true, // makes no-negated-condition obsolete
+    fixable: true,
+  },
   'unicorn/no-nested-ternary': {
     enabled: false, // covered by Prettier
     fixable: true,
@@ -137,6 +141,14 @@ export const ruleset: Record<string, Rule> = {
   },
   'unicorn/no-this-assignment': {
     enabled: true,
+  },
+  'unicorn/no-typeof-undefined': {
+    enabled: true,
+    fixable: true,
+  },
+  'unicorn/no-unnecessary-await': {
+    enabled: true,
+    fixable: true,
   },
   'unicorn/no-unreadable-array-destructuring': {
     enabled: false, // just not sure
@@ -216,6 +228,9 @@ export const ruleset: Record<string, Rule> = {
   'unicorn/prefer-at': {
     enabled: false, // not yet live in the current v33.0.1, change to confident yes in a few days
     fixable: true,
+  },
+  'unicorn/prefer-blob-reading-methods': {
+    enabled: true,
   },
   'unicorn/prefer-code-point': {
     enabled: true,
@@ -333,6 +348,10 @@ export const ruleset: Record<string, Rule> = {
     enabled: true,
     fixable: true,
   },
+  'unicorn/prefer-set-size': {
+    enabled: true,
+    fixable: true,
+  },
   'unicorn/prefer-spread': {
     enabled: false, // conflicts with array-func/prefer-array-from - prefer that
     fixable: true,
@@ -411,6 +430,10 @@ export const ruleset: Record<string, Rule> = {
   },
   'unicorn/string-content': {
     enabled: false, // made-up use case
+    fixable: true,
+  },
+  'unicorn/switch-case-braces': {
+    enabled: true,
     fixable: true,
   },
   'unicorn/template-indent': {

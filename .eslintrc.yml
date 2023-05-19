@@ -142,7 +142,6 @@ rules:
   no-misleading-character-class: error
   no-multi-assign: error
   no-multi-str: error
-  no-negated-condition: error
   no-new: error
   no-new-func: error
   no-new-native-nonconstructor: error
@@ -267,12 +266,15 @@ rules:
   unicorn/no-instanceof-array: error
   unicorn/no-invalid-remove-event-listener: error
   unicorn/no-lonely-if: error
+  unicorn/no-negated-condition: error
   unicorn/no-new-array: error
   unicorn/no-new-buffer: error
   unicorn/no-object-as-default-parameter: error
   unicorn/no-static-only-class: error
   unicorn/no-thenable: error
   unicorn/no-this-assignment: error
+  unicorn/no-typeof-undefined: error
+  unicorn/no-unnecessary-await: error
   unicorn/no-unreadable-iife: error
   unicorn/no-unused-properties: error
   unicorn/no-useless-fallback-in-spread: error
@@ -287,6 +289,7 @@ rules:
   unicorn/prefer-array-flat-map: error
   unicorn/prefer-array-index-of: error
   unicorn/prefer-array-some: error
+  unicorn/prefer-blob-reading-methods: error
   unicorn/prefer-code-point: error
   unicorn/prefer-date-now: error
   unicorn/prefer-default-parameters: error
@@ -312,6 +315,7 @@ rules:
   unicorn/prefer-query-selector: error
   unicorn/prefer-regexp-test: error
   unicorn/prefer-set-has: error
+  unicorn/prefer-set-size: error
   unicorn/prefer-string-slice: error
   unicorn/prefer-string-starts-ends-with: error
   unicorn/prefer-string-trim-start-end: error
@@ -322,6 +326,7 @@ rules:
   unicorn/prefer-type-error: error
   unicorn/require-array-join-separator: error
   unicorn/require-number-to-fixed-digits-argument: error
+  unicorn/switch-case-braces: error
   unicorn/template-indent: error
   unicorn/text-encoding-identifier-case: error
   unicorn/throw-new-error: error

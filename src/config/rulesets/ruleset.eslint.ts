@@ -713,7 +713,7 @@ export const ruleset: Record<string, Rule> = {
     fixable: true, // covered by Prettier
   },
   'no-negated-condition': {
-    enabled: true,
+    enabled: false, // covered by unicorn/no-negated-condition
   },
   'no-nested-ternary': {
     enabled: false, // covered by unicorn/no-nested-ternary
