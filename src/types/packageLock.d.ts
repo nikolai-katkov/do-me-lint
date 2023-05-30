@@ -3,7 +3,8 @@ export interface PackageLock {
   version: string
   lockfileVersion: number
   requires: boolean
-  dependencies: Record<string, PackageDescriptor>
+  dependencies?: Record<string, PackageDescriptor>
+  packages?: Record<string, PackageDescriptor>
 }
 
 interface PackageDescriptor {
@@ -14,4 +15,6 @@ interface PackageDescriptor {
   optional?: boolean
   devOptional?: boolean
   requires?: Record<string, string>
+  dependencies?: Record<string, string>
+  engines?: Record<string, string>
 }

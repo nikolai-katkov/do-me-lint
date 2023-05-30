@@ -16,18 +16,41 @@ export interface InstalledPackage {
   isDev: boolean
 }
 
+// eslint-disable-next-line complexity
 const getNpmPackages = (projectDirectory: string): InstalledPackage[] => {
   const installedPackages: InstalledPackage[] = []
   const packageLockRaw = fs.readFileSync(path.join(projectDirectory, 'package-lock.json'), 'utf8')
   const packageLock = JSON.parse(packageLockRaw) as PackageLock
-  for (const packageName in packageLock.dependencies) {
-    if (Object.prototype.hasOwnProperty.call(packageLock.dependencies, packageName)) {
-      const dependencyInfo = packageLock.dependencies[packageName]
-      installedPackages.push({
-        name: packageName,
-        isDev: Boolean(dependencyInfo.dev) || Boolean(dependencyInfo.devOptional),
-        version: dependencyInfo.version,
-      })
+  if (packageLock.dependencies) {
+    for (const packageName in packageLock.dependencies) {
+      if (Object.prototype.hasOwnProperty.call(packageLock.dependencies, packageName)) {
+        const dependencyInfo = packageLock.dependencies[packageName]
+        installedPackages.push({
+          name: packageName,
+          isDev: Boolean(dependencyInfo.dev) || Boolean(dependencyInfo.devOptional),
+          version: dependencyInfo.version,
+        })
+      }
+    }
+  }
+  if (packageLock.packages) {
+    for (const packageNameWithPath in packageLock.packages) {
+      if (Object.prototype.hasOwnProperty.call(packageLock.packages, packageNameWithPath)) {
+        const dependencyInfo = packageLock.packages[packageNameWithPath]
+        const packageNameMatch = packageNameWithPath.match(/\/(?<packageName>(?:@.*?\/)?[^/]*?)$/u)
+        if (packageNameMatch === null || packageNameMatch.groups === undefined) {
+          console.error(packageNameWithPath)
+          continue
+        }
+        const { packageName } = packageNameMatch.groups
+        console.log(packageName)
+
+        installedPackages.push({
+          name: packageName,
+          isDev: Boolean(dependencyInfo.dev) || Boolean(dependencyInfo.devOptional),
+          version: dependencyInfo.version,
+        })
+      }
     }
   }
   return installedPackages

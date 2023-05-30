@@ -311,7 +311,7 @@ export const ruleset: Record<string, Rule> = {
     enabled: true,
   },
   'no-new': {
-    enabled: true,
+    enabled: projectDoesntHave('aws-cdk-lib'), // CDK is all about side effects via constructors
   },
   'no-new-func': {
     enabled: true,

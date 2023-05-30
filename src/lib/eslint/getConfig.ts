@@ -199,7 +199,10 @@ const getEnvironments = (projectDependencies: string[]): ByScope<Record<string, 
   if (projectDependencies.includes('jest')) {
     environments.testJest['jest/globals'] = true
   }
-  if (projectDependencies.includes('@playwright/test')) {
+  if (
+    projectDependencies.includes('@playwright/test') ||
+    projectDependencies.includes('playwright')
+  ) {
     environments.all['shared-node-browser'] = true
   }
   return environments
