@@ -16,7 +16,7 @@ export interface InstalledPackage {
   isDev: boolean
 }
 
-// eslint-disable-next-line complexity
+// eslint-disable-next-line complexity, sonarjs/cognitive-complexity
 const getNpmPackages = (projectDirectory: string): InstalledPackage[] => {
   const installedPackages: InstalledPackage[] = []
   const packageLockRaw = fs.readFileSync(path.join(projectDirectory, 'package-lock.json'), 'utf8')
@@ -43,7 +43,6 @@ const getNpmPackages = (projectDirectory: string): InstalledPackage[] => {
           continue
         }
         const { packageName } = packageNameMatch.groups
-        console.log(packageName)
 
         installedPackages.push({
           name: packageName,
