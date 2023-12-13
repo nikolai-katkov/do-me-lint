@@ -350,10 +350,6 @@ export const ruleset: Record<string, Rule> = {
     enabled: true,
     options: 'always',
   },
-  'no-return-await': {
-    enabled: true,
-    scope: 'js', // @typescript-eslint/return-await
-  },
   'no-script-url': {
     enabled: true,
   },
@@ -718,7 +714,7 @@ export const ruleset: Record<string, Rule> = {
   'no-nested-ternary': {
     enabled: false, // covered by unicorn/no-nested-ternary
   },
-  'no-new-object': {
+  'no-object-constructor': {
     enabled: true,
   },
   'no-plusplus': {

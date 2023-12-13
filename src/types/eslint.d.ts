@@ -35,7 +35,7 @@ export type Rules = Record<
       if?: boolean
       fixable?: boolean
     }?,
-    ...JsonArray
+    ...JsonArray,
   ]
 >
 

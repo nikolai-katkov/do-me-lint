@@ -145,9 +145,9 @@ rules:
   no-new: error
   no-new-func: error
   no-new-native-nonconstructor: error
-  no-new-object: error
   no-new-wrappers: error
   no-nonoctal-decimal-escape: error
+  no-object-constructor: error
   no-octal: error
   no-octal-escape: error
   no-param-reassign:
@@ -371,7 +371,6 @@ overrides:
       no-new-symbol: error
       no-obj-calls: error
       no-redeclare: error
-      no-return-await: error
       no-setter-return: error
       no-shadow:
         - error

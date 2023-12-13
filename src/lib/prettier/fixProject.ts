@@ -37,13 +37,13 @@ const makeFilePrettier = async (filePath: string, cwd: string): Promise<void> =>
   }
 
   const fileContent = fs.readFileSync(filePath, 'utf8')
-  const isValid = check(fileContent, { ...config, filepath: filePath })
+  const isValid = await check(fileContent, { ...config, filepath: filePath })
 
   if (isValid) {
     return
   }
 
   log.debug(`formatting with Prettier ${filePath}`)
-  const fileContentFormatted = format(fileContent, { ...config, filepath: filePath })
+  const fileContentFormatted = await format(fileContent, { ...config, filepath: filePath })
   fs.writeFileSync(filePath, fileContentFormatted, { encoding: 'utf8' })
 }
