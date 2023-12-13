@@ -53,6 +53,9 @@ export const ruleset: Record<string, Rule> = {
   'playwright/prefer-to-have-length': {
     enabled: yes,
   },
+  'playwright/prefer-web-first-assertions': {
+    enabled: yes,
+  },
   'playwright/require-soft-assertions': {
     enabled: false, // too opinionated
   },

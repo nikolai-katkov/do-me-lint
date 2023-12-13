@@ -16,6 +16,7 @@ export const ruleset: Record<string, Rule> = {
   },
   'react/display-name': {
     enabled: projectHas('react'),
+    options: { checkContextObjects: true },
   },
   'react/forbid-component-props': {
     enabled: projectHas('react'),

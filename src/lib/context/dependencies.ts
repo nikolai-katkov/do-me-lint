@@ -38,7 +38,7 @@ const getNpmPackages = (projectDirectory: string): InstalledPackage[] => {
       if (Object.prototype.hasOwnProperty.call(packageLock.packages, packageNameWithPath)) {
         const dependencyInfo = packageLock.packages[packageNameWithPath]
         const packageNameMatch = packageNameWithPath.match(/\/(?<packageName>(?:@.*?\/)?[^/]*?)$/u)
-        if (packageNameMatch === null || packageNameMatch.groups === undefined) {
+        if (packageNameMatch?.groups === undefined) {
           console.error(packageNameWithPath)
           continue
         }

@@ -53,7 +53,7 @@ export const ruleset: Record<string, Rule> = {
   },
   'sonarjs/no-duplicate-string': {
     enabled: true, // may be problematic
-    options: 5,
+    options: { threshold: 5 },
   },
   'sonarjs/no-duplicated-branches': {
     enabled: true,

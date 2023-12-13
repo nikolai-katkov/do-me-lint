@@ -214,12 +214,12 @@ const getDependencies = (projectDependencies: string[]): ExactDependency[] => {
     ['eslint', '8.55.0'],
     ['prettier', '3.1.1'],
     ['eslint-plugin-simple-import-sort', '10.0.0'],
-    ['eslint-plugin-unicorn', '47.0.0'],
-    ['eslint-plugin-sonarjs', '0.19.0'],
+    ['eslint-plugin-unicorn', '49.0.0'],
+    ['eslint-plugin-sonarjs', '0.23.0'],
     ['eslint-plugin-promise', '6.1.1'],
-    ['eslint-plugin-yml', '1.7.0'],
-    ['eslint-plugin-array-func', '3.1.8'],
-    ['eslint-plugin-import', '2.27.5']
+    ['eslint-plugin-yml', '1.10.0'],
+    ['eslint-plugin-array-func', '4.0.0'],
+    ['eslint-plugin-import', '2.29.0']
   )
 
   if (projectDependencies.includes('babel')) {
@@ -227,23 +227,23 @@ const getDependencies = (projectDependencies: string[]): ExactDependency[] => {
   }
   if (projectDependencies.includes('typescript')) {
     dependencies.push(
-      ['@typescript-eslint/parser', '5.59.6'],
-      ['@typescript-eslint/eslint-plugin', '5.59.6'],
-      ['eslint-import-resolver-typescript', '3.5.5']
+      ['@typescript-eslint/parser', '6.3.0'],
+      ['@typescript-eslint/eslint-plugin', '6.3.0'],
+      ['eslint-import-resolver-typescript', '3.6.1']
     )
   }
   if (projectDependencies.includes('react')) {
     dependencies.push(
-      ['eslint-plugin-react', '7.32.2'],
+      ['eslint-plugin-react', '7.33.2'],
       ['eslint-plugin-react-hooks', '4.6.0'],
-      ['eslint-plugin-jsx-a11y', '6.7.1']
+      ['eslint-plugin-jsx-a11y', '6.8.0']
     )
   }
   if (projectDependencies.includes('jest')) {
-    dependencies.push(['eslint-plugin-jest', '27.2.1'])
+    dependencies.push(['eslint-plugin-jest', '27.6.0'])
   }
   if (projectDependencies.includes('@playwright/test')) {
-    dependencies.push(['eslint-plugin-playwright', '0.12.0'])
+    dependencies.push(['eslint-plugin-playwright', '0.14.2'])
   }
   return dependencies
 }

@@ -164,6 +164,7 @@ export const ruleset: Record<string, Rule> = {
   },
   'class-methods-use-this': {
     enabled: true,
+    scope: 'js', // @typescript-eslint/class-methods-use-this
   },
   'complexity': {
     enabled: true, // may be false positive

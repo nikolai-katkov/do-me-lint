@@ -37,6 +37,11 @@ export const ruleset: Record<string, Rule> = {
     scope: 'ts',
     fixable: true,
   },
+  '@typescript-eslint/class-methods-use-this': {
+    enabled: projectHas('typescript'),
+    scope: 'ts',
+    fixable: true,
+  },
   '@typescript-eslint/consistent-generic-constructors': {
     enabled: projectHas('typescript'),
     scope: 'ts',
@@ -164,11 +169,6 @@ export const ruleset: Record<string, Rule> = {
     enabled: projectHas('typescript'),
     scope: 'ts',
   },
-  '@typescript-eslint/no-implicit-any-catch': {
-    enabled: projectHas('typescript'), // lots of boilerplate
-    scope: 'ts',
-    fixable: true,
-  },
   '@typescript-eslint/no-inferrable-types': {
     enabled: projectHas('typescript'),
     scope: 'ts',
@@ -206,10 +206,6 @@ export const ruleset: Record<string, Rule> = {
   },
   '@typescript-eslint/no-non-null-assertion': {
     enabled: projectHas('typescript'),
-    scope: 'ts',
-  },
-  '@typescript-eslint/no-parameter-properties': {
-    enabled: false, // Tedious, will be deprecated soon https://github.com/typescript-eslint/typescript-eslint/pull/4622 // projectHas('typescript')
     scope: 'ts',
   },
   '@typescript-eslint/no-require-imports': {
@@ -389,11 +385,6 @@ export const ruleset: Record<string, Rule> = {
     enabled: projectHas('typescript'),
     scope: 'ts',
   },
-  '@typescript-eslint/sort-type-union-intersection-members': {
-    enabled: false, // Weird // projectHas('typescript'),
-    scope: 'ts',
-    fixable: true,
-  },
   '@typescript-eslint/strict-boolean-expressions': {
     enabled: projectHas('typescript'),
     scope: 'ts',
@@ -487,10 +478,6 @@ export const ruleset: Record<string, Rule> = {
     enabled: false,
     fixable: true,
     scope: 'ts',
-  },
-  '@typescript-eslint/no-duplicate-imports': {
-    enabled: false, // deprecated in favour of import/no-duplicates since 5.25.0 // projectHas('typescript'),
-    scope: 'ts', // not including includeExports option to allow re-export external library's stuff along with ours
   },
   '@typescript-eslint/no-empty-function': {
     enabled: projectHas('typescript'),
