@@ -39,7 +39,7 @@ For busy developers who appreciate the benefits of code linting but find it tedi
 - No configuration needed
 - Still fully flexible: you can specify your file patterns, disable rules that are not worth fixing , and have completely own, team- or company-wide ruleset (see [configuration](#configuration) section)
 - Supports new projects and existing codebases
-- Automatically updates linting dependencies using your project's dependency manager, Yarn or NPM
+- Automatically updates linting dependencies using your project's dependency manager. Currently supports `npm`, `yarn` and `pnpm`.
 - Supports monorepos - configures IDE once for the whole repo while keeping linting configurations per project
 
 ## Usage

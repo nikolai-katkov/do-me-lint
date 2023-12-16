@@ -75,6 +75,27 @@ const installYarnDependencies = (parameters: InstallDependenciesParameters): voi
   }
 }
 
+const installPnpmDependencies = (parameters: InstallDependenciesParameters): void => {
+  const { dependenciesToUpdate, devDependenciesToUpdate, cwd, debug } = parameters
+  const dependencyList = dependenciesToUpdate
+    .map(([dependency, version]) => `${dependency}@${version}`)
+    .join(' ')
+  const developmentDependencyList = devDependenciesToUpdate
+    .map(([dependency, version]) => `${dependency}@${version}`)
+    .join(' ')
+
+  if (dependencyList) {
+    execSync(`pnpm add ${dependencyList} -w`, { cwd, stdio: debug ? 'inherit' : 'ignore' })
+  }
+
+  if (developmentDependencyList) {
+    execSync(`pnpm add -D ${developmentDependencyList} -w`, {
+      cwd,
+      stdio: debug ? 'inherit' : 'ignore',
+    })
+  }
+}
+
 interface Parameters {
   dependencyManager?: DependencyManager
   dependencies: ExactDependency[]
@@ -102,27 +123,45 @@ export const installDependencies = (parameters: Parameters) => {
 
   log.debug(`dependencies to install or update: ${readableDependencyList}`)
 
-  if (!dependencyManager) {
-    execSync('npm init -y', { cwd, stdio: debug ? 'inherit' : 'ignore' })
-    installNpmDependencies({
-      dependenciesToUpdate,
-      devDependenciesToUpdate,
-      cwd,
-      debug,
-    })
-  } else if (dependencyManager === 'npm') {
-    installNpmDependencies({
-      dependenciesToUpdate,
-      devDependenciesToUpdate,
-      cwd,
-      debug,
-    })
-  } else {
-    installYarnDependencies({
-      dependenciesToUpdate,
-      devDependenciesToUpdate,
-      cwd,
-      debug,
-    })
+  switch (dependencyManager) {
+    case 'npm': {
+      installNpmDependencies({
+        dependenciesToUpdate,
+        devDependenciesToUpdate,
+        cwd,
+        debug,
+      })
+
+      break
+    }
+    case 'yarn': {
+      installYarnDependencies({
+        dependenciesToUpdate,
+        devDependenciesToUpdate,
+        cwd,
+        debug,
+      })
+
+      break
+    }
+    case 'pnpm': {
+      installPnpmDependencies({
+        dependenciesToUpdate,
+        devDependenciesToUpdate,
+        cwd,
+        debug,
+      })
+
+      break
+    }
+    default: {
+      execSync('npm init -y', { cwd, stdio: debug ? 'inherit' : 'ignore' })
+      installNpmDependencies({
+        dependenciesToUpdate,
+        devDependenciesToUpdate,
+        cwd,
+        debug,
+      })
+    }
   }
 }

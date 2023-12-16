@@ -2,13 +2,15 @@
 import type { LockFileObject } from '@yarnpkg/lockfile'
 import { parse as parseYarnLock } from '@yarnpkg/lockfile'
 import fs from 'fs'
+import yaml from 'js-yaml'
 import path from 'path'
 import type { PackageJson } from 'type-fest'
 
 import type { PackageLock } from '../../types/packageLock'
+import type { PnpmLock } from '../../types/pnpmLock'
 import { fileExists } from '../../util/file'
 
-export type DependencyManager = 'npm' | 'yarn'
+export type DependencyManager = 'npm' | 'yarn' | 'pnpm'
 
 export interface InstalledPackage {
   name: string
@@ -97,16 +99,68 @@ interface GetInstalledPackagesParameters {
   projectDirectory: string
 }
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
+const getPnpmPackages = (projectDirectory: string): InstalledPackage[] => {
+  const installedPackages: InstalledPackage[] = []
+  const pnpmLockRaw = fs.readFileSync(path.join(projectDirectory, 'pnpm-lock.yaml'), 'utf8')
+  const pnpmLock = yaml.load(pnpmLockRaw) as PnpmLock
+
+  for (const workspace in pnpmLock.importers) {
+    if (Object.prototype.hasOwnProperty.call(pnpmLock.importers, workspace)) {
+      for (const dependencyName in pnpmLock.importers[workspace].dependencies) {
+        if (
+          Object.prototype.hasOwnProperty.call(
+            pnpmLock.importers[workspace].dependencies,
+            dependencyName
+          )
+        ) {
+          const dependency = pnpmLock.importers[workspace].dependencies[dependencyName]
+          installedPackages.push({
+            name: dependencyName,
+            isDev: false,
+            version: dependency.version,
+          })
+        }
+      }
+      for (const dependencyName in pnpmLock.importers[workspace].devDependencies) {
+        if (
+          Object.prototype.hasOwnProperty.call(
+            pnpmLock.importers[workspace].devDependencies,
+            dependencyName
+          )
+        ) {
+          const dependency = pnpmLock.importers[workspace].devDependencies[dependencyName]
+          installedPackages.push({
+            name: dependencyName,
+            isDev: true,
+            version: dependency.version,
+          })
+        }
+      }
+    }
+  }
+
+  return installedPackages
+}
+
 export const getInstalledPackages = (
   parameters: GetInstalledPackagesParameters
 ): InstalledPackage[] => {
   const { packageJson, dependencyManager, projectDirectory } = parameters
-  let installedPackages: InstalledPackage[] = []
-  installedPackages =
-    dependencyManager === 'npm'
-      ? getNpmPackages(projectDirectory)
-      : getYarnPackages(packageJson, projectDirectory)
-  return installedPackages
+  switch (dependencyManager) {
+    case 'npm': {
+      return getNpmPackages(projectDirectory)
+    }
+    case 'yarn': {
+      return getYarnPackages(packageJson, projectDirectory)
+    }
+    case 'pnpm': {
+      return getPnpmPackages(projectDirectory)
+    }
+    default: {
+      return []
+    }
+  }
 }
 
 export const getDependencyManager = (projectDirectory: string): DependencyManager | undefined => {
@@ -114,6 +168,8 @@ export const getDependencyManager = (projectDirectory: string): DependencyManage
     return 'npm'
   } else if (fileExists(path.join(projectDirectory, 'yarn.lock'))) {
     return 'yarn'
+  } else if (fileExists(path.join(projectDirectory, 'pnpm-lock.yaml'))) {
+    return 'pnpm'
   }
   return undefined
 }
