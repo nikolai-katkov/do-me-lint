@@ -50,7 +50,7 @@ export interface ParserOptions {
     jsx?: boolean
   }
   sourceType?: 'module' | 'script'
-  project?: string
+  project?: string | boolean
   allowImportExportEverywhere?: boolean
   [key: string]: JsonValue | undefined
 }
