@@ -6,7 +6,7 @@ export interface PnpmLock {
     autoInstallPeers: boolean
     excludeLinksFromLockfile: boolean
   }
-  importers: Record<
+  importers?: Record<
     string,
     {
       dependencies: Record<string, PackageDescriptor>
@@ -29,6 +29,20 @@ export interface PnpmLock {
       hasBin?: boolean
       requiresBuild?: boolean
       dev: boolean
+    }
+  >
+  dependencies?: Record<
+    string,
+    {
+      specifier: string
+      version: string
+    }
+  >
+  devDependencies?: Record<
+    string,
+    {
+      specifier: string
+      version: string
     }
   >
 }

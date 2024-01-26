@@ -99,7 +99,7 @@ interface GetInstalledPackagesParameters {
   projectDirectory: string
 }
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
+// eslint-disable-next-line sonarjs/cognitive-complexity, complexity
 const getPnpmPackages = (projectDirectory: string): InstalledPackage[] => {
   const installedPackages: InstalledPackage[] = []
   const pnpmLockRaw = fs.readFileSync(path.join(projectDirectory, 'pnpm-lock.yaml'), 'utf8')
@@ -139,6 +139,29 @@ const getPnpmPackages = (projectDirectory: string): InstalledPackage[] => {
       }
     }
   }
+
+  for (const dependencyName in pnpmLock.dependencies) {
+    if (Object.prototype.hasOwnProperty.call(pnpmLock.dependencies, dependencyName)) {
+      const dependency = pnpmLock.dependencies[dependencyName]
+      installedPackages.push({
+        name: dependencyName,
+        isDev: false,
+        version: dependency.version,
+      })
+    }
+  }
+
+  for (const dependencyName in pnpmLock.devDependencies) {
+    if (Object.prototype.hasOwnProperty.call(pnpmLock.devDependencies, dependencyName)) {
+      const dependency = pnpmLock.devDependencies[dependencyName]
+      installedPackages.push({
+        name: dependencyName,
+        isDev: true,
+        version: dependency.version,
+      })
+    }
+  }
+  console.log(installedPackages)
 
   return installedPackages
 }
