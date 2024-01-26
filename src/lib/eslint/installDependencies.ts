@@ -85,11 +85,11 @@ const installPnpmDependencies = (parameters: InstallDependenciesParameters): voi
     .join(' ')
 
   if (dependencyList) {
-    execSync(`pnpm add ${dependencyList} -w`, { cwd, stdio: debug ? 'inherit' : 'ignore' })
+    execSync(`pnpm add ${dependencyList}`, { cwd, stdio: debug ? 'inherit' : 'ignore' })
   }
 
   if (developmentDependencyList) {
-    execSync(`pnpm add -D ${developmentDependencyList} -w`, {
+    execSync(`pnpm add -D ${developmentDependencyList}`, {
       cwd,
       stdio: debug ? 'inherit' : 'ignore',
     })
