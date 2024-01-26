@@ -1,6 +1,6 @@
 {
   "name": "do-me-lint",
-  "version": "1.14.0",
+  "version": "1.15.0",
   "description": "CLI tool to make your JS/TS projects linted with ESLint and Prettier for the best possible developer experience.",
   "main": "dist/index.js",
   "bin": {
