@@ -85,6 +85,7 @@ DML_DEBUG=1 npx do-me-lint
 | ------------------------------------------------ | --------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------- |
 | semi <br> <small>`boolean`</small>               | Force semicolons to be required (`true`) or forbidden (`false`) |                                                                            | DML_SEMI <br> <small>`"1"` (other values are false)</small>   |
 | ignoredRules <br> <small>`Array<string>`</small> | Ignored rules <br> <small>will be not added</small>             |                                                                            | DML_IGNORED_RULES<br> <small>`comma-separated string`</small> |
+| relaxedRules <br> <small>`Array<string>`</small> | Relaxed rules <br> <small>generate warnings</small>             |                                                                            | DML_RELAXED_RULES<br> <small>`comma-separated string`</small> |
 | jestFiles<br> <small>`string`</small>            | Pattern for Jest specs                                          | <small> `src/**/{__tests__/*,*.{spec,test}}`<br>`.{js,ts,jsx,tsx}`</small> | DML_JEST_FILES <br> <small>`string`</small>                   |
 | —                                                | Extended debug info                                             |                                                                            | DML_DEBUG <br> <small>`"1"` (other values are false)</small>  |
 
@@ -94,8 +95,11 @@ Your `.domelintrc.yml` may look like this:
 semi: true
 ignoredRules:
   - max-params
-  - func-names
   - prefer-template
+
+# generate warnings instead of errors  
+relaxedRules:
+  - func-names
 ```
 
 ## Supported ESLint plugins

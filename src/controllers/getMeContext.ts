@@ -33,6 +33,7 @@ export interface Context {
   monorepoRoot?: string
   patterns: Patterns
   ignoredRules: string[]
+  relaxedRules: string[]
   dependencyManager?: DependencyManager
   semi: boolean
   gitignore: string[]
@@ -56,7 +57,7 @@ export const getMeContext = (): Context => {
     log.debug(`monorepo root:\t${monorepoRoot}`)
   }
 
-  const { ignoredRules, semi, debug } = settings
+  const { ignoredRules, relaxedRules, semi, debug } = settings
 
   const patterns = getPatterns(settings)
   const packageJson = getPackageJson(projectDirectory)
@@ -78,6 +79,7 @@ export const getMeContext = (): Context => {
     monorepoRoot,
     patterns,
     ignoredRules,
+    relaxedRules,
     semi,
     gitignore,
     debug,

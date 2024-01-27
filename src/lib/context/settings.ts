@@ -32,6 +32,7 @@ const getRcSettings = (projectDirectory: string): JsonObject => {
 export interface Settings {
   jestFiles: string[] | string
   ignoredRules: string[]
+  relaxedRules: string[]
   semi: boolean
   debug: boolean
 }
@@ -52,6 +53,18 @@ export const getSettings = (projectDirectory: string): Settings => {
     ignoredRules = []
   }
 
+  let relaxedRules: string[]
+  if (process.env.DML_RELAXED_RULES !== undefined) {
+    relaxedRules = process.env.DML_RELAXED_RULES.toString().split(',')
+  } else if (
+    Array.isArray(rcSettings.relaxedRules) &&
+    rcSettings.relaxedRules.every(value => typeof value === 'string')
+  ) {
+    relaxedRules = rcSettings.relaxedRules as string[]
+  } else {
+    relaxedRules = []
+  }
+
   let semi: boolean
   if (process.env.DML_SEMI !== undefined) {
     semi = process.env.DML_SEMI === '1'
@@ -68,6 +81,7 @@ export const getSettings = (projectDirectory: string): Settings => {
       rcSettings.jestFiles?.toString() ??
       'src/**/{__tests__/*,*.{spec,test}}.{js,ts,jsx,tsx}',
     ignoredRules,
+    relaxedRules,
     semi,
     debug: process.env.DML_DEBUG === '1',
   }

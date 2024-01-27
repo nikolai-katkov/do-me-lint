@@ -18,6 +18,7 @@ import { getProperty } from './rulesConfig'
 interface Parameters {
   projectDependencies: string[]
   ignoredRules: string[]
+  relaxedRules: string[]
   patterns: Patterns
   semi: boolean
 }
@@ -27,10 +28,11 @@ interface Result {
   dependencies: ExactDependency[]
 }
 export const getConfig = (parameters: Parameters): Result => {
-  const { projectDependencies, ignoredRules, patterns, semi } = parameters
+  const { projectDependencies, ignoredRules, relaxedRules, patterns, semi } = parameters
   const rules = getRules({
     projectDependencies,
     ignoredRules,
+    relaxedRules,
     semi,
   })
   const plugins = getPlugins(projectDependencies)
@@ -96,11 +98,13 @@ const buildValue = ({ options, level }: BuildValueParameters): RuleValue => {
 interface GetRulesParameters {
   projectDependencies: string[]
   ignoredRules: string[]
+  relaxedRules: string[]
   semi: boolean
 }
 const getRules = ({
   projectDependencies,
   ignoredRules,
+  relaxedRules,
   semi,
 }: GetRulesParameters): ByScope<ESLintRules> => {
   const input = { projectDependencies, semi }
@@ -115,7 +119,7 @@ const getRules = ({
       const enabled = getProperty(rule.enabled, input)
       const options = getProperty(rule.options, input)
       const scope = rule.scope || 'all'
-      const level = 'error'
+      const level = relaxedRules.includes(rulename) ? 'warn' : 'error'
 
       if (!enabled) {
         return false

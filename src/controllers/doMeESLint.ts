@@ -14,6 +14,7 @@ export const doMeESLint = async (context: Context): Promise<void> => {
     projectDependencies: context.installedPackages.map(installedPackage => installedPackage.name),
     patterns: context.patterns,
     ignoredRules: context.ignoredRules,
+    relaxedRules: context.relaxedRules,
     semi: context.semi,
   })
 

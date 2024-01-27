@@ -7,6 +7,7 @@ test('should return values from settings', () => {
     semi: true,
     debug: false,
     ignoredRules: ['fizz', 'buzz'],
+    relaxedRules: ['fizz1', 'buzz1'],
   }
   expect(getPatterns(settings)).toHaveProperty('jestFiles', 'foo')
 })
