@@ -69,7 +69,6 @@ export const getSettings = (projectDirectory: string): Settings => {
   if (process.env.DML_SEMI !== undefined) {
     semi = process.env.DML_SEMI === '1'
   } else if (typeof rcSettings.semi === 'boolean') {
-    // eslint-disable-next-line prefer-destructuring
     semi = rcSettings.semi
   } else {
     semi = false

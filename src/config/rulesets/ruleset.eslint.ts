@@ -956,7 +956,7 @@ export const ruleset: Record<string, Rule> = {
     fixable: true,
   },
   'prefer-destructuring': {
-    enabled: true,
+    enabled: false, // does not work well with `let` and variables in the outer context
     fixable: true,
   },
   'prefer-numeric-literals': {
