@@ -161,8 +161,6 @@ const getPnpmPackages = (projectDirectory: string): InstalledPackage[] => {
       })
     }
   }
-  console.log(installedPackages)
-
   return installedPackages
 }
 
