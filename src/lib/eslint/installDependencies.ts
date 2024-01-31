@@ -32,6 +32,7 @@ function getDependenciesToUpdate(
 interface InstallDependenciesParameters {
   dependenciesToUpdate: ExactDependency[]
   devDependenciesToUpdate: ExactDependency[]
+  hasWorkspaces: boolean
   cwd: string
   debug: boolean
 }
@@ -76,7 +77,7 @@ const installYarnDependencies = (parameters: InstallDependenciesParameters): voi
 }
 
 const installPnpmDependencies = (parameters: InstallDependenciesParameters): void => {
-  const { dependenciesToUpdate, devDependenciesToUpdate, cwd, debug } = parameters
+  const { dependenciesToUpdate, hasWorkspaces, devDependenciesToUpdate, cwd, debug } = parameters
   const dependencyList = dependenciesToUpdate
     .map(([dependency, version]) => `${dependency}@${version}`)
     .join(' ')
@@ -85,11 +86,14 @@ const installPnpmDependencies = (parameters: InstallDependenciesParameters): voi
     .join(' ')
 
   if (dependencyList) {
-    execSync(`pnpm add ${dependencyList}`, { cwd, stdio: debug ? 'inherit' : 'ignore' })
+    execSync(`pnpm add ${dependencyList}${hasWorkspaces ? ' -w' : ''}`, {
+      cwd,
+      stdio: debug ? 'inherit' : 'ignore',
+    })
   }
 
   if (developmentDependencyList) {
-    execSync(`pnpm add -D ${developmentDependencyList}`, {
+    execSync(`pnpm add -D ${developmentDependencyList}${hasWorkspaces ? ' -w' : ''}`, {
       cwd,
       stdio: debug ? 'inherit' : 'ignore',
     })
@@ -98,13 +102,16 @@ const installPnpmDependencies = (parameters: InstallDependenciesParameters): voi
 
 interface Parameters {
   dependencyManager?: DependencyManager
+  hasPnpmWorkspaces: boolean
   dependencies: ExactDependency[]
   installedPackages: InstalledPackage[]
   cwd: string
   debug: boolean
 }
 export const installDependencies = (parameters: Parameters) => {
-  const { dependencyManager, dependencies, installedPackages, cwd, debug } = parameters
+  const { dependencyManager, hasPnpmWorkspaces, dependencies, installedPackages, cwd, debug } =
+    parameters
+
   const { dependenciesToUpdate, devDependenciesToUpdate } = getDependenciesToUpdate(
     dependencies,
     installedPackages
@@ -130,6 +137,7 @@ export const installDependencies = (parameters: Parameters) => {
         devDependenciesToUpdate,
         cwd,
         debug,
+        hasWorkspaces: false, // currently not needed
       })
 
       break
@@ -140,6 +148,7 @@ export const installDependencies = (parameters: Parameters) => {
         devDependenciesToUpdate,
         cwd,
         debug,
+        hasWorkspaces: false, // currently not needed
       })
 
       break
@@ -150,6 +159,7 @@ export const installDependencies = (parameters: Parameters) => {
         devDependenciesToUpdate,
         cwd,
         debug,
+        hasWorkspaces: hasPnpmWorkspaces,
       })
 
       break
@@ -161,6 +171,7 @@ export const installDependencies = (parameters: Parameters) => {
         devDependenciesToUpdate,
         cwd,
         debug,
+        hasWorkspaces: false, // currently not needed
       })
     }
   }

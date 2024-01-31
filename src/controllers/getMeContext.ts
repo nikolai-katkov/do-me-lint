@@ -29,6 +29,7 @@ const getGitignore = (projectDirectory: string): string[] => {
 
 export interface Context {
   installedPackages: InstalledPackage[]
+  hasPnpmWorkspaces: boolean
   projectDirectory: string
   monorepoRoot?: string
   patterns: Patterns
@@ -65,6 +66,9 @@ export const getMeContext = (): Context => {
   const dependencyManager = packageJson && getDependencyManager(projectDirectory)
   log.debug(`project type:\t\t${dependencyManager ?? 'start from scratch'}`)
 
+  const hasPnpmWorkspaces =
+    dependencyManager === 'pnpm' && fileExists(path.join(projectDirectory, 'pnpm-workspace.yaml'))
+
   const installedPackages: InstalledPackage[] =
     packageJson && dependencyManager
       ? getInstalledPackages({ packageJson, dependencyManager, projectDirectory })
@@ -74,6 +78,7 @@ export const getMeContext = (): Context => {
 
   return {
     dependencyManager,
+    hasPnpmWorkspaces,
     installedPackages,
     projectDirectory,
     monorepoRoot,
