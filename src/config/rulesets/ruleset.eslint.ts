@@ -274,6 +274,7 @@ export const ruleset: Record<string, Rule> = {
   },
   'no-implicit-coercion': {
     enabled: true,
+    options: { allow: ['!!'] },
     fixable: true,
   },
   'no-implicit-globals': {
@@ -348,7 +349,7 @@ export const ruleset: Record<string, Rule> = {
     enabled: false, // too specific use-case
   },
   'no-return-assign': {
-    enabled: true,
+    enabled: false, // use case is a bit made up
     options: 'always',
   },
   'no-script-url': {
@@ -404,7 +405,7 @@ export const ruleset: Record<string, Rule> = {
     enabled: true,
   },
   'prefer-named-capture-group': {
-    enabled: true,
+    enabled: false, // in practice most regexps don't need it and migration takes ages
   },
   'prefer-object-has-own': {
     enabled: false, // until Object.hasOwn stops being experimental: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwn#browser_compatibility
@@ -686,7 +687,7 @@ export const ruleset: Record<string, Rule> = {
     enabled: false, // bitwise ops are still used in NodeJS APIs, e.g. https://nodejs.org/api/fs.html#fs_fs_accesssync_path_mode
   },
   'no-continue': {
-    enabled: true, // serious doubts
+    enabled: false, // if..else conditions also hurt readability
   },
   'no-inline-comments': {
     enabled: false, // Too strict

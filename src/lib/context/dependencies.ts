@@ -63,7 +63,7 @@ const getYarnPackages = (
 ): InstalledPackage[] => {
   const installedPackages: InstalledPackage[] = []
   const yarnLockRaw = fs.readFileSync(path.join(projectDirectory, 'yarn.lock'), 'utf8')
-  const lockFileObject = parseYarnLock(yarnLockRaw).object as LockFileObject
+  const lockFileObject = parseYarnLock(yarnLockRaw).object
   for (const dependencyWithVersion in lockFileObject) {
     if (!Object.prototype.hasOwnProperty.call(lockFileObject, dependencyWithVersion)) {
       continue

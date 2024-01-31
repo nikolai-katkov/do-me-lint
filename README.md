@@ -97,7 +97,7 @@ ignoredRules:
   - max-params
   - prefer-template
 
-# generate warnings instead of errors  
+# generate warnings instead of errors
 relaxedRules:
   - func-names
 ```
