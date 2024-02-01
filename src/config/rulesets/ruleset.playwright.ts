@@ -48,7 +48,7 @@ export const ruleset: Record<string, Rule> = {
     enabled: forTestsOnly,
   },
   'playwright/prefer-strict-equal': {
-    enabled: forAllPlaywrightUsage,
+    enabled: forTestsOnly,
   },
   'playwright/prefer-to-be': {
     enabled: forTestsOnly,
