@@ -1,68 +1,71 @@
-import type { Rule } from '../../lib/eslint/rulesConfig'
+import type { Rule, RuleInput } from '../../lib/eslint/rulesConfig'
 import { projectHas } from '../../lib/eslint/rulesConfig'
 
-const yes = projectHas('@playwright/test')
+const forAllPlaywrightUsage = ({ projectDependencies }: RuleInput) =>
+  projectDependencies.includes('@playwright/test') || projectDependencies.includes('playwright')
+
+const forTestsOnly = projectHas('@playwright/test')
 
 export const ruleset: Record<string, Rule> = {
   'playwright/max-nested-describe': {
-    enabled: yes,
+    enabled: forTestsOnly,
   },
   'playwright/missing-playwright-await': {
-    enabled: yes,
+    enabled: forTestsOnly,
     fixable: true,
   },
   'playwright/no-conditional-in-test': {
-    enabled: false, // may be too disruptive and lacking justificaition // yes,
+    enabled: false, // may be too disruptive and lacking justificaition // forTestsOnly,
   },
   'playwright/no-element-handle': {
-    enabled: yes,
+    enabled: forAllPlaywrightUsage,
   },
   'playwright/no-eval': {
-    enabled: yes,
+    enabled: forAllPlaywrightUsage,
   },
   'playwright/no-focused-test': {
-    enabled: yes,
+    enabled: forTestsOnly,
   },
   'playwright/no-force-option': {
-    enabled: yes,
+    enabled: forAllPlaywrightUsage,
   },
   'playwright/no-page-pause': {
-    enabled: yes,
+    enabled: forAllPlaywrightUsage,
   },
   'playwright/no-restricted-matchers': {
-    enabled: yes,
+    enabled: forTestsOnly,
   },
   'playwright/no-skipped-test': {
-    enabled: yes,
+    enabled: forTestsOnly,
   },
   'playwright/no-useless-not': {
-    enabled: yes,
+    enabled: forTestsOnly,
   },
   'playwright/no-wait-for-timeout': {
-    enabled: yes,
+    enabled: forAllPlaywrightUsage,
   },
   'playwright/prefer-lowercase-title': {
-    enabled: yes,
+    enabled: forTestsOnly,
   },
   'playwright/prefer-strict-equal': {
-    enabled: yes,
+    enabled: forAllPlaywrightUsage,
   },
   'playwright/prefer-to-be': {
-    enabled: yes,
+    enabled: forTestsOnly,
   },
   'playwright/prefer-to-have-length': {
-    enabled: yes,
+    enabled: forTestsOnly,
   },
   'playwright/prefer-web-first-assertions': {
-    enabled: yes,
+    enabled: forTestsOnly,
   },
   'playwright/require-soft-assertions': {
-    enabled: false, // too opinionated
+    enabled: false, // too opinionated // forTestsOnly
   },
   'playwright/require-top-level-describe': {
-    enabled: false, //  rconsider after
+    enabled: false, //  rconsider after // forTestsOnly
   },
   'playwright/valid-expect': {
-    enabled: yes,
+    enabled: forTestsOnly,
   },
 }

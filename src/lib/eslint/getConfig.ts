@@ -75,7 +75,10 @@ const getPlugins = (projectDependencies: string[]): ByScope<string[]> => {
   if (projectDependencies.includes('jest')) {
     plugins.testJest.push('jest')
   }
-  if (projectDependencies.includes('@playwright/test')) {
+  if (
+    projectDependencies.includes('@playwright/test') ||
+    projectDependencies.includes('playwright')
+  ) {
     plugins.testJest.push('playwright')
   }
   return plugins
@@ -246,8 +249,11 @@ const getDependencies = (projectDependencies: string[]): ExactDependency[] => {
   if (projectDependencies.includes('jest')) {
     dependencies.push(['eslint-plugin-jest', '27.6.0'])
   }
-  if (projectDependencies.includes('@playwright/test')) {
-    dependencies.push(['eslint-plugin-playwright', '0.14.2'])
+  if (
+    projectDependencies.includes('@playwright/test') ||
+    projectDependencies.includes('playwright')
+  ) {
+    dependencies.push(['eslint-plugin-playwright', '0.14.3'])
   }
   return dependencies
 }
