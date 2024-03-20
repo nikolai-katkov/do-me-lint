@@ -79,7 +79,7 @@ const getPlugins = (projectDependencies: string[]): ByScope<string[]> => {
     projectDependencies.includes('@playwright/test') ||
     projectDependencies.includes('playwright')
   ) {
-    plugins.testJest.push('playwright')
+    plugins.all.push('playwright')
   }
   return plugins
 }
@@ -166,6 +166,9 @@ const getParserOptions = (projectDependencies: string[]): ByScope<ParserOptions>
 
   if (projectDependencies.includes('typescript')) {
     parserOptions.ts.project = true
+
+    // https://github.com/typescript-eslint/typescript-eslint/issues/2094
+    parserOptions.ts.EXPERIMENTAL_useProjectService = true
   }
   if (projectDependencies.includes('react')) {
     parserOptions.all.ecmaFeatures = { jsx: true }
