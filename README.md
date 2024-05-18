@@ -55,8 +55,6 @@ You can achieve best results running `do-me-lint` once or periodically if you wa
 
 It makes sense to keep `.domelintrc.yml` as part of your git repository.
 
-For monorepos you need to run the script from each project's directory.
-
 ## Troubleshooting
 
 If there are too many warnings to fix in one go:
@@ -117,3 +115,4 @@ relaxedRules:
 - [array-func](https://github.com/freaktechnik/eslint-plugin-array-func)
 - [import](https://github.com/import-js/eslint-plugin-import)
 - [Playwright](https://github.com/playwright-community/eslint-plugin-playwright)
+- [eslint-plugin-regexp](https://ota-meshi.github.io/)

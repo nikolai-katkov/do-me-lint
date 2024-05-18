@@ -1,5 +1,3 @@
-/* eslint-disable no-continue */
-import type { LockFileObject } from '@yarnpkg/lockfile'
 import { parse as parseYarnLock } from '@yarnpkg/lockfile'
 import fs from 'fs'
 import yaml from 'js-yaml'
@@ -39,7 +37,7 @@ const getNpmPackages = (projectDirectory: string): InstalledPackage[] => {
     for (const packageNameWithPath in packageLock.packages) {
       if (Object.prototype.hasOwnProperty.call(packageLock.packages, packageNameWithPath)) {
         const dependencyInfo = packageLock.packages[packageNameWithPath]
-        const packageNameMatch = packageNameWithPath.match(/\/(?<packageName>(?:@.*?\/)?[^/]*?)$/u)
+        const packageNameMatch = /\/(?<packageName>(?:@.*?\/)?[^/]*)$/u.exec(packageNameWithPath)
         if (packageNameMatch?.groups === undefined) {
           console.error(packageNameWithPath)
           continue
@@ -68,7 +66,7 @@ const getYarnPackages = (
     if (!Object.prototype.hasOwnProperty.call(lockFileObject, dependencyWithVersion)) {
       continue
     }
-    const match = dependencyWithVersion.match(/^(?<packageName>.*?)@(?<claimedVersion>[^@]+)$/u)
+    const match = /^(?<packageName>.*?)@(?<claimedVersion>[^@]+)$/u.exec(dependencyWithVersion)
     if (!match?.groups) {
       continue
     }

@@ -8,6 +8,7 @@ import { ruleset as playwright } from './rulesets/ruleset.playwright'
 import { ruleset as promise } from './rulesets/ruleset.promise'
 import { ruleset as react } from './rulesets/ruleset.react'
 import { ruleset as reactHooks } from './rulesets/ruleset.react-hooks'
+import { ruleset as regexp } from './rulesets/ruleset.regexp'
 import { ruleset as simpleSort } from './rulesets/ruleset.simple-import-sort'
 import { ruleset as sonarjs } from './rulesets/ruleset.sonarjs'
 import { ruleset as typescript } from './rulesets/ruleset.typescript'
@@ -29,4 +30,5 @@ export const ruleset: Record<string, Rule> = {
   ...arrayFunction,
   ...importPlugin,
   ...playwright,
+  ...regexp,
 }

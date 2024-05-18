@@ -1,8 +1,16 @@
 import type { Rule } from '../../lib/eslint/rulesConfig'
 
 export const ruleset: Record<string, Rule> = {
+  /* the rule is actually great and has autofixing, but I still preferred eslint-plugin-regexp plugin
+   * with more granular settings and level of nerdiness that is pretty much in
+   * do-me-lint's spirit, and excellent documentation for each rule (just look at
+   * https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-super-linear-move.html).
+   *
+   * This decision may change in the future, dependent on the developlment of both plugins,
+   * see https://github.com/ota-meshi/eslint-plugin-regexp/issues/445#issuecomment-1173361584
+   */
   'unicorn/better-regex': {
-    enabled: true,
+    enabled: false, // overlaps with regexp/*, see above
     fixable: true,
   },
   'unicorn/catch-error-name': {

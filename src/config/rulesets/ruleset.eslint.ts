@@ -405,7 +405,7 @@ export const ruleset: Record<string, Rule> = {
     enabled: true,
   },
   'prefer-named-capture-group': {
-    enabled: false, // in practice most regexps don't need it and migration takes ages
+    enabled: false, // in practice most regexps don't need it and migration takes ages; also there is better regexp/prefer-named-capture-group
   },
   'prefer-object-has-own': {
     enabled: false, // until Object.hasOwn stops being experimental: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwn#browser_compatibility
@@ -425,7 +425,7 @@ export const ruleset: Record<string, Rule> = {
     scope: 'js', // @typescript-eslint/require-await
   },
   'require-unicode-regexp': {
-    enabled: false, // reports even for latin-only regexps, annoying in webpack config
+    enabled: false, // superceded by regexp/require-unicode-regexp and regexp/require-unicode-sets-regexp
   },
   'vars-on-top': {
     enabled: false, // doesn't make sense in ES6 world
